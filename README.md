@@ -1,0 +1,2 @@
+# DDD10-TEOPLE-iOS
+DDD 10기 앱 1팀 TEOPLE iOS 레포지토리입니다.
