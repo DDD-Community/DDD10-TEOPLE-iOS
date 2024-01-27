@@ -7,9 +7,9 @@ let localHelper = LocalHelper(name: "MyPlugin")
 
 let project = Project.makeAppModule(
     name: "{{ name }}",
-    bundleId: .mainBundleID(),
+    bundleId: .appBundleID(name: "{{ name }}"),
     product: .app,
-    settings:  .appMainSettings,
+    settings:  .settings(),
     dependencies: [
         
     ],

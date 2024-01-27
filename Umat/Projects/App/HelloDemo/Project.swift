@@ -1,7 +1,6 @@
 import Foundation
 
 import ProjectDescription
-import ProjectDescriptionHelpers
 import MyPlugin
 
 let localHelper = LocalHelper(name: "MyPlugin")
@@ -10,9 +9,9 @@ let project = Project.makeAppModule(
     name: "HelloDemo",
     bundleId: .appBundleID(name: "HelloDemo"),
     product: .app,
-    settings:  .settings(),
+    settings: .settings(),
     dependencies: [
-        .project(target: "HelloFeature", path: .relativeToRoot("Projects/Feature/HelloFeature"))
+        .feature(implements: .helloFeature)
     ],
     sources: ["Sources/**"],
     resources: ["Resources/**"],

@@ -1,6 +1,6 @@
 import Foundation
+
 import ProjectDescription
-import ProjectDescriptionHelpers
 import MyPlugin
 
 let localHelper = LocalHelper(name: "MyPlugin")
@@ -11,7 +11,7 @@ let project = Project.makeAppModule(
     product: .staticFramework,
     settings:  .settings(),
     dependencies: [
-        
+        .shared(implements: .entity)
     ],
     sources: ["Sources/**"],
     infoPlist: .file(path: "../../Support/Info.plist")

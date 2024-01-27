@@ -6,7 +6,7 @@ import MyPlugin
 let localHelper = LocalHelper(name: "MyPlugin")
 
 let project = Project.makeAppModule(
-    name: "{{ name }}",
+    name: "Umai",
     bundleId: .mainBundleID(),
     product: .app,
     settings:  .appMainSettings,

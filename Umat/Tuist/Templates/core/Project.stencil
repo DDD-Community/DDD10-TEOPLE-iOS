@@ -1,6 +1,6 @@
 import Foundation
+
 import ProjectDescription
-import ProjectDescriptionHelpers
 import MyPlugin
 
 let localHelper = LocalHelper(name: "MyPlugin")

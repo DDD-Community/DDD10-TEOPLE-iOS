@@ -10,9 +10,9 @@ public extension Project {
         bundleId: String,
         platform: Platform = .iOS,
         product: Product,
-        organizationName: String = "TEOPLE",
+        organizationName: String = Project.Environment.organizationName,
         packages: [Package] = [],
-        deploymentTarget: DeploymentTarget? = .iOS(targetVersion: "17.0", devices: [.iphone]),
+        deploymentTarget: DeploymentTarget? = Project.Environment.deploymentTarget,
         settings: Settings,
         dependencies: [TargetDependency] = [],
         sources: SourceFilesList = ["Sources/**"],
@@ -63,9 +63,9 @@ public extension Project {
         bundleId: String,
         platform: Platform = .iOS,
         product: Product,
-        organizationName: String,
+        organizationName: String = Project.Environment.organizationName,
         packages: [Package] = [],
-        deploymentTarget: DeploymentTarget? = .iOS(targetVersion: "17.0", devices: [.iphone]),
+        deploymentTarget: DeploymentTarget? = Project.Environment.deploymentTarget,
         settings: Settings,
         dependencies: [TargetDependency] = [],
         sources: SourceFilesList,
@@ -112,25 +112,4 @@ public extension Project {
     }
 }
 
-public extension String {
-    static func appVersion() -> String {
-        let version: String = "1.0.0"
-        return version
-    }
-    
-    static func appBuildVersion() -> String {
-        let buildVersion: String = "1"
-        return buildVersion
-    }
-    
-    static func mainBundleID() -> String {
-        let bundleID = "com.teople.umat"
-        return bundleID
-    }
-    
-    static func appBundleID(name: String) -> String {
-        let bundleID = "com.teople.umat"
-        return bundleID + "." + name
-    }
-}
 
