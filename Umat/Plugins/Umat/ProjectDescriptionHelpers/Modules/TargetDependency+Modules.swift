@@ -13,7 +13,7 @@ public extension TargetDependency {
     }
     
     static func app(implements module: ModulePath.App) -> Self {
-        return .target(name: ModulePath.App.name + module.rawValue)
+        return .project(name: ModulePath.App.name + module.rawValue)
     }
     
     static func feature(implements module: ModulePath.Features) -> Self {
