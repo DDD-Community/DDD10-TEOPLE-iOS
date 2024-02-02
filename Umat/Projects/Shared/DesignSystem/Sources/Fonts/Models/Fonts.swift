@@ -11,34 +11,28 @@ import Foundation
 public enum Fonts {}
 
 // MARK: - Pretendard
-
 extension Fonts {
     public enum PretendardFonts {
         
         // MARK: Pretendard-Bold
-        
         case pb16
         case pb12
         
         // MARK: Pretendard-SemiBold
-        
         case ps18
         case ps16
         case ps14
         case ps12
         
         // MARK: Pretendard-Medium
-        
         case pm16
         case pm12
         
         // MARK: Pretendard-Regular
-        
         case pr16
         case pr12
         
         // MARK: Properties
-        
         var design: Pretendard {
             switch self {
             case .pb16:
@@ -98,23 +92,19 @@ extension Fonts {
 }
 
 // MARK: - LINE Seed Sans
-
 extension Fonts {
     public enum LINEFonts {
         
         // MARK: LINESeedSansKR-Bold
-        
         case lb20
         case lb18
         case lb16
         case lb12
         
         // MARK: LINESeedSansKR-Regular
-        
         case lr14
         
         // MARK: Properties
-        
         var design: LINESeedSans {
             switch self {
             case .lb20:
