@@ -43,6 +43,7 @@ public extension ModulePath {
     
     enum Shared: String, CaseIterable {
         case entity = "Entity"
+        case designSystem = "DesignSystem"
         
         public static let name = "Shared"
     }
