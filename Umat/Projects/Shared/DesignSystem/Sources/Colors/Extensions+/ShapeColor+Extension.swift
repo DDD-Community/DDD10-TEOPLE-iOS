@@ -15,7 +15,7 @@ public extension ShapeStyle where Self == Color {
     
     static func gradient(leading: Colors = .orange400, trailing: Colors = .blue300) -> LinearGradient {
         return .init(gradient: Gradient(colors: [.colors(leading), .colors(trailing)]),
-              startPoint: .leading,
-              endPoint: .trailing)
+                     startPoint: .leading,
+                     endPoint: .trailing)
     }
 }
