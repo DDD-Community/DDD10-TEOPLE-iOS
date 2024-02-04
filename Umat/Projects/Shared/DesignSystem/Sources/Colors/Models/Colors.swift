@@ -152,3 +152,8 @@ public enum Colors {
     }
 }
 
+public extension Colors {
+    var color: Color {
+        .colors(self)
+    }
+}
