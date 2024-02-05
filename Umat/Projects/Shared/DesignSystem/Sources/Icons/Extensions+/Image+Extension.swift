@@ -10,6 +10,6 @@ import SwiftUI
 
 public extension Image {
     static func icons(_ icon: Icons) -> Image {
-        return .init(icon.rawValue)
+        return .init(icon.rawValue, bundle: .module)
     }
 }
