@@ -14,5 +14,6 @@ let project = Project.makeAppModule(
         
     ],
     sources: ["Sources/**"],
+    resources: ["Resources/**"],
     infoPlist: .file(path: "../../Support/Info.plist")
 )
