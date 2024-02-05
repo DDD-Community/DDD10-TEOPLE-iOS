@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ic_current_location_outlined.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
