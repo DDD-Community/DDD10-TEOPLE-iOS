@@ -37,3 +37,9 @@ public enum Icons: String {
     case ic_star_outlined
     case ic_warning_outlined
 }
+
+public extension Icons {
+    var image: Image {
+        .icons(self)
+    }
+}
