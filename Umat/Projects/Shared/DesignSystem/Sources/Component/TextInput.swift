@@ -64,4 +64,12 @@ public struct TextInput: View {
         }
         .padding(.horizontal, 22)
     }
+
+extension TextInput {
+    enum TextInputState {
+        case enable
+        case disable
+        case error
+        case activate
+    }
 }
