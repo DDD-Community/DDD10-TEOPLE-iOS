@@ -51,6 +51,18 @@ public struct TextInput: View {
                 .focused(focusState, equals: focusValue)
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled()
+                .onChange(of: text) { oldValue, newValue in
+                    switch textInputState(oldValue, newValue) {
+                    case .enable:
+                        stateColor = nil
+                    case .disable:
+                        stateColor = .colors(.gray400)
+                    case .error:
+                        stateColor = .colors(.error)
+                    case .activate:
+                        stateColor = .colors(.blue600)
+                    }
+                }
             
             Rectangle()
                 .frame(height: 1)
@@ -64,6 +76,18 @@ public struct TextInput: View {
         }
         .padding(.horizontal, 22)
     }
+    
+    // MARK: - Methods
+    func textInputState(_ oldValue: String, _ newValue: String) -> TextInputState {
+        if (!oldValue.isEmpty && newValue.isEmpty) ||
+            newValue.count > 6 ||
+            !newValue.isKoreanLanguage() {
+            return .error
+        } else {
+            return .enable
+        }
+    }
+}
 
 extension TextInput {
     enum TextInputState {
