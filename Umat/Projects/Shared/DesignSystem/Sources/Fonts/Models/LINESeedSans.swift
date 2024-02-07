@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum LINESeedSans: String {
+enum LINESeedSans: String, CaseIterable {
     case bold = "LINESeedSansKR-Bold"
     case regular = "LINESeedSansKR-Regular"
 }

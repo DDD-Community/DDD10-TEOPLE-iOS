@@ -8,8 +8,8 @@
 		<string>Pretendard-SemiBold.otf</string>
 		<string>Pretendard-Medium.otf</string>
 		<string>Pretendard-Regular.otf</string>
-		<string>LINESeedKR-Bd.otf</string>
-		<string>LINESeedKR-Rg.otf</string>
+		<string>LINESeedSansKR-Bold.otf</string>
+		<string>LINESeedSansKR-Regular.otf</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
