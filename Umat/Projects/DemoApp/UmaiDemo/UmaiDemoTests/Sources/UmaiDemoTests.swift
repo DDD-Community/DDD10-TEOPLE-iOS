@@ -1,8 +1,8 @@
 import XCTest
-@testable import HelloFeature
+@testable import UmaiDemo
 
-final class HelloFeatureTests: XCTestCase {
-    var sut: HelloFeature!
+final class UmaiDemoTests: XCTestCase {
+    var sut: UmaiDemoApp!
 
     override func setUpWithError() throws {
         // sut 처리

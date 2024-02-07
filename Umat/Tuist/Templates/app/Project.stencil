@@ -9,7 +9,7 @@ let project = Project.makeAppModule(
     name: "{{ name }}",
     bundleId: .mainBundleID(),
     product: .app,
-    settings:  .appMainSettings,
+    settings: .appMainSettings,
     dependencies: [
         
     ],

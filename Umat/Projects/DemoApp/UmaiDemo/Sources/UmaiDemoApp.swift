@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct MapDemoApp: App {
+struct UmaiDemoApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
