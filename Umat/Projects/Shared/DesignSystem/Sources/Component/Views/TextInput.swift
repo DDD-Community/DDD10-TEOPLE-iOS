@@ -9,15 +9,15 @@
 import SwiftUI
 
 
-public struct TextInput: View {
+public struct TextInput<T: Hashable>: View {
     
     // MARK: - Properties
     let header: String
     @Binding var text: String
     let placeholder: String
     @Binding var supportingText: String
-    let focusState: FocusState<Bool?>.Binding
-    let focusValue: Bool
+    let focusState: FocusState<T>.Binding
+    let focusValue: T
     @Binding var stateColor: Color?
     
     // MARK: - Init
@@ -25,8 +25,8 @@ public struct TextInput: View {
                 text: Binding<String>,
                 placeholder: String,
                 supportingText: Binding<String>,
-                focusState: FocusState<Bool?>.Binding,
-                focusValue: Bool = true,
+                focusState: FocusState<T>.Binding,
+                focusValue: T = true,
                 stateColor: Binding<Color?>) {
         self.header = header
         self._text = text
@@ -41,13 +41,14 @@ public struct TextInput: View {
     public var body: some View {
         VStack(alignment: .leading) {
             Text(header)
-                .fontModifier(.pb12)
+                .fontModifier(.lb20)
                 .foregroundStyle(stateColor ?? .colors(.gray800))
                 .padding(.bottom, 10)
             
             TextField(placeholder, text: $text)
                 .fontModifier(.pb16)
                 .foregroundStyle(.colors(.gray900))
+                .background(.colors(.gray50))
                 .focused(focusState, equals: focusValue)
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled()
@@ -78,19 +79,26 @@ public struct TextInput: View {
     }
     
     // MARK: - Methods
-    func textInputState(_ oldValue: String, _ newValue: String) -> TextInputState {
-        if (!oldValue.isEmpty && newValue.isEmpty) ||
-            newValue.count > 6 ||
-            !newValue.isKoreanLanguage() {
+    private func textInputState(_ oldValue: String, _ newValue: String) -> TextInputState {
+        if !isValidateTextInput(oldValue, newValue) {
             return .error
         } else {
             return .enable
         }
     }
+    
+    private func isValidateTextInput(_ oldValue: String, _ newValue: String) -> Bool {
+        if (!oldValue.isEmpty && newValue.isEmpty) ||
+            newValue.count > 6 ||
+            !newValue.isKoreanLanguage() {
+            return false
+        }
+        return true
+    }
 }
 
 extension TextInput {
-    enum TextInputState {
+    private enum TextInputState {
         case enable
         case disable
         case error
