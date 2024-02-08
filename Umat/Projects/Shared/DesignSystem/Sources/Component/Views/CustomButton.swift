@@ -46,7 +46,8 @@ public struct CustomButton: View {
                     icon
                         .resizable()
                         .scaledToFit()
-                        .frame(width: buttonSize.icon, height: buttonSize.icon)
+                        .frame(width: buttonSize.icon,
+                               height: buttonSize.icon)
                 }
                 
                 Text(text)
