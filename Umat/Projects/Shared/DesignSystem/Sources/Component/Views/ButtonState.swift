@@ -15,6 +15,7 @@ public enum ButtonState {
     case selected
     case unselected
     
+    // MARK: - Background Colors
     var background: Color {
         switch self {
         case .enabled:
@@ -23,20 +24,22 @@ public enum ButtonState {
             return .colors(.gray300)
         case .selected:
             return .colors(.gray50)
-        case .unselectd:
+        case .unselected:
             return .white
         }
     }
     
+    // MARK: - Foreground Colors
     var foregroundStyle: Color {
         switch self {
         case .enabled, .disabled:
             return .white
-        case .selected, .unselectd:
+        case .selected, .unselected:
             return .colors(.gray800)
         }
     }
     
+    // MARK: - StrokeColors
     var stroke: Color {
         switch self {
         case .enabled:
@@ -45,7 +48,7 @@ public enum ButtonState {
             return .colors(.gray300)
         case .selected:
             return .colors(.gray500)
-        case .unselectd:
+        case .unselected:
             return .colors(.gray300)
         }
     }

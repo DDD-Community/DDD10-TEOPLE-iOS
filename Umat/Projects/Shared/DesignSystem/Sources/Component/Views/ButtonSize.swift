@@ -15,6 +15,7 @@ public enum ButtonSize {
     case small
     case xsmall
     
+    // MARK: - Font Size
     var font: Fonts.PretendardFonts {
         switch self {
         case .large:
@@ -28,6 +29,7 @@ public enum ButtonSize {
         }
     }
     
+    // MARK: - Icon Size
     var icon: CGFloat {
         switch self {
         case .large:
@@ -41,6 +43,7 @@ public enum ButtonSize {
         }
     }
     
+    // MARK: - Insets
     var insets: EdgeInsets {
         switch self {
         case .large:
