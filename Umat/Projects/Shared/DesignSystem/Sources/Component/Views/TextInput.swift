@@ -48,7 +48,6 @@ public struct TextInput<T: Hashable>: View {
             TextField(placeholder, text: $text)
                 .fontModifier(.pb16)
                 .foregroundStyle(.colors(.gray900))
-                .background(.colors(.gray50))
                 .focused(focusState, equals: focusValue)
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled()
