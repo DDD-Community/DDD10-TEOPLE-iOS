@@ -9,7 +9,7 @@
 import SwiftUI
 
 public extension View {
-    @ViewBuilder func hideKeyboardOnTapBackgound( _ focusState: FocusState<Bool>.Binding,
+    @ViewBuilder func hideKeyboardOnTapBackground( _ focusState: FocusState<Bool>.Binding,
                                                   _ color: Color = .white) -> some View {
         self
             .background(
