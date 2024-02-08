@@ -74,7 +74,7 @@ public struct TextInput<T: Hashable>: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .foregroundStyle(stateColor ?? .colors(.gray600))
         }
-        .padding(.horizontal, 22)
+        .padding(.horizontal, 24)
     }
     
     // MARK: - Methods

@@ -62,5 +62,6 @@ public struct CustomButton: View {
                 .stroke(buttonState.stroke, lineWidth: 1)
             )
         })
+        .padding(.horizontal, 24)
     }
 }
