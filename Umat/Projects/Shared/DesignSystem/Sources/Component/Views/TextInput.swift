@@ -12,13 +12,13 @@ import SwiftUI
 public struct TextInput<T: Hashable>: View {
     
     // MARK: - Properties
-    let header: String
-    @Binding var text: String
-    let placeholder: String
-    @Binding var supportingText: String
-    let focusState: FocusState<T>.Binding
-    let focusValue: T
-    @Binding var stateColor: Color?
+    private let header: String
+    @Binding private var text: String
+    private let placeholder: String
+    @Binding private var supportingText: String
+    private let focusState: FocusState<T>.Binding
+    private let focusValue: T
+    @Binding private var stateColor: Color?
     
     // MARK: - Init
     public init(header: String,
