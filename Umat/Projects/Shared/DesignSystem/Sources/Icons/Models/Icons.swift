@@ -36,6 +36,16 @@ public enum Icons: String {
     case ic_share_outlined
     case ic_star_outlined
     case ic_warning_outlined
+    
+    // MARK: - Pin Icon
+    case ic_pin
+    case ic_pin_new
+    
+    // MARK: - Reaction Icon
+    case ic_love
+    case ic_like
+    case ic_soso
+    case ic_notgood
 }
 
 public extension Icons {

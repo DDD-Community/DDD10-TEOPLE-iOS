@@ -47,6 +47,8 @@ public enum Colors {
     case blue900
     case blue950
     case both
+    case me
+    case you
     
     // MARK: - StateColor
     case error
@@ -96,7 +98,7 @@ public enum Colors {
             return "#FFAD6D"
         case .orange400:
             return "#FF7E32"
-        case .orange500:
+        case .orange500, .you:
             return "#FF5B0A"
         case .orange600:
             return "#FF4000"
@@ -118,7 +120,7 @@ public enum Colors {
             return "#A5B4FC"
         case .blue400:
             return "#818CF8"
-        case .blue500:
+        case .blue500, .me:
             return "#6366F1"
         case .blue600:
             return "#4F46E5"
@@ -141,13 +143,13 @@ public enum Colors {
             
         // MARK: Reaction
         case .like:
-            return "#FF4949"
-        case .love:
-            return "#FDD842"
-        case .notGood:
             return "#FF85B9"
-        case .soso:
+        case .love:
+            return "#FF4949"
+        case .notGood:
             return "#01E39B"
+        case .soso:
+            return "#FDD842"
         }
     }
 }
