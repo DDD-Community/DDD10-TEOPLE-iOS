@@ -13,6 +13,7 @@ public struct CustomButton: View {
     
     // MARK: - Properties
     private let leadingIcon: Icons?
+    private let iconColor: Color?
     private let text: String
     private let buttonSize: ButtonSize
     private let buttonState: ButtonState
@@ -23,12 +24,14 @@ public struct CustomButton: View {
     // MARK: - Init
 
     public init(leadingIcon: Icons? = nil,
+                iconColor: Color? = nil,
                 text: String,
                 buttonSize: ButtonSize,
                 buttonState: ButtonState,
                 maxWidth: CGFloat = .infinity,
                 action: @escaping () -> Void) {
         self.leadingIcon = leadingIcon
+        self.iconColor = iconColor
         self.text = text
         self.buttonSize = buttonSize
         self.buttonState = buttonState
@@ -45,7 +48,9 @@ public struct CustomButton: View {
                 if let icon = leadingIcon?.image {
                     icon
                         .resizable()
+                        .renderingMode(.template)
                         .scaledToFit()
+                        .foregroundStyle(iconColor ?? buttonState.foregroundStyle)
                         .frame(width: buttonSize.icon,
                                height: buttonSize.icon)
                 }
@@ -59,7 +64,7 @@ public struct CustomButton: View {
             .background(buttonState.background)
             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
             .overlay(RoundedRectangle(cornerRadius: cornerRadius)
-                .stroke(buttonState.stroke, lineWidth: 1)
+                .stroke(buttonState.stroke)
             )
         })
         .padding(.horizontal, 24)

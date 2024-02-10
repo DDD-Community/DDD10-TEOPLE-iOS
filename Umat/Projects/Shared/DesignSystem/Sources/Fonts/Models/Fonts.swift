@@ -23,6 +23,7 @@ extension Fonts {
         case ps16
         case ps14
         case ps12
+        case ps10
         
         // MARK: Pretendard-Medium
         case pm16
@@ -47,6 +48,8 @@ extension Fonts {
             case .ps14:
                 return .semiBold
             case .ps12:
+                return .semiBold
+            case .ps10:
                 return .semiBold
                 
             case .pm16:
@@ -76,6 +79,8 @@ extension Fonts {
                 return 14
             case .ps12:
                 return 12
+            case .ps10:
+                return 10
                 
             case .pm16:
                 return 16
