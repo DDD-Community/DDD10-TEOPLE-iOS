@@ -41,7 +41,7 @@ public struct TextInput<T: Hashable>: View {
     public var body: some View {
         VStack(alignment: .leading) {
             Text(guidanceText)
-                .lineSeedSans(.lb12)
+                .lineSeedSans(.bold12)
                 .foregroundStyle(stateColor ?? .colors(.gray800))
                 .padding(.bottom, 10)
             
