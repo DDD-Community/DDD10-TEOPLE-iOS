@@ -14,12 +14,14 @@ import Foundation
 public struct UserInfo {
     private let id: String
     public private(set) var name: String
+    public private(set) var birthday: Date
     public private(set) var allergicFoods: [AllergicFood]
     public private(set) var wishlist: [Place]
     
-    public init(id: String, name: String, allergicFoods: [AllergicFood], wishlist: [Place]) {
+    public init(id: String, name: String, birthday: Date, allergicFoods: [AllergicFood], wishlist: [Place]) {
         self.id = id
         self.name = name
+        self.birthday = birthday
         self.allergicFoods = allergicFoods
         self.wishlist = wishlist
     }
