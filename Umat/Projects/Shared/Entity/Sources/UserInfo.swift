@@ -31,6 +31,11 @@ public struct UserInfo {
         // TODO: 서버에 반영하는 과정도 필요합니다 (feature 단에서 수행할 가능성이 높습니다)
     }
     
+    public mutating func changeBirthday(date newBirthday: Date) {
+        birthday = newBirthday
+        // TODO: 서버에 반영하는 과정도 필요합니다 (feature 단에서 수행할 가능성이 높습니다)
+    }
+    
     public mutating func changeAllergicFoods(foods newAllergicFoods: [AllergicFood]) {
         allergicFoods = newAllergicFoods
         // TODO: 서버에 반영하는 과정도 필요합니다 (feature 단에서 수행할 가능성이 높습니다)
