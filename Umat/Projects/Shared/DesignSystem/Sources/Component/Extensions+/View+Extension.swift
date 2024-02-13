@@ -20,3 +20,15 @@ public extension View {
             )
     }
 }
+
+public extension View {
+    @ViewBuilder func navigationBarBackButton() -> some View {
+        self
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    NavigationBarBackButton()
+                }
+            }
+    }
+}
