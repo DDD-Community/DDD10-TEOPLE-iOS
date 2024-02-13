@@ -17,12 +17,14 @@ struct Couple {
     public private(set) var me: UserInfo
     public let you: UserInfo
     public private(set) var anniversary: Date
+    public private(set) var wishlist: [Place]
     
-    public init(id: String, me: UserInfo, you: UserInfo, anniversary: Date) {
+    public init(id: String, me: UserInfo, you: UserInfo, anniversary: Date, wishlist: [Place]) {
         self.id = id
         self.me = me
         self.you = you
         self.anniversary = anniversary
+        self.wishlist = wishlist
     }
     
     public mutating func changeMyInfo(me newInfo: UserInfo) {
@@ -34,4 +36,7 @@ struct Couple {
         anniversary = newDate
         // TODO: 서버에 반영하는 과정도 필요합니다 (feature 단에서 수행할 가능성이 높습니다)
     }
+    
+    // TODO: "우리" 리스트에 채워넣거나 삭제하는 메서드
+    // TODO: 서버에 반영하는 과정도 필요합니다 (feature 단에서 수행할 가능성이 높습니다)
 }

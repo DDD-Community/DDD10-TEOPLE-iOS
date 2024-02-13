@@ -11,14 +11,14 @@ import Foundation
 /// 장소 모델입니다.
 /// 구글 장소 api에 요청한 결과를 토대로 가져옵니다.
 /// CoreLocation을 아직 사용하지 않습니다. 임시로 위치 타입을 정해 두었습니다.
-public struct Place {
+public struct Place: Equatable {
     public let name: String
     public let openingHour: String
     public let closingHour: String
     public let grade: Double
     public let location: Location
     
-    public struct Location {
+    public struct Location: Equatable {
         public let latitude: Double
         public let longitude: Double
     }

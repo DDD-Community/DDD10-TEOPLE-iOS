@@ -15,11 +15,13 @@ public struct UserInfo {
     private let id: String
     public private(set) var name: String
     public private(set) var allergicFoods: [AllergicFood]
+    public private(set) var wishlist: [Place]
     
-    public init(id: String, name: String, allergicFoods: [AllergicFood]) {
+    public init(id: String, name: String, allergicFoods: [AllergicFood], wishlist: [Place]) {
         self.id = id
         self.name = name
         self.allergicFoods = allergicFoods
+        self.wishlist = wishlist
     }
     
     public mutating func changeName(name newName: String) {
@@ -29,6 +31,16 @@ public struct UserInfo {
     
     public mutating func changeAllergicFoods(foods newAllergicFoods: [AllergicFood]) {
         allergicFoods = newAllergicFoods
+        // TODO: 서버에 반영하는 과정도 필요합니다 (feature 단에서 수행할 가능성이 높습니다)
+    }
+    
+    public mutating func addPlace(place: Place) {
+        wishlist.append(place)
+        // TODO: 서버에 반영하는 과정도 필요합니다 (feature 단에서 수행할 가능성이 높습니다)
+    }
+    
+    public mutating func deletePlace(place: Place) {
+        wishlist = wishlist.filter { $0 != place }
         // TODO: 서버에 반영하는 과정도 필요합니다 (feature 단에서 수행할 가능성이 높습니다)
     }
 }
