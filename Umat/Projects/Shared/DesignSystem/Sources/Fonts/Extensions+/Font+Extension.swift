@@ -9,13 +9,21 @@
 import SwiftUI
 
 // MARK: - Font Custom
-extension Font {
+public extension Font {
     static func fonts(_ font: Fonts.PretendardFonts) -> Font {
         return .init(UIFont.pretendard(font.design, size: font.size))
     }
     
+    static func pretendard(_ font: Pretendard, size: CGFloat) -> Font {
+        return .init(UIFont.pretendard(font, size: size))
+    }
+    
     static func fonts(_ font: Fonts.LINEFonts) -> Font {
         return .init(UIFont.lineSeedSans(font.design, size: font.size))
+    }
+    
+    static func lineSeedSans(_ font: LINESeedSans, size: CGFloat) -> Font {
+        return .init(UIFont.lineSeedSans(font, size: size))
     }
 }
 

@@ -46,6 +46,10 @@ public enum Icons: String {
     case ic_like
     case ic_soso
     case ic_notgood
+    
+    // MARK: - Login
+    case kakao
+    case apple
 }
 
 public extension Icons {

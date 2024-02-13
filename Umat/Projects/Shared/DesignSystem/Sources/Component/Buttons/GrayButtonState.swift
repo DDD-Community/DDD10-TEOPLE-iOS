@@ -9,7 +9,7 @@
 import SwiftUI
 
 
-public enum ButtonState {
+public enum GrayButtonState {
     case enabled
     case disabled
     case selected

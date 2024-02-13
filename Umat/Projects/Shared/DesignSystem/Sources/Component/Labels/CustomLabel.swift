@@ -1,14 +1,15 @@
 //
-//  CustomButton.swift
+//  CustomLabel.swift
 //  DesignSystem
 //
-//  Created by 지준용 on 2/11/24.
+//  Created by 지준용 on 2/13/24.
 //  Copyright © 2024 KYUNG MIN CHOI. All rights reserved.
 //
 
 import SwiftUI
 
-public struct CustomButton<F: ShapeStyle, B: ShapeStyle>: View {
+
+struct CustomLabel<F: ShapeStyle, B: ShapeStyle>: View {
     private let icon: Icons?
     private let iconSize: CGFloat
     private let text: String
@@ -18,18 +19,16 @@ public struct CustomButton<F: ShapeStyle, B: ShapeStyle>: View {
     private let height: CGFloat
     private let maxWidth: CGFloat
     private let cornerRadius: CGFloat
-    private let action: () -> Void
     
     public init(icon: Icons? = nil,
-                iconSize: CGFloat = 18,
+                iconSize: CGFloat,
                 text: String,
                 foregroundStyle: F,
                 background: B,
                 strokeColor: Color = .clear,
-                height: CGFloat = 50,
+                height: CGFloat,
                 maxWidth: CGFloat = .infinity,
-                cornerRadius: CGFloat = 8,
-                action: @escaping () -> Void) {
+                cornerRadius: CGFloat) {
         self.icon = icon
         self.iconSize = iconSize
         self.text = text
@@ -39,24 +38,28 @@ public struct CustomButton<F: ShapeStyle, B: ShapeStyle>: View {
         self.height = height
         self.maxWidth = maxWidth
         self.cornerRadius = cornerRadius
-        self.action = action
     }
     
-    public var body: some View {
-        Button(action: {
-            action()
-        }, label: {
-            CustomLabel(icon: icon,
-                        iconSize: iconSize,
-                        text: text,
-                        foregroundStyle: foregroundStyle,
-                        background: background,
-                        strokeColor: strokeColor,
-                        height: height,
-                        maxWidth: maxWidth,
-                        cornerRadius: cornerRadius)
-        })
+    var body: some View {
+        HStack(spacing: 10) {
+            if let leadingIcon = icon?.image {
+                leadingIcon
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: iconSize, height: iconSize)
+            }
+            
+            Text(text)
+                .pretendard(.ps16)
+        }
+        .frame(height: height)
+        .frame(maxWidth: maxWidth)
+        .foregroundStyle(foregroundStyle)
+        .background(background)
+        .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+        .overlay {
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .stroke(strokeColor)
+        }
     }
 }
-
-

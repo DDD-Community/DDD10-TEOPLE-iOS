@@ -1,35 +1,38 @@
 //
-//  CustomButton.swift
+//  CustomNavigationLink.swift
 //  DesignSystem
 //
-//  Created by 지준용 on 2/11/24.
+//  Created by 지준용 on 2/12/24.
 //  Copyright © 2024 KYUNG MIN CHOI. All rights reserved.
 //
 
 import SwiftUI
 
-public struct CustomButton<F: ShapeStyle, B: ShapeStyle>: View {
+public struct CustomNavigationLink<Content: View, F: ShapeStyle, T: ShapeStyle>: View {
+    
+    // MARK: - Properties
     private let icon: Icons?
     private let iconSize: CGFloat
     private let text: String
     private let foregroundStyle: F
-    private let background: B
+    private let background: T
     private let strokeColor: Color
     private let height: CGFloat
     private let maxWidth: CGFloat
     private let cornerRadius: CGFloat
-    private let action: () -> Void
+    private let content: Content
     
+    // MARK: - Init
     public init(icon: Icons? = nil,
                 iconSize: CGFloat = 18,
                 text: String,
                 foregroundStyle: F,
-                background: B,
+                background: T,
                 strokeColor: Color = .clear,
                 height: CGFloat = 50,
                 maxWidth: CGFloat = .infinity,
                 cornerRadius: CGFloat = 8,
-                action: @escaping () -> Void) {
+                content: @escaping () -> Content) {
         self.icon = icon
         self.iconSize = iconSize
         self.text = text
@@ -39,13 +42,14 @@ public struct CustomButton<F: ShapeStyle, B: ShapeStyle>: View {
         self.height = height
         self.maxWidth = maxWidth
         self.cornerRadius = cornerRadius
-        self.action = action
+        self.content = content()
     }
     
+    // MARK: - Views
     public var body: some View {
-        Button(action: {
-            action()
-        }, label: {
+        NavigationLink {
+            content
+        } label: {
             CustomLabel(icon: icon,
                         iconSize: iconSize,
                         text: text,
@@ -55,8 +59,6 @@ public struct CustomButton<F: ShapeStyle, B: ShapeStyle>: View {
                         height: height,
                         maxWidth: maxWidth,
                         cornerRadius: cornerRadius)
-        })
+        }
     }
 }
-
-
