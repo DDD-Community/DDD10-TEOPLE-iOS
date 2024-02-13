@@ -17,17 +17,19 @@ public struct Place: Equatable {
     public let closingHour: String
     public let grade: Double
     public let location: Location
+    public let imageURL: URL?
     
     public struct Location: Equatable {
         public let latitude: Double
         public let longitude: Double
     }
     
-    public init(name: String, openingHour: String, closingHour: String, grade: Double, latitude: Double, longitude: Double) {
+    public init(name: String, openingHour: String, closingHour: String, grade: Double, latitude: Double, longitude: Double, imageURL: URL?) {
         self.name = name
         self.openingHour = openingHour
         self.closingHour = closingHour
         self.grade = grade
         self.location = Location(latitude: latitude, longitude: longitude)
+        self.imageURL = imageURL
     }
 }
