@@ -12,7 +12,7 @@ import SwiftUI
 public struct TextInput<T: Hashable>: View {
     
     // MARK: - Properties
-    private let header: String
+    private let guidanceText: String
     @Binding private var text: String
     private let placeholder: String
     @Binding private var supportingText: String
@@ -21,14 +21,14 @@ public struct TextInput<T: Hashable>: View {
     @Binding private var stateColor: Color?
     
     // MARK: - Init
-    public init(header: String,
+    public init(guidanceText: String,
                 text: Binding<String>,
                 placeholder: String,
                 supportingText: Binding<String>,
                 focusState: FocusState<T>.Binding,
                 focusValue: T = true,
                 stateColor: Binding<Color?>) {
-        self.header = header
+        self.guidanceText = guidanceText
         self._text = text
         self.placeholder = placeholder
         self._supportingText = supportingText
@@ -40,29 +40,17 @@ public struct TextInput<T: Hashable>: View {
     // MARK: - Views
     public var body: some View {
         VStack(alignment: .leading) {
-            Text(header)
-                .fontModifier(.lb20)
+            Text(guidanceText)
+                .fontModifier(.lb12)
                 .foregroundStyle(stateColor ?? .colors(.gray800))
                 .padding(.bottom, 10)
             
             TextField(placeholder, text: $text)
-                .fontModifier(.pb16)
+                .fontModifier(.pr16)
                 .foregroundStyle(.colors(.gray900))
                 .focused(focusState, equals: focusValue)
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled()
-                .onChange(of: text) { oldValue, newValue in
-                    switch textInputState(oldValue, newValue) {
-                    case .enable:
-                        stateColor = nil
-                    case .disable:
-                        stateColor = .colors(.gray400)
-                    case .error:
-                        stateColor = .colors(.error)
-                    case .activate:
-                        stateColor = .colors(.blue600)
-                    }
-                }
             
             Rectangle()
                 .frame(height: 1)
@@ -74,25 +62,6 @@ public struct TextInput<T: Hashable>: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .foregroundStyle(stateColor ?? .colors(.gray600))
         }
-        .padding(.horizontal, 24)
-    }
-    
-    // MARK: - Methods
-    private func textInputState(_ oldValue: String, _ newValue: String) -> TextInputState {
-        if !isValidateTextInput(oldValue, newValue) {
-            return .error
-        } else {
-            return .enable
-        }
-    }
-    
-    private func isValidateTextInput(_ oldValue: String, _ newValue: String) -> Bool {
-        if (!oldValue.isEmpty && newValue.isEmpty) ||
-            newValue.count > 6 ||
-            !newValue.isKoreanLanguage() {
-            return false
-        }
-        return true
     }
 }
 
