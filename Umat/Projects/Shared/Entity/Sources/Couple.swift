@@ -12,7 +12,7 @@ import Foundation
 /// 나의 정보 및 기념일을 바꾸었을 때 반영할 수 있도록 var로 했습니다.
 /// id나 you의 정보는 내가 임의로 바꿀 수 없도록 let으로 지정했습니다.
 /// 이 부분은 백엔드 단에서 내려줄 때만 새로운 객체로 수정하면 됩니다.
-struct Couple {
+public struct Couple {
     private let id: String
     public private(set) var me: UserInfo
     public let you: UserInfo
