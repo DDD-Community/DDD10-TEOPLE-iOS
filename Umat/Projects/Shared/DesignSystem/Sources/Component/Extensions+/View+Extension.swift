@@ -9,7 +9,8 @@
 import SwiftUI
 
 public extension View {
-    @ViewBuilder func hideKeyboardOnTapBackground( _ focusState: FocusState<Bool>.Binding,
+    @ViewBuilder 
+    func hideKeyboardOnTapBackground( _ focusState: FocusState<Bool>.Binding,
                                                   _ color: Color = .white) -> some View {
         self
             .background(
@@ -22,7 +23,8 @@ public extension View {
 }
 
 public extension View {
-    @ViewBuilder func navigationBarBackButton() -> some View {
+    @ViewBuilder 
+    func navigationBarBackButton() -> some View {
         self
             .navigationBarBackButtonHidden()
             .toolbar {
