@@ -65,11 +65,10 @@ public struct TextInput<T: Hashable>: View {
     }
 }
 
-extension TextInput {
-    private enum TextInputState {
-        case enable
-        case disable
-        case error
-        case activate
-    }
+
+public enum TextInputState {
+    case enable
+    case disable
+    case error
+    case activate
 }
