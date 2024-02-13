@@ -37,13 +37,13 @@ public struct CustomFilter: View {
                 .overlay {
                     if isUpdated {
                         Text("N")
-                            .fontModifier(.ps10)
+                            .pretendard(.ps10)
                             .foregroundStyle(.white)
                     }
                 }
             
             Text("\(filterType.rawValue) \(count)")
-                .fontModifier(.ps12)
+                .pretendard(.ps12)
         }
         .frame(width: 91, height: 32)
         .clipShape(.capsule)

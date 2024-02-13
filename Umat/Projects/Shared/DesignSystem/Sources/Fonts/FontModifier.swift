@@ -11,11 +11,13 @@ import UIKit
 
 
 public extension View {
-    @ViewBuilder func fontModifier(_ typo: Fonts.PretendardFonts) -> some View {
+    @ViewBuilder 
+    func pretendard(_ typo: Fonts.PretendardFonts) -> some View {
         modifier(PretendardFontModifier(font: typo))
     }
     
-    @ViewBuilder func fontModifier(_ typo: Fonts.LINEFonts) -> some View {
+    @ViewBuilder 
+    func lineSeedSans(_ typo: Fonts.LINEFonts) -> some View {
         modifier(LINEFontModifier(font: typo))
     }
 }

@@ -44,7 +44,7 @@ struct GrayLabel: View {
             }
             
             Text(text)
-                .fontModifier(buttonSize.font)
+                .pretendard(buttonSize.font)
         }
         .padding(buttonSize.insets)
         .frame(maxWidth: maxWidth)

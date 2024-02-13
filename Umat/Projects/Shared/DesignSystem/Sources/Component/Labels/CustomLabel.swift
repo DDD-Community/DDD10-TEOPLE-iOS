@@ -50,7 +50,7 @@ struct CustomLabel<F: ShapeStyle, B: ShapeStyle>: View {
             }
             
             Text(text)
-                .fontModifier(.ps16)
+                .pretendard(.ps16)
         }
         .frame(height: height)
         .frame(maxWidth: maxWidth)

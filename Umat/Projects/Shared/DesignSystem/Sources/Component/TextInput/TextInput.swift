@@ -41,12 +41,12 @@ public struct TextInput<T: Hashable>: View {
     public var body: some View {
         VStack(alignment: .leading) {
             Text(guidanceText)
-                .fontModifier(.lb12)
+                .lineSeedSans(.lb12)
                 .foregroundStyle(stateColor ?? .colors(.gray800))
                 .padding(.bottom, 10)
             
             TextField(placeholder, text: $text)
-                .fontModifier(.pr16)
+                .pretendard(.pr16)
                 .foregroundStyle(.colors(.gray900))
                 .focused(focusState, equals: focusValue)
                 .textInputAutocapitalization(.never)
@@ -58,7 +58,7 @@ public struct TextInput<T: Hashable>: View {
                 .padding(.bottom, 10)
             
             Text(supportingText)
-                .fontModifier(.pr12)
+                .pretendard(.pr12)
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .foregroundStyle(stateColor ?? .colors(.gray600))
         }
