@@ -15,81 +15,81 @@ extension Fonts {
     public enum PretendardFonts {
         
         // MARK: Pretendard-Bold
-        case pb16
-        case pb12
+        case bold16
+        case bold12
         
         // MARK: Pretendard-SemiBold
-        case ps18
-        case ps16
-        case ps14
-        case ps12
-        case ps10
+        case semiBold18
+        case semiBold16
+        case semiBold14
+        case semiBold12
+        case semiBold10
         
         // MARK: Pretendard-Medium
-        case pm16
-        case pm12
+        case medium16
+        case medium12
         
         // MARK: Pretendard-Regular
-        case pr16
-        case pr12
+        case regular16
+        case regular12
         
         // MARK: Properties
         var design: Pretendard {
             switch self {
-            case .pb16:
+            case .bold16:
                 return .bold
-            case .pb12:
+            case .bold12:
                 return .bold
                 
-            case .ps18:
+            case .semiBold18:
                 return .semiBold
-            case .ps16:
+            case .semiBold16:
                 return .semiBold
-            case .ps14:
+            case .semiBold14:
                 return .semiBold
-            case .ps12:
+            case .semiBold12:
                 return .semiBold
-            case .ps10:
+            case .semiBold10:
                 return .semiBold
                 
-            case .pm16:
+            case .medium16:
                 return .medium
-            case .pm12:
+            case .medium12:
                 return .medium
                 
-            case .pr16:
+            case .regular16:
                 return .regular
-            case .pr12:
+            case .regular12:
                 return .regular
             }
         }
         
         var size: CGFloat {
             switch self {
-            case .pb16:
+            case .bold16:
                 return 16
-            case .pb12:
+            case .bold12:
                 return 12
                 
-            case .ps18:
+            case .semiBold18:
                 return 18
-            case .ps16:
+            case .semiBold16:
                 return 16
-            case .ps14:
+            case .semiBold14:
                 return 14
-            case .ps12:
+            case .semiBold12:
                 return 12
-            case .ps10:
+            case .semiBold10:
                 return 10
                 
-            case .pm16:
+            case .medium16:
                 return 16
-            case .pm12:
+            case .medium12:
                 return 12
                 
-            case .pr16:
+            case .regular16:
                 return 16
-            case .pr12:
+            case .regular12:
                 return 12
             }
         }
@@ -101,41 +101,43 @@ extension Fonts {
     public enum LINEFonts {
         
         // MARK: LINESeedSansKR-Bold
-        case lb20
-        case lb18
-        case lb16
-        case lb12
+        case bold20
+        case bold18
+        case bold16
+        case bold12
         
         // MARK: LINESeedSansKR-Regular
-        case lr14
+        case regular14
         
         // MARK: Properties
         var design: LINESeedSans {
             switch self {
-            case .lb20:
+            case .bold20:
                 return .bold
-            case .lb18:
+            case .bold18:
                 return .bold
-            case .lb16:
+            case .bold16:
                 return .bold
-            case .lb12:
+            case .bold12:
                 return .bold
-            case .lr14:
+                
+            case .regular14:
                 return .regular
             }
         }
         
         var size: CGFloat {
             switch self {
-            case .lb20:
+            case .bold20:
                 return 20
-            case .lb18:
+            case .bold18:
                 return 18
-            case .lb16:
+            case .bold16:
                 return 16
-            case .lb12:
+            case .bold12:
                 return 12
-            case .lr14:
+                
+            case .regular14:
                 return 14
             }
         }

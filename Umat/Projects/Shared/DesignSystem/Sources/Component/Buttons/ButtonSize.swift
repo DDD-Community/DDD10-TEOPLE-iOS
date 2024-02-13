@@ -19,13 +19,13 @@ public enum ButtonSize {
     var font: Fonts.PretendardFonts {
         switch self {
         case .large:
-            return .ps18
+            return .semiBold18
         case .medium:
-            return .ps16
+            return .semiBold16
         case .small:
-            return .ps14
+            return .semiBold14
         case .xsmall:
-            return .ps12
+            return .semiBold12
         }
     }
     

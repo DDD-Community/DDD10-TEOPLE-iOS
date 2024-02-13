@@ -46,7 +46,7 @@ public struct TextInput<T: Hashable>: View {
                 .padding(.bottom, 10)
             
             TextField(placeholder, text: $text)
-                .pretendard(.pr16)
+                .pretendard(.regular16)
                 .foregroundStyle(.colors(.gray900))
                 .focused(focusState, equals: focusValue)
                 .textInputAutocapitalization(.never)
@@ -58,7 +58,7 @@ public struct TextInput<T: Hashable>: View {
                 .padding(.bottom, 10)
             
             Text(supportingText)
-                .pretendard(.pr12)
+                .pretendard(.regular12)
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .foregroundStyle(stateColor ?? .colors(.gray600))
         }
