@@ -11,8 +11,10 @@ let project = Project.makeAppModule(
     product: .staticFramework,
     settings:  .settings(),
     dependencies: [
-        
+        .shared(implements: .designSystem),
+        .shared(implements: .entity)
     ],
     sources: ["Sources/**"],
+    resources: ["Resources/**"],
     infoPlist: .file(path: "../../Support/Info.plist")
 )

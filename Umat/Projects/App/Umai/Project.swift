@@ -9,8 +9,9 @@ let project = Project.makeAppModule(
     name: "Umai",
     bundleId: .mainBundleID(),
     product: .app,
-    settings:  .appMainSettings,
+    settings: .appMainSettings,
     dependencies: [
+        .feature(implements: .authorization),
         .shared(implements: .designSystem)
     ],
     sources: ["Sources/**"],
