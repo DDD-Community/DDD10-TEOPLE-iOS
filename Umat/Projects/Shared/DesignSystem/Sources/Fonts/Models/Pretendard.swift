@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Pretendard: String, CaseIterable {
+public enum Pretendard: String, CaseIterable {
     case bold = "Pretendard-Bold"
     case semiBold = "Pretendard-SemiBold"
     case medium = "Pretendard-Medium"

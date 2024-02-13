@@ -9,7 +9,7 @@
 import SwiftUI
 
 // MARK: - Font Custom
-extension Font {
+public extension Font {
     static func fonts(_ font: Fonts.PretendardFonts) -> Font {
         return .init(UIFont.pretendard(font.design, size: font.size))
     }
