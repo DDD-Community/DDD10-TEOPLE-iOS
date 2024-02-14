@@ -15,7 +15,8 @@ let project = Project.makeAppModule(
     settings: .settings(),
     dependencies: [
         .XCFramework.naverMaps,
-        .XCFramework.naverGeometry
+        .XCFramework.naverGeometry,
+        .feature(implements: .myPage)
     ],
     sources: ["Sources/**"],
     resources: ["Resources/**"],
