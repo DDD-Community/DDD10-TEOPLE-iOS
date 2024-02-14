@@ -42,18 +42,17 @@ public enum ButtonSize {
             return 12
         }
     }
-    
-    // MARK: - Insets
-    var insets: EdgeInsets {
+
+    var height: CGFloat {
         switch self {
         case .large:
-            return .init(top: 15, leading: 24, bottom: 15, trailing: 24)
+            return 54
         case .medium:
-            return .init(top: 13, leading: 24, bottom: 13, trailing: 24)
+            return 50
         case .small:
-            return .init(top: 10, leading: 20, bottom: 10, trailing: 20)
+            return 40
         case .xsmall:
-            return .init(top: 6, leading: 12, bottom: 6, trailing: 12)
+            return 26
         }
     }
 }
