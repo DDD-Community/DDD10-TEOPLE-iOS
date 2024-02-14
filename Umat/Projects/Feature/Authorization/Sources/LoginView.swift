@@ -17,7 +17,7 @@ public struct LoginView: View {
     
     // MARK: - Views
     public var body: some View {
-        BaseView(isContentCentered: true) {
+        BaseView(isContentCentered: false) {
             header()
         } content: {
             buttons()
