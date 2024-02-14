@@ -50,7 +50,7 @@ struct CustomLabel<F: ShapeStyle, B: ShapeStyle>: View {
             }
             
             Text(text)
-                .pretendard(.ps16)
+                .pretendard(.semiBold16)
         }
         .frame(height: height)
         .frame(maxWidth: maxWidth)

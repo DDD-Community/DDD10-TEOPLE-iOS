@@ -27,7 +27,7 @@ public struct CustomTab: View {
                 .frame(width: imageSize, height: imageSize)
             
             Text("\(tabType.rawValue)")
-                .pretendard(.ps14)
+                .pretendard(.semiBold14)
                 .foregroundStyle(.colors(.gray700))
         }
         .padding(.horizontal, 20)
