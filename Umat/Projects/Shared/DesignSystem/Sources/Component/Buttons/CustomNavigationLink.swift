@@ -14,6 +14,7 @@ public struct CustomNavigationLink<Content: View, F: ShapeStyle, T: ShapeStyle>:
     private let icon: Icons?
     private let iconSize: CGFloat
     private let text: String
+    private let font: Font
     private let foregroundStyle: F
     private let background: T
     private let strokeColor: Color
@@ -26,6 +27,7 @@ public struct CustomNavigationLink<Content: View, F: ShapeStyle, T: ShapeStyle>:
     public init(icon: Icons? = nil,
                 iconSize: CGFloat = 18,
                 text: String,
+                font: Font = .pretendard(.semiBold, size: 16),
                 foregroundStyle: F,
                 background: T,
                 strokeColor: Color = .clear,
@@ -36,6 +38,7 @@ public struct CustomNavigationLink<Content: View, F: ShapeStyle, T: ShapeStyle>:
         self.icon = icon
         self.iconSize = iconSize
         self.text = text
+        self.font = font
         self.foregroundStyle = foregroundStyle
         self.background = background
         self.strokeColor = strokeColor
@@ -53,6 +56,7 @@ public struct CustomNavigationLink<Content: View, F: ShapeStyle, T: ShapeStyle>:
             CustomLabel(icon: icon,
                         iconSize: iconSize,
                         text: text,
+                        font: font,
                         foregroundStyle: foregroundStyle,
                         background: background,
                         strokeColor: strokeColor,

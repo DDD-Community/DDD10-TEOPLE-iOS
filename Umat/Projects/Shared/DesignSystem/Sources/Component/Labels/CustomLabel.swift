@@ -13,6 +13,7 @@ struct CustomLabel<F: ShapeStyle, B: ShapeStyle>: View {
     private let icon: Icons?
     private let iconSize: CGFloat
     private let text: String
+    private let font: Font
     private let foregroundStyle: F
     private let background: B
     private let strokeColor: Color
@@ -23,6 +24,7 @@ struct CustomLabel<F: ShapeStyle, B: ShapeStyle>: View {
     public init(icon: Icons? = nil,
                 iconSize: CGFloat,
                 text: String,
+                font: Font = .pretendard(.semiBold, size: 16),
                 foregroundStyle: F,
                 background: B,
                 strokeColor: Color = .clear,
@@ -32,6 +34,7 @@ struct CustomLabel<F: ShapeStyle, B: ShapeStyle>: View {
         self.icon = icon
         self.iconSize = iconSize
         self.text = text
+        self.font = font
         self.foregroundStyle = foregroundStyle
         self.background = background
         self.strokeColor = strokeColor
@@ -50,7 +53,8 @@ struct CustomLabel<F: ShapeStyle, B: ShapeStyle>: View {
             }
             
             Text(text)
-                .pretendard(.ps16)
+                .font(font)
+                .pretendard(.semiBold16)
         }
         .frame(height: height)
         .frame(maxWidth: maxWidth)

@@ -46,8 +46,8 @@ struct GrayLabel: View {
             Text(text)
                 .pretendard(buttonSize.font)
         }
-        .padding(buttonSize.insets)
         .frame(maxWidth: maxWidth)
+        .frame(height: buttonSize.height)
         .foregroundStyle(buttonState.foregroundStyle)
         .background(buttonState.background)
         .clipShape(RoundedRectangle(cornerRadius: cornerRadius))

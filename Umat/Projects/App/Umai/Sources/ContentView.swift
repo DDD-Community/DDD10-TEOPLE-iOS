@@ -1,7 +1,14 @@
 import SwiftUI
+import Authorization
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
+        NavigationStack {
+            OnboardingView()
+        }
     }
+}
+
+#Preview {
+    ContentView()
 }

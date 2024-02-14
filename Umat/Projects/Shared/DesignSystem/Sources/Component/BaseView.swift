@@ -9,13 +9,16 @@
 import SwiftUI
 
 public struct BaseView<Header: View, Content: View, Footer: View>: View {
+    private let isContentCentered: Bool
     private let header: Header
     private let content: Content
     private let footer: Footer
     
-    public init(header: () -> Header = {EmptyView()},
+    public init(isContentCentered: Bool = true,
+                header: () -> Header = {EmptyView()},
                 content: () -> Content,
                 footer: () -> Footer = {EmptyView()}) {
+        self.isContentCentered = isContentCentered
         self.header = header()
         self.content = content()
         self.footer = footer()
@@ -26,6 +29,10 @@ public struct BaseView<Header: View, Content: View, Footer: View>: View {
             header
             
             content
+            
+            if isContentCentered {
+                Spacer()
+            }
             
             footer
         }

@@ -9,7 +9,7 @@ let project = Project.makeAppModule(
     name: "Networking",
     bundleId: .appBundleID(name: ".Networking"),
     product: .staticFramework,
-    settings:  .settings(),
+    settings: .settings(),
     dependencies: [
         .shared(implements: .entity)
     ],
