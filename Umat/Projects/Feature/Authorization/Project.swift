@@ -9,12 +9,10 @@ let project = Project.makeAppModule(
     name: "Authorization",
     bundleId: .appBundleID(name: ".Authorization"),
     product: .staticFramework,
-    packages: [.SwiftPackageManager.popupView],
     settings:  .settings(),
     dependencies: [
         .shared(implements: .designSystem),
         .shared(implements: .entity),
-        .Package.popupView
     ],
     sources: ["Sources/**"],
     resources: ["Resources/**"],
