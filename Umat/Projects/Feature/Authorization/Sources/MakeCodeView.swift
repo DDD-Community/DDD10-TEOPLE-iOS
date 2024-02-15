@@ -22,6 +22,7 @@ public struct MakeCodeView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var data: ActivityItem? = nil
     @State private var isWritten = false
+    @State private var isPresented = false
     @State private var isShared = false
     private let model = MakeCodeModel()
     
@@ -47,6 +48,33 @@ public struct MakeCodeView: View {
             } footer: {
                 buttons()
             }
+        }
+        .popup(isPresented: $isPresented) {
+            VStack {
+                Color.white
+                    .frame(height: Metric.statusHeight)
+                
+                if isShared {
+                    toast(icon: .ic_check_outlined,
+                          text: "코드 복사가 완료되었어요!",
+                          backgroundColor: .colors(.gray600))
+                } else if !isWritten {
+                    toast(icon: .ic_warning_outlined,
+                          text: "앗, 상대방이 아직 코드를 입력하지 않았어요!",
+                          backgroundColor: .colors(.error))
+                }
+            }
+        } customize: { view in
+            view
+                .type(.toast)
+                .position(.topLeading)
+                .autohideIn(3)
+                .closeOnTap(false)
+                .dragToDismiss(false)
+                .dismissCallback {
+                    isShared = false
+                    isPresented = false
+                }
         }
     }
 }
@@ -111,6 +139,25 @@ private extension MakeCodeView {
         .padding(.bottom, 64)
     }
     
+    @ViewBuilder
+    func toast(icon: Icons, text: String, backgroundColor: Color) -> some View {
+        HStack(spacing: 6) {
+            Image.icons(icon)
+                .resizable()
+                .renderingMode(.template)
+                .frame(width: 20, height: 20)
+            
+            Text(text)
+                .pretendard(.semiBold12)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .foregroundStyle(.white)
+        .padding(.leading, Metric.horizontalPadding)
+        .frame(height: 56)
+        .frame(maxWidth: .infinity)
+        .background(backgroundColor)
+    }
+}
 
 // MARK: - Nested Types
 fileprivate extension MakeCodeView {
