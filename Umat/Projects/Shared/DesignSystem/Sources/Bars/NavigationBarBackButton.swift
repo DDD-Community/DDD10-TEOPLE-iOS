@@ -9,13 +9,13 @@
 import SwiftUI
 
 public struct NavigationBarBackButton: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.dismiss) var dismiss
     
     public init() {}
     
     public var body: some View {
         Button {
-            self.presentationMode.wrappedValue.dismiss()
+            self.dismiss()
         } label: {
             Image.icons(.ic_arrow_back_filled)
                 .resizable()
