@@ -13,10 +13,8 @@ import Entity
 public struct InputCodeView: View {
     
     // MARK: - Properties
-    @State private var text: String = ""
-    @State private var supportingText: String = "코드 입력이 잘못되었어요!"
     @FocusState private var focusState: Bool
-    @State private var stateColor: Color? = nil
+    @ObservedObject private var viewModel = TextInputViewModel()
     private let textInputType: TextInputType = .inputCode
     
     // MARK: - Init
@@ -37,8 +35,10 @@ public struct InputCodeView: View {
             .padding(.horizontal, 24)
             .navigationBarBackButton()
             .hideKeyboardOnTapBackground($focusState)
+            .sync($viewModel.focusState, with: _focusState)
             .onAppear {
-                focusState = true
+                viewModel.supportingText = "코드 입력이 잘못되었어요!"
+                viewModel.focusState = true
             }
         }
     }
@@ -49,18 +49,18 @@ fileprivate extension InputCodeView {
     @ViewBuilder
     func textInput() -> some View {
         TextInput(guidanceText: textInputType.guidanceText,
-                  text: $text,
+                  text: $viewModel.text,
                   placeholder: textInputType.placeholder,
-                  supportingText: $supportingText,
+                  supportingText: $viewModel.supportingText,
                   focusState: $focusState,
-                  stateColor: $stateColor)
+                  stateColor: $viewModel.stateColor)
     }
     
     @ViewBuilder
     func footer() -> some View {
         GrayNavigationLink(text: "입력 완료",
                            buttonSize: .medium,
-                           buttonState: .disabled) {
+                           buttonState: viewModel.isEnabled ? .enabled : .disabled) {
             // TODO: 메인화면으로 이동
             EmptyView()
         }
