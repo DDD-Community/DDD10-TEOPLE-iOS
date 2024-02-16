@@ -8,10 +8,40 @@
 
 import SwiftUI
 
+import DesignSystem
+
 public struct MyPageView: View {
     public var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        BaseView {
+            VStack {
+                HStack {
+                    Spacer()
+                    
+                    Button {
+                        print("Button pressed")
+                    } label: {
+                        Image.icons(.ic_settings_outlined)
+                    }
+                }
+                .padding(16)
+                
+                Spacer()
+                    .frame(height: 32)
+            }
+        } content: {
+            VStack {
+                Text("Item 1")
+                
+                Text("Item 2")
+                
+                Text("Item 3")
+            }
+        } footer: {
+            Text("This is footer area")
+        }
     }
+    
+    public init() { }
 }
 
 #Preview {
