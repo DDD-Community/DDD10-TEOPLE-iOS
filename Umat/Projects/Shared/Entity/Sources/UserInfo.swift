@@ -44,3 +44,10 @@ public struct UserInfo {
         // TODO: 서버에 반영하는 과정도 필요합니다 (feature 단에서 수행할 가능성이 높습니다)
     }
 }
+
+public extension UserInfo {
+    /// "나" 예시 데이터입니다.
+    static let exampleMe = UserInfo(id: "ME", name: "MeMeMe", birthday: Date(), wishlist: [])
+    /// "너" 예시 데이터입니다.
+    static let exampleYou = UserInfo(id: "YOU", name: "YouYouYou", birthday: Date(), wishlist: [])
+}

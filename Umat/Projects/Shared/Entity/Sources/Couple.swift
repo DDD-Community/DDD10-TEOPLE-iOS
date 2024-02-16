@@ -39,3 +39,14 @@ public struct Couple {
         // TODO: 서버에 반영하는 과정도 필요합니다 (feature 단에서 수행할 가능성이 높습니다)
     }
 }
+
+public extension Couple {
+    // 예시 날짜를 개발팀에 의미있는 날짜로 바꾸는 것 정도 생각해 봅시다
+    /// 커플 예시 데이터입니다.
+    static let example = Couple(
+        id: "Hello",
+        me: UserInfo.exampleMe,
+        you: UserInfo.exampleYou,
+        anniversary: Date()
+    )
+}

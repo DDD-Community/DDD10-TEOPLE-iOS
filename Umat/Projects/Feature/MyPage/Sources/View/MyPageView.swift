@@ -11,7 +11,7 @@ import SwiftUI
 import DesignSystem
 
 public struct MyPageView: View {
-    // TODO: ObservableObject ViewModel이 필요
+    @ObservedObject public private(set) var viewModel: MyPageViewModel
     
     public var body: some View {
         BaseView {
@@ -32,9 +32,9 @@ public struct MyPageView: View {
             }
         } content: {
             VStack(spacing: 32) {
-                MeAndYouView()
+                MeAndYouView(couple: $viewModel.couple)
                 
-                WishlistView()
+                WishlistView(couple: $viewModel.couple)
                     .frame(height: 100)
             }
         } footer: {
@@ -42,7 +42,9 @@ public struct MyPageView: View {
         }
     }
     
-    public init() { }
+    public init(viewModel: MyPageViewModel = MyPageViewModel()) {
+        self.viewModel = viewModel
+    }
 }
 
 #Preview {

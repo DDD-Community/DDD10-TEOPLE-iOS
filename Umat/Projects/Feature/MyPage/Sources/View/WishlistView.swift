@@ -9,11 +9,17 @@
 import SwiftUI
 
 import DesignSystem
+import Entity
 
 struct WishlistView: View {
+    @Binding var couple: Couple
+    
     var body: some View {
         HStack {
-            Text("Wishlist me")
+            VStack {
+                Text("Wishlist me")
+                Text("\(couple.me.wishlist.count)개")
+            }
             
             // TODO: 하드코딩 값으로 쓸 구분선 같으면 디자인 시스템에 넣는 것도 검토
             Rectangle()
@@ -21,14 +27,20 @@ struct WishlistView: View {
                 .frame(width: 2, height: 80)
                 .padding([.top, .bottom], 10)
             
-            Text("Wishlist we")
+            VStack {
+                Text("Wishlist we")
+                Text("\(couple.wishlist.count)개")
+            }
             
             Rectangle()
                 .foregroundStyle(Colors.gray300.color)
                 .frame(width: 2, height: 80)
                 .padding([.top, .bottom], 10)
             
-            Text("Wishlist you")
+            VStack {
+                Text("Wishlist you")
+                Text("\(couple.you.wishlist.count)개")
+            }
         }
         .padding(8)
         .background(Colors.gray100.color)
@@ -37,5 +49,5 @@ struct WishlistView: View {
 }
 
 #Preview {
-    WishlistView()
+    WishlistView(couple: .constant(Couple.example))
 }
