@@ -11,6 +11,8 @@ import SwiftUI
 import DesignSystem
 
 public struct MyPageView: View {
+    // TODO: ObservableObject ViewModel이 필요
+    
     public var body: some View {
         BaseView {
             VStack {
@@ -29,12 +31,11 @@ public struct MyPageView: View {
                     .frame(height: 32)
             }
         } content: {
-            VStack {
-                Text("Item 1")
+            VStack(spacing: 32) {
+                MeAndYouView()
                 
-                Text("Item 2")
-                
-                Text("Item 3")
+                WishlistView()
+                    .frame(height: 100)
             }
         } footer: {
             Text("This is footer area")
