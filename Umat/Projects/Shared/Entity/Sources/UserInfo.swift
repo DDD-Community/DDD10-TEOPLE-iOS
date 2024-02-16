@@ -15,14 +15,12 @@ public struct UserInfo {
     private let id: String
     public private(set) var name: String
     public private(set) var birthday: Date
-    public private(set) var allergicFoods: [AllergicFood]
     public private(set) var wishlist: [Place]
     
-    public init(id: String, name: String, birthday: Date, allergicFoods: [AllergicFood], wishlist: [Place]) {
+    public init(id: String, name: String, birthday: Date, wishlist: [Place]) {
         self.id = id
         self.name = name
         self.birthday = birthday
-        self.allergicFoods = allergicFoods
         self.wishlist = wishlist
     }
     
@@ -36,11 +34,6 @@ public struct UserInfo {
         // TODO: 서버에 반영하는 과정도 필요합니다 (feature 단에서 수행할 가능성이 높습니다)
     }
     
-    public mutating func changeAllergicFoods(foods newAllergicFoods: [AllergicFood]) {
-        allergicFoods = newAllergicFoods
-        // TODO: 서버에 반영하는 과정도 필요합니다 (feature 단에서 수행할 가능성이 높습니다)
-    }
-    
     public mutating func addPlace(place: Place) {
         wishlist.append(place)
         // TODO: 서버에 반영하는 과정도 필요합니다 (feature 단에서 수행할 가능성이 높습니다)
@@ -50,29 +43,4 @@ public struct UserInfo {
         wishlist = wishlist.filter { $0 != place }
         // TODO: 서버에 반영하는 과정도 필요합니다 (feature 단에서 수행할 가능성이 높습니다)
     }
-}
-
-/// 식약처에서 제공하는 알러지 품목에 관한 목록입니다.
-public enum AllergicFood: String, CaseIterable {
-    case crab = "게"
-    case mackerel = "고등어"
-    case oyster = "굴"
-    case eggs = "난류"
-    case chicken = "닭고기"
-    case soybean = "대두"
-    case pork = "돼지고기"
-    case peanut = "땅콩"
-    case buckwheat = "메밀"
-    case wheat = "밀"
-    case peach = "복숭아"
-    case shrimp = "새우"
-    case beef = "쇠고기"
-    case sulfurousAcids = "아황산 포함 식품"
-    case squid = "오징어"
-    case milk = "우유"
-    case abalone = "전복"
-    case shellfishes = "조개류"
-    case tomato = "토마토"
-    case walnut = "호두"
-    case mussel = "홍합"
 }
