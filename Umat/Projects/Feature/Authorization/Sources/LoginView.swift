@@ -65,15 +65,14 @@ fileprivate extension LoginView {
                 }
             }
             
-            NavigationLink {
+            CustomNavigationLink(text: "둘러보기",
+                                 font: .pretendard(.semiBold, size: 14),
+                                 foregroundStyle: .colors(.gray600),
+                                 background: .clear,
+                                 height: 34,
+                                 maxWidth: .infinity) {
                 // TODO: 지도로 이동하기
                 EmptyView()
-            } label: {
-                Text("둘러보기")
-                    .pretendard(.semiBold14)
-                    .foregroundStyle(.colors(.gray600))
-                    .frame(height: 34)
-                    .frame(maxWidth: .infinity)
             }
         }
         .padding(.bottom, 16)

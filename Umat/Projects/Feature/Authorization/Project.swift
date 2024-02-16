@@ -12,7 +12,7 @@ let project = Project.makeAppModule(
     settings:  .settings(),
     dependencies: [
         .shared(implements: .designSystem),
-        .shared(implements: .entity)
+        .shared(implements: .entity),
     ],
     sources: ["Sources/**"],
     resources: ["Resources/**"],

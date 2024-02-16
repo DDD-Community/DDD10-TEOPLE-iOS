@@ -15,6 +15,7 @@ public extension Package {
 public extension Package.SwiftPackageManager {
     // 사용하고자 하는 패키지가 추가될 때마다 아래 형식을 따라 추가하면 됩니다.
     static let kingfisher = Package.remote(url: "https://github.com/onevcat/Kingfisher", requirement: .upToNextMajor(from: "7.10.2"))
+    static let popupView = Package.remote(url: "https://github.com/exyte/PopupView", requirement: .upToNextMajor(from: "2.8.5"))
 }
 
 public extension TargetDependency {
@@ -27,6 +28,7 @@ public extension TargetDependency {
 public extension TargetDependency.Package {
     // 사용하고자 하는 패키지가 추가될 때마다 아래 형식을 따라 추가하면 됩니다.
     static let kingfisher = TargetDependency.package(product: "Kingfisher")
+    static let popupView = TargetDependency.package(product: "PopupView")
 }
 
 public extension TargetDependency.XCFramework {

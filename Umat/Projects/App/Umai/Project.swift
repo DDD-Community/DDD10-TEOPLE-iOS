@@ -9,10 +9,12 @@ let project = Project.makeAppModule(
     name: "Umai",
     bundleId: .mainBundleID(),
     product: .app,
+    packages: [.SwiftPackageManager.popupView],
     settings: .appMainSettings,
     dependencies: [
         .feature(implements: .authorization),
-        .shared(implements: .designSystem)
+        .shared(implements: .designSystem),
+        .Package.popupView
     ],
     sources: ["Sources/**"],
     resources: ["Resources/**"],
