@@ -14,7 +14,6 @@ struct MeAndYouView: View {
     @Binding var couple: Couple
     
     var body: some View {
-        // TODO: 세팅 화면으로 넘어가야 합니다
         CoupleDashboardView(couple: $couple)
     }
 }

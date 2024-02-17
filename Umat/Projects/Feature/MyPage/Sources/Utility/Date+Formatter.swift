@@ -9,6 +9,7 @@
 import Foundation
 
 extension Date {
+    /// 년, 월, 일 단위로 날짜를 포매팅하는 메서드입니다.
     func formatToDay() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
@@ -16,6 +17,7 @@ extension Date {
         return formatter.string(from: self)
     }
     
+    /// 정해진 날짜로부터 오늘까지의 날짜를 계산하는 메서드입니다.
     func spendDays() -> String {
         let startDate = self
         let calendar = Calendar.current

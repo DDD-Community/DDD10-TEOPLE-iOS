@@ -32,6 +32,7 @@ public struct MyPageView: View {
             }
         } content: {
             VStack(spacing: 24) {
+                // TODO: 세팅 화면으로 넘어가야 합니다
                 MeAndYouView(couple: $viewModel.couple)
                     .padding(.horizontal, 24)
                 

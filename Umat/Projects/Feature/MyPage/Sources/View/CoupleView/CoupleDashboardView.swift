@@ -30,13 +30,23 @@ struct CoupleDashboardView: View {
                     .foregroundStyle(Colors.gray500.color)
                 
                 HStack(spacing: 8) {
-                    Text(couple.me.name)
+                    HStack {
+                        Spacer()
+                        
+                        Text(couple.me.name)
+                    }
+                    .frame(maxWidth: .infinity)
                     
                     Image.icons(.ic_heart_filled)
                         .renderingMode(.template)
                         .foregroundStyle(Color(hex: "#F43F5E"))
                     
-                    Text(couple.you.name)
+                    HStack {
+                        Text(couple.you.name)
+                        
+                        Spacer()
+                    }
+                    .frame(maxWidth: .infinity)
                 }
                 .pretendard(.semiBold16)
             }
