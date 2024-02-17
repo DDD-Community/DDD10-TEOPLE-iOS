@@ -15,28 +15,21 @@ struct WishlistView: View {
     @Binding var couple: Couple
     
     var body: some View {
-        HStack(spacing: 12) {
-            VStack {
-                Text("내가")
-                Text("가고 싶은 곳")
-                Text("\(couple.me.wishlist.count)개")
-            }
+        HStack {
+            IndividualWishlistView(identity: .me, wishlists: couple.me.wishlist.count)
+                .frame(maxWidth: .infinity)
+                .padding(.leading, 24)
             
             HorizontalDividingLine()
             
-            VStack {
-                Text("우리 함께")
-                Text("가고 싶은 곳")
-                Text("\(couple.wishlist.count)개")
-            }
+            IndividualWishlistView(identity: .we, wishlists: couple.wishlist.count)
+                .frame(maxWidth: .infinity)
             
             HorizontalDividingLine()
             
-            VStack {
-                Text("네가")
-                Text("가고 싶은 곳")
-                Text("\(couple.you.wishlist.count)개")
-            }
+            IndividualWishlistView(identity: .you, wishlists: couple.you.wishlist.count)
+                .frame(maxWidth: .infinity)
+                .padding(.trailing, 24)
         }
         .frame(height: 327)
         .frame(maxWidth: .infinity)

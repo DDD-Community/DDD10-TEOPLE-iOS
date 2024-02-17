@@ -16,7 +16,7 @@ struct CoupleDashboardView: View {
     
     var body: some View {
         VStack(spacing: 16) {
-            // ic_profile_user 아이콘을 써야 합니다
+            // TODO: ic_profile_user 아이콘을 써야 합니다
             Image.icons(.ic_pin)
                 .resizable()
                 .renderingMode(.template)
@@ -25,7 +25,9 @@ struct CoupleDashboardView: View {
                 .foregroundStyle(Colors.orange500.color)
             
             VStack(spacing: 8) {
-                Text("\(couple.anniversary)~")
+                Text("\(couple.anniversary.formatToDay())~ (\(couple.anniversary.spendDays())일)")
+                    .pretendard(.semiBold14)
+                    .foregroundStyle(Colors.gray500.color)
                 
                 HStack(spacing: 8) {
                     Text(couple.me.name)
@@ -36,6 +38,7 @@ struct CoupleDashboardView: View {
                     
                     Text(couple.you.name)
                 }
+                .pretendard(.semiBold16)
             }
         }
     }
