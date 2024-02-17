@@ -14,19 +14,7 @@ struct MeAndYouView: View {
     @Binding var couple: Couple
     
     var body: some View {
-        VStack(spacing: 8) {
-            Image(systemName: "heart.fill")
-            
-            Text("\(couple.anniversary)~")
-            
-            HStack(spacing: 8) {
-                Text(couple.me.name)
-                
-                Image(systemName: "heart")
-                
-                Text(couple.you.name)
-            }
-        }
+        CoupleDashboardView(couple: $couple)
     }
 }
 

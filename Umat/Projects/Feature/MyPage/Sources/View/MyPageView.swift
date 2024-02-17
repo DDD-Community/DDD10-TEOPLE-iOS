@@ -31,11 +31,16 @@ public struct MyPageView: View {
                     .frame(height: 32)
             }
         } content: {
-            VStack(spacing: 32) {
+            VStack(spacing: 24) {
                 MeAndYouView(couple: $viewModel.couple)
+                    .padding(.horizontal, 24)
                 
                 WishlistView(couple: $viewModel.couple)
                     .frame(height: 100)
+                    .clipShape(
+                        RoundedRectangle(cornerRadius: 8)
+                    )
+                    .padding(.horizontal, 24)
             }
         } footer: {
             Text("This is footer area")
