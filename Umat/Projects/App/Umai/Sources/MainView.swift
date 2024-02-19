@@ -91,7 +91,9 @@ struct MainView: View {
                 isPresented = true
                 isCentered = false
                 
-                offsetY = small // TODO: 위치 수정
+                withAnimation {
+                    offsetY = small
+                }
             case .center:
                 isCentered.toggle()
                 
@@ -105,7 +107,10 @@ struct MainView: View {
     
     private func setupOffsetY(_ medium: CGFloat, _ small: CGFloat) {
         if isSelectedItem == .left {
-            offsetY = isCentered ? medium : small
+            withAnimation {
+                offsetY = isCentered ? medium : small
+            }
+            
             isPresented = true
         } else {
             offsetY = isCentered ? medium : .infinity
