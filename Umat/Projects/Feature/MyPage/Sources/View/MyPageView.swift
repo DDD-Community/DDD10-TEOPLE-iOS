@@ -28,9 +28,9 @@ public struct MyPageView: View {
                         } label: {
                             Image.icons(.ic_settings_outlined)
                         }
-                        .sheet(isPresented: $configIsPresented, content: {
+                        .navigationDestination(isPresented: $configIsPresented) {
                             ConfigView()
-                        })
+                        }
                     }
                     .padding(16)
                     
