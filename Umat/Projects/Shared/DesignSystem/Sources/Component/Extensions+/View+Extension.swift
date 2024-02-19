@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+
+// MARK: - HideKeyboard
 public extension View {
     @ViewBuilder 
     func hideKeyboardOnTapBackground( _ focusState: FocusState<Bool>.Binding,
@@ -22,6 +24,7 @@ public extension View {
     }
 }
 
+// MARK: - navigationBarBackButton
 public extension View {
     @ViewBuilder 
     func navigationBarBackButton() -> some View {
@@ -35,6 +38,7 @@ public extension View {
     }
 }
 
+// MARK: - SyncFocusState
 public extension View {
     func sync<T: Equatable>(_ binding: Binding<T>, with focusState: FocusState<T>) -> some View {
         self
