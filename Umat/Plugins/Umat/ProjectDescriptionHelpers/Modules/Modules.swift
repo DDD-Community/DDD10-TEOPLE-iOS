@@ -23,7 +23,7 @@ public extension ModulePath {
     }
     
     enum DemoApp: String, CaseIterable {
-        case mapDemo = "MapDemo"
+        case UmaiDemo = "UmaiDemo"
         
         public static let name = "DemoApp"
     }
