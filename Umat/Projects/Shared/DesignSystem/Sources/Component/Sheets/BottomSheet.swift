@@ -30,7 +30,7 @@ public struct BottomSheet<Content: View>: View {
         
         if current >= (medium+small / 2) {
             return small
-        } else if current > 50 {
+        } else if current > 25 {
             return current
         }
         return BottomSheetOffset.large
