@@ -51,7 +51,10 @@ public struct BottomSheet<Content: View>: View {
             scrollObservableView()
             
             content()
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 24)
                 .padding(.bottom, 100)
+                .background(.white)
         }
         .isBounce(false)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
