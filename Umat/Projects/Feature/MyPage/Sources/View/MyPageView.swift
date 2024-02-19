@@ -13,6 +13,9 @@ import DesignSystem
 public struct MyPageView: View {
     @ObservedObject public private(set) var viewModel: MyPageViewModel
     
+    @State private var configIsPresented: Bool = false
+    @State private var tag: String? = nil
+    
     public var body: some View {
         BaseView {
             VStack {
@@ -20,10 +23,13 @@ public struct MyPageView: View {
                     Spacer()
                     
                     Button {
-                        print("Button pressed")
+                        configIsPresented = true
                     } label: {
                         Image.icons(.ic_settings_outlined)
                     }
+                    .sheet(isPresented: $configIsPresented, content: {
+                        ConfigView()
+                    })
                 }
                 .padding(16)
                 
@@ -33,8 +39,19 @@ public struct MyPageView: View {
         } content: {
             VStack(spacing: 24) {
                 // TODO: 세팅 화면으로 넘어가야 합니다
-                MeAndYouView(couple: $viewModel.couple)
-                    .padding(.horizontal, 24)
+                ZStack(alignment: .trailing) {
+                    MeAndYouView(couple: $viewModel.couple)
+                        .padding(.horizontal, 24)
+                    
+                    Button {
+                        print("Pushing Button")
+                    } label: {
+                        Image.icons(.ic_arrow_forward_filled)
+                            .resizable()
+                            .frame(width: 32, height: 32)
+                            .padding(.trailing, 24)
+                    }
+                }
                 
                 WishlistView(couple: $viewModel.couple)
                     .frame(height: 100)
@@ -42,6 +59,8 @@ public struct MyPageView: View {
                         RoundedRectangle(cornerRadius: 8)
                     )
                     .padding(.horizontal, 24)
+                
+                Spacer()
             }
         } footer: {
             Text("This is footer area")
