@@ -18,8 +18,8 @@ public struct BottomSheet<Content: View>: View {
     
     // MARK: - Properties
     @StateObject private var viewModel = BottomSheetViewModel()
-    @State var translation: CGSize = .zero
-    @Binding var offsetY: CGFloat
+    @State private var translation: CGSize = .zero
+    @Binding private var offsetY: CGFloat
     private let sheetHeight: CGFloat
     private let content: () -> Content
     
