@@ -37,6 +37,3 @@ struct WishlistView: View {
     }
 }
 
-#Preview {
-    WishlistView(couple: .constant(Couple.example))
-}

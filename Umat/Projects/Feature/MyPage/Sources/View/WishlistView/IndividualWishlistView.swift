@@ -35,7 +35,3 @@ enum Identity: String {
     case you = "네가"
     case we = "우리 함께"
 }
-
-#Preview {
-    IndividualWishlistView(identity: .me, wishlists: 30)
-}

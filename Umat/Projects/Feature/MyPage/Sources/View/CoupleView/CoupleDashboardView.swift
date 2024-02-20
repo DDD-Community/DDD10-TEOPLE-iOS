@@ -53,7 +53,3 @@ struct CoupleDashboardView: View {
         }
     }
 }
-
-#Preview {
-    CoupleDashboardView(couple: .constant(Couple.example))
-}

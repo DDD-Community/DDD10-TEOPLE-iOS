@@ -35,6 +35,3 @@ enum ConfigItems: String, CaseIterable {
     case connect = "커플 연결"
 }
 
-#Preview {
-    ConfigView()
-}

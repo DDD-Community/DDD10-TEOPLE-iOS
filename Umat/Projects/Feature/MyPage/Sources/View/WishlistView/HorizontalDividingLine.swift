@@ -18,7 +18,3 @@ struct HorizontalDividingLine: View {
             .padding([.top, .bottom], 10)
     }
 }
-
-#Preview {
-    HorizontalDividingLine()
-}

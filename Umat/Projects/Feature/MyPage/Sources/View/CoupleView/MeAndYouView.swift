@@ -17,7 +17,3 @@ struct MeAndYouView: View {
         CoupleDashboardView(couple: $couple)
     }
 }
-
-#Preview {
-    MeAndYouView(couple: .constant(Couple.example))
-}

@@ -78,7 +78,3 @@ public struct MyPageView: View {
         self.viewModel = viewModel
     }
 }
-
-#Preview {
-    MyPageView()
-}
