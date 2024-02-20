@@ -23,14 +23,14 @@ public extension ModulePath {
     }
     
     enum DemoApp: String, CaseIterable {
-        case helloDemo = "HelloDemo"
-        case mapDemo = "MapDemo"
+        case UmaiDemo = "UmaiDemo"
         
         public static let name = "DemoApp"
     }
     
     enum Features: String, CaseIterable {
         case authorization = "Authorization"
+        case myPage = "MyPage"
         
         public static let name = "Feature"
     }
