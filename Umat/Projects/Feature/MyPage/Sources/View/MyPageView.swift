@@ -20,46 +20,30 @@ public struct MyPageView: View {
         NavigationStack {
             BaseView {
                 VStack {
-                    HStack {
-                        Spacer()
-                        
-                        Button {
-                            configIsPresented = true
-                        } label: {
-                            Image.icons(.ic_settings_outlined)
-                        }
-                        .navigationDestination(isPresented: $configIsPresented) {
-                            ConfigView()
-                        }
+                    CustomToolBar(trailingIcon: .ic_settings_outlined, trailingAction: {
+                        configIsPresented = true
+                    })
+                    // TODO: 설정은 풀 스크린 모달로 구현되어야 합니다
+                    .navigationDestination(isPresented: $configIsPresented) {
+                        ConfigView()
                     }
-                    .padding(16)
                     
                     Spacer()
-                        .frame(height: 32)
+                        .frame(height: 16)
                 }
             } content: {
                 VStack(spacing: 24) {
-                    // TODO: 세팅 화면으로 넘어가야 합니다
-                    ZStack(alignment: .trailing) {
-                        MeAndYouView(couple: $viewModel.couple)
-                            .padding(.horizontal, 24)
-                        
-                        Button {
-                            print("Pushing Button")
-                            editProfileIsPresented = true
-                        } label: {
-                            Image.icons(.ic_arrow_forward_filled)
-                                .resizable()
-                                .frame(width: 32, height: 32)
-                                .padding(.trailing, 24)
-                        }
-                        .navigationDestination(isPresented: $editProfileIsPresented) {
-                            Text("Edit Profile View")
-                                .navigationTitle("프로필 설정")
-                        }
+                    MeAndYouView(
+                        couple: viewModel.couple,
+                        editProfileIsPresented: $editProfileIsPresented
+                    )
+                    .navigationDestination(isPresented: $editProfileIsPresented) {
+                        // TODO: 프로필 설정 뷰 작성 후 수정
+                        Text("Edit Profile View")
+                            .navigationTitle("프로필 설정")
                     }
                     
-                    WishlistView(couple: $viewModel.couple)
+                    WishlistView(couple: viewModel.couple)
                         .frame(height: 100)
                         .clipShape(
                             RoundedRectangle(cornerRadius: 8)
@@ -68,8 +52,6 @@ public struct MyPageView: View {
                     
                     Spacer()
                 }
-            } footer: {
-                Text("This is footer area")
             }
         }
     }

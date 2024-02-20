@@ -21,8 +21,10 @@ extension Date {
     func spendDays() -> String {
         let startDate = self
         let calendar = Calendar.current
-        let spendDays = calendar.dateComponents([.day], from: startDate, to: Date()).day
+        guard let spendDays = calendar.dateComponents([.day], from: startDate, to: Date()).day else {
+            return "NaN"
+        }
         
-        return String(spendDays ?? 10)
+        return String(spendDays + 1)
     }
 }

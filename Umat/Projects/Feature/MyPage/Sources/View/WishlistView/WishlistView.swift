@@ -12,27 +12,26 @@ import DesignSystem
 import Entity
 
 struct WishlistView: View {
-    @Binding var couple: Couple
+    var couple: Couple
     
     var body: some View {
-        HStack {
+        HStack(spacing: 24) {
             IndividualWishlistView(identity: .me, wishlists: couple.me.wishlist.count)
                 .frame(maxWidth: .infinity)
-                .padding(.leading, 24)
             
-            HorizontalDividingLine()
+            VerticalDividingLine()
             
             IndividualWishlistView(identity: .we, wishlists: couple.wishlist.count)
                 .frame(maxWidth: .infinity)
             
-            HorizontalDividingLine()
+            VerticalDividingLine()
             
             IndividualWishlistView(identity: .you, wishlists: couple.you.wishlist.count)
                 .frame(maxWidth: .infinity)
-                .padding(.trailing, 24)
         }
         .frame(height: 327)
         .frame(maxWidth: .infinity)
+        .padding(.horizontal, 24)
         .background(Colors.gray100.color)
     }
 }

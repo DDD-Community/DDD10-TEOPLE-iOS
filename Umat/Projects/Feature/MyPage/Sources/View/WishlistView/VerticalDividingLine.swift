@@ -1,5 +1,5 @@
 //
-//  HorizontalDividingLine.swift
+//  VerticalDividingLine.swift
 //  MyPage
 //
 //  Created by Gordon Choi on 2/17/24.
@@ -10,7 +10,7 @@ import SwiftUI
 
 import DesignSystem
 
-struct HorizontalDividingLine: View {
+struct VerticalDividingLine: View {
     var body: some View {
         Rectangle()
             .foregroundStyle(Colors.gray300.color)
