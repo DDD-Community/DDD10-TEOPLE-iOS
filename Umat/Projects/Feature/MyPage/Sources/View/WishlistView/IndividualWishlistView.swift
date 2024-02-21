@@ -11,9 +11,11 @@ import SwiftUI
 import DesignSystem
 
 struct IndividualWishlistView: View {
-    var identity: Identity
-    var wishlists: Int
+    // MARK: - Stored properties
+    private var identity: Identity
+    private var wishlists: Int
     
+    // MARK: Computed properties
     var body: some View {
         VStack(spacing: 2) {
             VStack(spacing: 0) {
@@ -27,6 +29,11 @@ struct IndividualWishlistView: View {
             Text("\(wishlists)개")
                 .lineSeedSans(.bold16 )
         }
+    }
+    
+    public init(identity: Identity, wishlists: Int) {
+        self.identity = identity
+        self.wishlists = wishlists
     }
 }
 

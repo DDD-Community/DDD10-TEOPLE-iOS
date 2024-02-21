@@ -11,11 +11,15 @@ import SwiftUI
 import DesignSystem
 
 public struct MyPageView: View {
+    // MARK: - Stored Properties
+    // View Model
     @ObservedObject public private(set) var viewModel: MyPageViewModel
     
+    // View State Properties
     @State private var configIsPresented: Bool = false
     @State private var editProfileIsPresented: Bool = false
     
+    // MARK: - Computed properties
     public var body: some View {
         NavigationStack {
             BaseView {
@@ -56,6 +60,7 @@ public struct MyPageView: View {
         }
     }
     
+    // MARK: - init
     public init(viewModel: MyPageViewModel = MyPageViewModel()) {
         self.viewModel = viewModel
     }

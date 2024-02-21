@@ -12,9 +12,11 @@ import DesignSystem
 import Entity
 
 struct MeAndYouView: View {
-    var couple: Couple
+    // MARK: - Stored properties
+    private var couple: Couple
     @Binding var editProfileIsPresented: Bool
     
+    // MARK: - Computed properties
     var body: some View {
         VStack(spacing: 16) {
             // TODO: ic_profile_user 아이콘을 써야 합니다
@@ -42,5 +44,11 @@ struct MeAndYouView: View {
             
             CoupleDashboardView(couple: couple)
         }
+    }
+    
+    // MARK: - init
+    public init(couple: Couple, editProfileIsPresented: Binding<Bool>) {
+        self.couple = couple
+        self._editProfileIsPresented = editProfileIsPresented
     }
 }

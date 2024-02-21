@@ -5,8 +5,12 @@ import MyPage
 
 struct ContentView: View {
     var body: some View {
-        NaverMapView()
-            .ignoresSafeArea()
+        VStack {
+            NaverMapView()
+                .ignoresSafeArea()
+            
+            MyPageView()
+        }
     }
 }
 
