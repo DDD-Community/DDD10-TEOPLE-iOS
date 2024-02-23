@@ -7,8 +7,6 @@
 //
 
 import SwiftUI
-import Entity
-
 
 public struct CustomTabView<Content: View>: View {
     
