@@ -7,16 +7,23 @@
 //
 
 import SwiftUI
+
+import Maps
+import MarkPlace
 import DesignSystem
-import Entity
+
 
 struct MainView: View {
+    
+    // MARK: - Properties
     @State private var isSelectedItem: TabItem = .left
     @State private var isPresented: Bool = true
     @State private var isCentered: Bool = false
     @State private var sheetHeight: CGFloat = 0
     @State private var offsetY: CGFloat = 0
+    private var placeAddBottomSheetContent = PlaceAddBottomSheetContent()
     
+    // MARK: - Views
     var body: some View {
         let small = sheetHeight - BottomSheetOffset.small
         let medium = sheetHeight * BottomSheetOffset.mediumRate
@@ -27,8 +34,9 @@ struct MainView: View {
                 case .left:
                     
                     // TODO: 지도뷰
-                    Text("지도")
+                    NaverMapView()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .ignoresSafeArea(.all)
                         .background(.yellow)
                     
                     VStack(spacing: 32) {
@@ -39,6 +47,7 @@ struct MainView: View {
                         
                         Spacer()
                     }
+                    
                 case .center:
                     EmptyView()
                 
@@ -61,27 +70,9 @@ struct MainView: View {
                         }
                     
                     VStack(spacing: 32) {
-                        Spacer()
-                            .frame(height: 46)
+                        Spacer(minLength: 46)
                         
-                        GeometryReader { geometry in
-                            BottomSheet(offsetY: $offsetY,
-                                        sheetHeight: sheetHeight,
-                                        content: {
-                                
-                                // TODO: 바텀시트 컨텐츠
-                                VStack {
-                                    ForEach(0..<100, id: \.self) {_ in
-                                        Text("테스트용")
-                                    }
-                                }
-                            })
-                            .onAppear {
-                                sheetHeight = geometry.size.height
-                                offsetY = sheetHeight
-                            }
-                        }
-                        .opacity(isPresented ? 1 : 0)
+                        bottomSheet()
                     }
                 }
             }
@@ -103,6 +94,30 @@ struct MainView: View {
                 isCentered = false
             }
         }
+        .navigationBarBackButtonHidden()
+    }
+}
+
+extension MainView {
+    
+    @ViewBuilder
+    func bottomSheet() -> some View {
+        GeometryReader { geometry in
+            
+            BottomSheet(offsetY: $offsetY,
+                        sheetHeight: sheetHeight,
+                        content: {
+                if isCentered  {
+                    placeAddBottomSheetContent
+                } else {
+                }
+            })
+            .onChange(of: geometry.size, {
+                sheetHeight = geometry.size.height
+                offsetY = sheetHeight - BottomSheetOffset.small
+            })
+        }
+        .opacity(isPresented ? 1 : 0)
     }
     
     private func setupOffsetY(_ medium: CGFloat, _ small: CGFloat) {
