@@ -59,6 +59,7 @@ public struct BottomSheet<Content: View>: View {
         .background(.white)
         .cornerRadius(16, corners: [.topLeft, .topRight])
         .ignoresSafeArea(edges: .bottom)
+        .scrollDisabled(isDisabledScroll())
         .scrollIndicators(.never)
         .offset(y: sheetOffset)
         .shadow(color: .init(white: 0, opacity: 0.3),
@@ -69,9 +70,13 @@ public struct BottomSheet<Content: View>: View {
         .gesture(
             DragGesture()
                 .onChanged { gesture in
+                    scrollDirection(gesture)
+                    
                     translation = gesture.translation
                 }
                 .onEnded { gesture in
+                    viewModel.setupDirect(.none)
+                    
                     withAnimation(.smooth(duration: 0.1)) {
                         configureBottomSheetOffsetY()
                         
@@ -105,6 +110,30 @@ fileprivate extension BottomSheet {
 
 // MARK: - Methods
 fileprivate extension BottomSheet {
+    func isDisabledScroll() -> Bool {
+        if offsetY > BottomSheetOffset.large {
+            return true
+        }
+        
+        if viewModel.direct == .down && (viewModel.offset - BottomSheetOffset.small) == (viewModel.originOffset) {
+            return true
+        }
+        
+        return false
+    }
+    
+    func scrollDirection(_ gesture: _ChangedGesture<DragGesture>.Value) {
+        let snap = gesture.translation.height
+        
+        if snap > 0 {
+            viewModel.setupDirect(.down)
+        } else if snap < 0 {
+            viewModel.setupDirect(.up)
+        } else {
+            viewModel.setupDirect(.none)
+        }
+    }
+    
     func configureBottomSheetOffsetY() {
         let current = translation.height + offsetY
         let medium = sheetHeight * BottomSheetOffset.mediumRate

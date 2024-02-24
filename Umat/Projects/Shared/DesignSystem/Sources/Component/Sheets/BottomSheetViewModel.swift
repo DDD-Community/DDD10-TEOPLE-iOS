@@ -10,8 +10,16 @@ import SwiftUI
 
 final class BottomSheetViewModel: ObservableObject {
     
+    // MARK: - Enum
+    enum Direct {
+        case none
+        case up
+        case down
+    }
+    
     // MARK: - Properties
     @Published private(set) var offset: CGFloat = 0
+    @Published private(set) var direct: Direct = .none
     private(set) var originOffset: CGFloat = 0
     private var isCheckedOriginOffset: Bool = false
     
@@ -26,5 +34,10 @@ final class BottomSheetViewModel: ObservableObject {
     func setupOffset(_ offset: CGFloat) {
         guard isCheckedOriginOffset else { return }
         self.offset = offset
+    }
+    
+    func setupDirect(_ direct: Direct) {
+        guard isCheckedOriginOffset else { return }
+        self.direct = direct
     }
 }
