@@ -16,6 +16,7 @@ public struct TitleHeader: View {
     private let subTitle: String
     private let subTitleFont: Font
     private let subTitleColor: Color
+    private let bottomPadding: CGFloat
     
     public init(title: String,
                 titleFont: Font = .lineSeedSans(.bold, size: 20),
@@ -23,7 +24,8 @@ public struct TitleHeader: View {
                 subIcon: Icons? = nil,
                 subTitle: String = "",
                 subTitleFont: Font = .pretendard(.semiBold, size: 16),
-                subTitleColor: Color = .colors(.gray500)) {
+                subTitleColor: Color = .colors(.gray500),
+                bottomPadding: CGFloat = 32) {
         self.title = title
         self.titleFont = titleFont
         self.titleColor = titleColor
@@ -31,6 +33,7 @@ public struct TitleHeader: View {
         self.subTitle = subTitle
         self.subTitleFont = subTitleFont
         self.subTitleColor = subTitleColor
+        self.bottomPadding = bottomPadding
     }
     
     public var body: some View {
@@ -54,7 +57,7 @@ public struct TitleHeader: View {
                 }
             }
         }
-        .padding(.bottom, 32)
+        .padding(.bottom, bottomPadding)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 }

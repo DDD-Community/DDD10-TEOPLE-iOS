@@ -13,9 +13,15 @@ public extension ShapeStyle where Self == Color {
         return .init(hex: color.hex)
     }
     
-    static func gradient(leading: Colors = .orange400, trailing: Colors = .blue300) -> LinearGradient {
-        return .init(gradient: Gradient(colors: [.colors(leading), .colors(trailing)]),
+    static func gradient(leading: Color = .colors(.orange400), trailing: Color = .colors(.blue300)) -> LinearGradient {
+        return .init(gradient: Gradient(colors: [leading, trailing]),
                      startPoint: .leading,
                      endPoint: .trailing)
     }
+    
+//    static func gradient(leading: Colors = .orange400, trailing: Colors = .blue300) -> LinearGradient {
+//        return .init(gradient: Gradient(colors: [.colors(leading), .colors(trailing)]),
+//                     startPoint: .leading,
+//                     endPoint: .trailing)
+//    }
 }
