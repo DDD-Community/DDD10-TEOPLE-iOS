@@ -1,12 +1,12 @@
 //
-//  String+Extension.swift
-//  DesignSystem
+//  String+regex.swift
+//  Utility
 //
-//  Created by 지준용 on 2/7/24.
-//  Copyright © 2024 KYUNG MIN CHOI. All rights reserved.
+//  Created by 지준용 on 2/24/24.
 //
 
 import Foundation
+
 
 public extension String {
     func isKoreanLanguage() -> Bool {
