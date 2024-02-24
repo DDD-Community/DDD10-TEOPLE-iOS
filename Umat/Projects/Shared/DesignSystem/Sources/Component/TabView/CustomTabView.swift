@@ -17,8 +17,8 @@ public struct CustomTabView<Content: View>: View {
     
     // MARK: - Init
     public init(isSelectedItem: Binding<TabItem>,
-         @ViewBuilder content: @escaping (TabItem) -> Content,
-         onTappedItem: ((TabItem) -> Void)? = nil) {
+                @ViewBuilder content: @escaping (TabItem) -> Content,
+                onTappedItem: ((TabItem) -> Void)? = nil) {
         self._isSelectedItem = isSelectedItem
         self.content = content
         self.onTappedItem = onTappedItem

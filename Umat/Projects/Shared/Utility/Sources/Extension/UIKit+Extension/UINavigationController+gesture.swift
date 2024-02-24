@@ -1,9 +1,8 @@
 //
-//  UINavigationController+Extension.swift
+//  UINavigationController+gesture.swift
 //  DesignSystem
 //
 //  Created by 지준용 on 2/15/24.
-//  Copyright © 2024 KYUNG MIN CHOI. All rights reserved.
 //
 
 import UIKit
@@ -11,7 +10,7 @@ import UIKit
 extension UINavigationController: UIGestureRecognizerDelegate {
     override open func viewDidLoad() {
         super.viewDidLoad()
-        interactivePopGestureRecognizer?.delegate = nil
+        interactivePopGestureRecognizer?.delegate = self
     }
 
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {

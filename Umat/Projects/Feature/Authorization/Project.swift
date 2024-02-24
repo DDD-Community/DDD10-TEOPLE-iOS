@@ -11,8 +11,10 @@ let project = Project.makeAppModule(
     product: .staticFramework,
     settings:  .settings(),
     dependencies: [
+        .feature(implements: .markPlace),
         .shared(implements: .designSystem),
         .shared(implements: .entity),
+        .shared(implements: .utility)
     ],
     sources: ["Sources/**"],
     resources: ["Resources/**"],

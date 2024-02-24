@@ -1,14 +1,14 @@
 //
-//  ScrollView+Extension.swift
-//  DesignSystem
+//  ScrollView+isBounce.swift
+//  Utility
 //
-//  Created by 지준용 on 2/18/24.
-//  Copyright © 2024 KYUNG MIN CHOI. All rights reserved.
+//  Created by 지준용 on 2/24/24.
 //
 
 import SwiftUI
 
-public struct ScrollViewModifier: ViewModifier {
+
+struct ScrollViewModifier: ViewModifier {
     public init(isBounce: Bool) {
         UIScrollView.appearance().bounces = isBounce
     }

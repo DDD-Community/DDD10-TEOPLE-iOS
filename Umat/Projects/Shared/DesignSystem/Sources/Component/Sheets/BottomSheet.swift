@@ -7,9 +7,10 @@
 //
 
 import SwiftUI
+import Utility
 
 public enum BottomSheetOffset {
-    public static let small: CGFloat = 160
+    public static let small: CGFloat = 200
     public static let mediumRate: CGFloat = 0.35
     public static let large: CGFloat = 0
 }
@@ -17,7 +18,7 @@ public enum BottomSheetOffset {
 public struct BottomSheet<Content: View>: View {
     
     // MARK: - Properties
-    @StateObject private var viewModel = BottomSheetViewModel()
+    @ObservedObject private var viewModel = BottomSheetViewModel()
     @State private var translation: CGSize = .zero
     @Binding private var offsetY: CGFloat
     private let sheetHeight: CGFloat
@@ -48,11 +49,8 @@ public struct BottomSheet<Content: View>: View {
     // MARK: - Views
     public var body: some View {
         ScrollView {
-            scrollObservableView()
-            
             content()
                 .frame(maxWidth: .infinity)
-                .padding(.horizontal, 24)
                 .padding(.bottom, 100)
                 .background(.white)
         }
@@ -64,6 +62,11 @@ public struct BottomSheet<Content: View>: View {
         .scrollDisabled(isDisabledScroll())
         .scrollIndicators(.never)
         .offset(y: sheetOffset)
+        .shadow(color: .init(white: 0, opacity: 0.3),
+                radius: 10)
+        .overlay {
+            scrollObservableView()
+        }
         .gesture(
             DragGesture()
                 .onChanged { gesture in
@@ -74,7 +77,7 @@ public struct BottomSheet<Content: View>: View {
                 .onEnded { gesture in
                     viewModel.setupDirect(.none)
                     
-                    withAnimation(.linear(duration: 0.1)) {
+                    withAnimation(.smooth(duration: 0.1)) {
                         configureBottomSheetOffsetY()
                         
                         translation = .zero
@@ -138,7 +141,7 @@ fileprivate extension BottomSheet {
         
         if current > (BottomSheetOffset.large + medium)/2 && current < (medium+small)/2 {
             offsetY = sheetHeight * BottomSheetOffset.mediumRate // Medium
-        } else if current > (medium+small)/2 {
+        } else if current >= (medium+small)/2 {
             offsetY = sheetHeight - BottomSheetOffset.small // Small
         } else {
             offsetY = BottomSheetOffset.large // Large

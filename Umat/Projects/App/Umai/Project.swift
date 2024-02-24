@@ -13,6 +13,7 @@ let project = Project.makeAppModule(
     dependencies: [
         .feature(implements: .authorization),
         .feature(implements: .myPage),
+        .feature(implements: .markPlace),
         .core(implements: .maps),
         .shared(implements: .designSystem),
         .SwiftPackageManager.popupView
