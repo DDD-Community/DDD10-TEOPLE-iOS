@@ -1,8 +1,8 @@
 //
 //  NaverMapView.swift
-//  UmaiDemo
+//  Maps
 //
-//  Created by Gordon Choi on 2/7/24.
+//  Created by Gordon Choi on 2/21/24.
 //  Copyright © 2024 KYUNG MIN CHOI. All rights reserved.
 //
 
@@ -10,8 +10,10 @@ import SwiftUI
 
 import NMapsMap
 
-struct NaverMapView: UIViewRepresentable {
-    func makeUIView(context: Context) -> NMFNaverMapView {
+public struct NaverMapView: UIViewRepresentable {
+    public init() { }
+    
+    public func makeUIView(context: Context) -> NMFNaverMapView {
         let view = NMFNaverMapView()
         
         view.showZoomControls = false
@@ -21,7 +23,7 @@ struct NaverMapView: UIViewRepresentable {
         return view
     }
     
-    func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
+    public func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
         
     }
 }

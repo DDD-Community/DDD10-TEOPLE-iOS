@@ -9,6 +9,7 @@
 import SwiftUI
 
 public struct ConfigView: View {
+    // MARK: Computed Properties
     public var body: some View {
         NavigationStack {
             List {
@@ -25,10 +26,11 @@ public struct ConfigView: View {
         }
     }
     
+    // MARK: - init
     public init() { }
 }
 
-enum ConfigItems: String, CaseIterable {
+fileprivate enum ConfigItems: String, CaseIterable {
     case versionInfo = "버전 정보"
     case termsOfUse = "이용 약관"
     case logout = "로그아웃"

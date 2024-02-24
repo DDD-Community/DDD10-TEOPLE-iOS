@@ -12,8 +12,10 @@ import DesignSystem
 import Entity
 
 struct CoupleDashboardView: View {
-    var couple: Couple
+    // MARK: - Stored properties
+    private var couple: Couple
     
+    // MARK: - Computed properties
     var body: some View {
         VStack(spacing: 8) {
             Text("\(couple.anniversary.formatToDay())~ (\(couple.anniversary.spendDays())일)")
@@ -42,5 +44,10 @@ struct CoupleDashboardView: View {
             }
             .pretendard(.semiBold16)
         }
+    }
+    
+    // MARK: - init
+    public init(couple: Couple) {
+        self.couple = couple
     }
 }

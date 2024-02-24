@@ -37,6 +37,7 @@ public extension ModulePath {
     
     enum Cores: String, CaseIterable {
         case networking = "Networking"
+        case maps = "Maps"
         
         public static let name = "Core"
     }
@@ -44,6 +45,7 @@ public extension ModulePath {
     enum Shared: String, CaseIterable {
         case entity = "Entity"
         case designSystem = "DesignSystem"
+        case utility = "Utility"
         
         public static let name = "Shared"
     }

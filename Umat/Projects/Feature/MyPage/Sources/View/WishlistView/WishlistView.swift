@@ -12,8 +12,10 @@ import DesignSystem
 import Entity
 
 struct WishlistView: View {
-    var couple: Couple
+    // MARK: - Stored properties
+    private var couple: Couple
     
+    // MARK: - Computed properties
     var body: some View {
         HStack(spacing: 24) {
             IndividualWishlistView(identity: .me, wishlists: couple.me.wishlist.count)
@@ -33,6 +35,11 @@ struct WishlistView: View {
         .frame(maxWidth: .infinity)
         .padding(.horizontal, 24)
         .background(Colors.gray100.color)
+    }
+    
+    // MARK: - init
+    public init(couple: Couple) {
+        self.couple = couple
     }
 }
 
