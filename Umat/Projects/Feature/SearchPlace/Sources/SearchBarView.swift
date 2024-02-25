@@ -6,6 +6,7 @@
 //  Copyright © 2024 KYUNG MIN CHOI. All rights reserved.
 //
 
+import CoreLocation
 import SwiftUI
 
 import DesignSystem
@@ -13,6 +14,7 @@ import Utility
 
 public struct SearchBarView: View {
     @State private var inputText: String = ""
+    @Binding var location: CLLocationCoordinate2D
     
     public var body: some View {
         VStack(spacing: 32) {
@@ -36,7 +38,12 @@ public struct SearchBarView: View {
                 )
                 .shadow(radius: 4)
                 
-                MyLocationButton()
+                MyLocationButton {
+                    Logger.print("My location button tapped")
+                    
+                    // TODO: 사용자 위치 권한 획득한 후 사용자 위치로 조정
+                    toggleLocation()
+                }
                     .background(Color.white)
                     .clipShape(
                         RoundedRectangle(cornerRadius: 8)
@@ -50,5 +57,17 @@ public struct SearchBarView: View {
         }
     }
     
-    public init() { }
+    public init(location: Binding<CLLocationCoordinate2D>) {
+        self._location = location
+    }
+    
+    #if DEBUG
+    private func toggleLocation() {
+        if location.latitude == 37.5000873 && location.longitude == 127.0272858 {
+            location = CLLocationCoordinate2D(latitude: 37.5453577, longitude: 126.9525465)
+        } else {
+            location = CLLocationCoordinate2D(latitude: 37.5000873, longitude: 127.0272858)
+        }
+    }
+    #endif
 }

@@ -6,6 +6,7 @@
 //  Copyright © 2024 KYUNG MIN CHOI. All rights reserved.
 //
 
+import CoreLocation
 import SwiftUI
 
 import DesignSystem
@@ -23,6 +24,7 @@ struct MainView: View {
     @State private var isCentered: Bool = false
     @State private var sheetHeight: CGFloat = 0
     @State private var offsetY: CGFloat = 0
+    @State private var location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.5453577, longitude:126.9525465)
     private var homeBottomSheetContent = HomeBottomSheetContent()
     private var placeAddBottomSheetContent = PlaceAddBottomSheetContent()
     
@@ -36,12 +38,12 @@ struct MainView: View {
                 switch item {
                 case .left:
                     // TODO: 지도뷰
-                    NaverMapView()
+                    NaverMapView(location: location)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .ignoresSafeArea(.all)
                         .background(.yellow)
                     
-                    SearchBarView()
+                    SearchBarView(location: $location)
             
                 case .center:
                     EmptyView()
