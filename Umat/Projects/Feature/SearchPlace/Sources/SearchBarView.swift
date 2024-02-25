@@ -34,14 +34,14 @@ public struct SearchBarView: View {
                 .clipShape(
                     RoundedRectangle(cornerRadius: 8)
                 )
-                .shadow(radius: 56)
+                .shadow(radius: 4)
                 
                 MyLocationButton()
                     .background(Color.white)
                     .clipShape(
                         RoundedRectangle(cornerRadius: 8)
                     )
-                    .shadow(radius: 56)
+                    .shadow(radius: 4)
             }
             .padding(.horizontal, 24)
             
