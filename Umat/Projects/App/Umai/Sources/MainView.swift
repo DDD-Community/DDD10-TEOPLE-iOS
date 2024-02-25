@@ -21,6 +21,7 @@ struct MainView: View {
     @State private var isCentered: Bool = false
     @State private var sheetHeight: CGFloat = 0
     @State private var offsetY: CGFloat = 0
+    private var homeBottomSheetContent = HomeBottomSheetContent()
     private var placeAddBottomSheetContent = PlaceAddBottomSheetContent()
     
     // MARK: - Views
@@ -110,6 +111,7 @@ extension MainView {
                 if isCentered  {
                     placeAddBottomSheetContent
                 } else {
+                    homeBottomSheetContent
                 }
             })
             .onChange(of: geometry.size, {
