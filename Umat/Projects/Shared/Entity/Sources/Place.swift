@@ -43,3 +43,14 @@ public struct Place: Hashable, Codable {
         self.imageURL = imageURL
     }
 }
+
+public extension Place {
+    static let example = Place(name: "블루도어북스",
+                               address: "서울시 용산구 한남동 738-20",
+                               openingHour: "오후 12:30",
+                               closingHour: "오후 10:00",
+                               grade: 3.5,
+                               latitude: 0,
+                               longitude: 0,
+                               imageURL: nil)
+}
