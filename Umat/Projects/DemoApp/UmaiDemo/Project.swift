@@ -15,7 +15,8 @@ let project = Project.makeAppModule(
     settings: .settings(),
     dependencies: [
         .core(implements: .maps),
-        .feature(implements: .myPage)
+        .feature(implements: .myPage),
+        .feature(implements: .searchPlace),
     ],
     sources: ["Sources/**"],
     resources: ["Resources/**"],

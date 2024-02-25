@@ -11,7 +11,9 @@ let project = Project.makeAppModule(
     product: .staticFramework,
     settings: .settings(),
     dependencies: [
-        .shared(implements: .entity)
+        .shared(implements: .entity),
+        .SwiftPackageManager.moya,
+        .SwiftPackageManager.combineMoya
     ],
     sources: ["Sources/**"],
     infoPlist: .file(path: "../../Support/Info.plist")
