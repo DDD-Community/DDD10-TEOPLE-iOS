@@ -8,9 +8,11 @@
 
 import SwiftUI
 
+import DesignSystem
 import Maps
 import MarkPlace
-import DesignSystem
+import MyPage
+import SearchPlace
 
 
 struct MainView: View {
@@ -33,31 +35,20 @@ struct MainView: View {
             ZStack {
                 switch item {
                 case .left:
-                    
                     // TODO: 지도뷰
                     NaverMapView()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .ignoresSafeArea(.all)
                         .background(.yellow)
                     
-                    VStack(spacing: 32) {
-                        RoundedRectangle(cornerRadius: 8) // 검색창 위치
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 46)
-                            .padding(.horizontal, 24)
-                        
-                        Spacer()
-                    }
-                    
+                    SearchBarView()
+            
                 case .center:
                     EmptyView()
                 
                 case .right:
+                    MyPageView()
                     
-                    // TODO: 마이페이지 뷰
-                    Text("마이페이지")
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(.red)
                 }
                 
                 ZStack(alignment: .bottom) {

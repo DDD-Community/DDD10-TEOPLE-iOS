@@ -14,6 +14,7 @@ let project = Project.makeAppModule(
         .feature(implements: .authorization),
         .feature(implements: .myPage),
         .feature(implements: .markPlace),
+        .feature(implements: .searchPlace),
         .core(implements: .maps),
         .shared(implements: .designSystem),
         .SwiftPackageManager.popupView
