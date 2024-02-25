@@ -8,11 +8,18 @@
 
 import Foundation
 
-extension Date {
+public extension Date {
     /// 년, 월, 일 단위로 날짜를 포매팅하는 메서드입니다.
     func formatToDay() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
+        
+        return formatter.string(from: self)
+    }
+    
+    func formatToWeek() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE"
         
         return formatter.string(from: self)
     }
