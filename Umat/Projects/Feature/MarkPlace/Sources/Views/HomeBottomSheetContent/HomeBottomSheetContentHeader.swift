@@ -65,9 +65,9 @@ extension HomeBottomSheetContentHeader {
         ScrollView(.horizontal) {
             HStack(spacing: 6) {
                 ForEach(0..<viewModel.filters.count, id: \.self) { i in
-                    filterTab(name: viewModel.filters[i].name,
+                    filterTab(name: viewModel.filters[i].tab.name,
                               count: viewModel.filters[i].wishList.count,
-                              color: viewModel.filters[i].color,
+                              color: viewModel.filters[i].tab.color,
                               isSelected: viewModel.filters[i].isSelected,
                               isUpdated: viewModel.filters[i].isUpdated)
                     .onTapGesture {
