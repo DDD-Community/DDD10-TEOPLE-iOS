@@ -9,11 +9,15 @@
 import SwiftUI
 import DesignSystem
 import Entity
+import MarkPlace
 
-public struct LoginView: View {
+public struct LoginView<Content: View>: View {
+    let content: () -> Content
     
     // MARK: - Init
-    public init() {}
+    public init(content: @escaping () -> Content) {
+        self.content = content
+    }
     
     // MARK: - Views
     public var body: some View {
@@ -72,7 +76,7 @@ fileprivate extension LoginView {
                                  height: 34,
                                  maxWidth: .infinity) {
                 // TODO: 지도로 이동하기
-                EmptyView()
+                content()
             }
         }
         .padding(.bottom, 16)

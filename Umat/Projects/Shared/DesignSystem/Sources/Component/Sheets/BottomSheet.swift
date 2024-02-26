@@ -18,7 +18,7 @@ public enum BottomSheetOffset {
 public struct BottomSheet<Content: View>: View {
     
     // MARK: - Properties
-    @ObservedObject private var viewModel = BottomSheetViewModel()
+    @StateObject private var viewModel = BottomSheetViewModel()
     @State private var translation: CGSize = .zero
     @Binding private var offsetY: CGFloat
     private let sheetHeight: CGFloat
@@ -49,6 +49,8 @@ public struct BottomSheet<Content: View>: View {
     // MARK: - Views
     public var body: some View {
         ScrollView {
+            scrollObservableView()
+            
             content()
                 .frame(maxWidth: .infinity)
                 .padding(.bottom, 100)
@@ -64,9 +66,6 @@ public struct BottomSheet<Content: View>: View {
         .offset(y: sheetOffset)
         .shadow(color: .init(white: 0, opacity: 0.3),
                 radius: 10)
-        .overlay {
-            scrollObservableView()
-        }
         .gesture(
             DragGesture()
                 .onChanged { gesture in
@@ -115,7 +114,7 @@ fileprivate extension BottomSheet {
             return true
         }
         
-        if viewModel.direct == .down && (viewModel.offset - BottomSheetOffset.small) == (viewModel.originOffset) {
+        if viewModel.direct == .down && viewModel.offset >= statusBarHeight + 32 + 46 {
             return true
         }
         
@@ -139,7 +138,7 @@ fileprivate extension BottomSheet {
         let medium = sheetHeight * BottomSheetOffset.mediumRate
         let small = sheetHeight - BottomSheetOffset.small
         
-        if current > (BottomSheetOffset.large + medium)/2 && current < (medium+small)/2 {
+        if (BottomSheetOffset.large + medium)/2...(medium+small)/2 ~= current {
             offsetY = sheetHeight * BottomSheetOffset.mediumRate // Medium
         } else if current >= (medium+small)/2 {
             offsetY = sheetHeight - BottomSheetOffset.small // Small

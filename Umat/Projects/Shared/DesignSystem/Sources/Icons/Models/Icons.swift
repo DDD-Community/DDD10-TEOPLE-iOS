@@ -18,6 +18,7 @@ public enum Icons: String {
     case ic_heart_filled
     case ic_location_check_filled
     case ic_location_filled
+    case ic_tornament_filled
     
     // MARK: - Outlined Icon
     case ic_cancel_outlined

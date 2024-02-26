@@ -3,11 +3,12 @@
 //  MarkPlace
 //
 //  Created by 지준용 on 2/23/24.
-//  Copyright © 2024 KYUNG MIN CHOI. All rights reserved.
 //
 
 import SwiftUI
+
 import DesignSystem
+import Utility
 
 public struct PlaceAddBottomSheetContent: View {
     
@@ -91,7 +92,7 @@ fileprivate extension PlaceAddBottomSheetContent {
     func confirmMethodButton() -> some View{
         Button {
             // TODO: - 동작 미정
-            print("방법 보기")
+            Logger.print("지도앱에서 공유받는 방법 보여주기")
         } label: {
             Text("방법 보기")
                 .pretendard(.semiBold14)
