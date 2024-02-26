@@ -25,9 +25,7 @@ struct HomeBottomSheetContentHeader: View {
         VStack(spacing: 0) {
             currentPlace("성동구 옥수동") // TODO: (지도연동)좌표상의 장소를 기준으로 지명 띄우기
             
-            TitleHeader(title: viewModel.filters[viewModel.filterIndex].wishList.isEmpty ?
-                        "아직 저장된 위시 플레이스가 없어요!" 
-                        : "총 \(viewModel.filters[viewModel.filterIndex].wishList.count)곳의 위시플레이스가 있어요!",
+            TitleHeader(title: viewModel.titleHeaderText(),
                         titleFont: .pretendard(.semiBold, size: 18),
                         bottomPadding: 12)
             .padding(.horizontal, 20)

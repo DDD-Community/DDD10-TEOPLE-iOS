@@ -30,6 +30,14 @@ final class HomeBottomSheetContentViewModel: ObservableObject {
         loadWishPlace()
     }
     
+    func titleHeaderText() -> String {
+        if filters[filterIndex].wishList.isEmpty {
+            return "아직 저장된 위시 플레이스가 없어요!"
+        } else {
+            return "총 \(filters[filterIndex].wishList.count)곳의 위시플레이스가 있어요!"
+        }
+    }
+    
     // MARK: - Methods
     private func loadWishPlace() {
         let we = Filter(name: "우리",
