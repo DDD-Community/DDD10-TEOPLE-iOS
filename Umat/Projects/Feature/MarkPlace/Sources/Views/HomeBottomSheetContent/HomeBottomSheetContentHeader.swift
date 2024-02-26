@@ -14,6 +14,7 @@ struct HomeBottomSheetContentHeader: View {
     
     // MARK: - Properties
     @ObservedObject private var viewModel: HomeBottomSheetContentViewModel
+    @State private var isPresented = false
     
     // MARK: - Init
     init(viewModel: HomeBottomSheetContentViewModel) {
@@ -37,6 +38,13 @@ struct HomeBottomSheetContentHeader: View {
             filterTabs()
             
             notificationSystem {
+                isPresented = true
+            }
+            .fullScreenCover(isPresented: $isPresented) {
+                // TODO: - 토너먼트 시작
+                TournamentView(isPresented: $isPresented)
+                
+                // TODO: - 토너먼트 보러가기
             }
         }
         .padding(.top, 24)

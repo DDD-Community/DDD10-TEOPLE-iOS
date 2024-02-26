@@ -37,6 +37,7 @@ public enum Icons: String {
     case ic_share_outlined
     case ic_star_outlined
     case ic_warning_outlined
+    case ic_cancel_big_outlined
     
     // MARK: - Pin Icon
     case ic_pin
