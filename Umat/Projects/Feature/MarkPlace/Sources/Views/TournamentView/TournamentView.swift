@@ -13,6 +13,7 @@ struct TournamentView: View {
     
     // MARK: - Properties
     @Binding private var isPresented: Bool
+    @State private var isShowingAlert = false
     @State private var number: CGFloat = 20
     
     // MARK: - Init
@@ -39,8 +40,21 @@ extension TournamentView {
             CustomToolBar(title: "토너먼트",
                           trailingIcon: .ic_cancel_big_outlined,
                           trailingAction: {
-                isPresented = false
+                isShowingAlert = true
             })
+            .alert("앗! 나가시면 저장되지 않아요", isPresented: $isShowingAlert) {
+                Button("계속 토너먼트하기") {
+                    isShowingAlert = false
+                }
+                Button("나가기") {
+                    isPresented = false
+                }
+            } message: {
+                Text("""
+                     지금까지 결정한 내용이
+                     나가게 되면 사라져버려요.
+                     """)
+            }
             
             progressGauge()
         }
