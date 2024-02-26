@@ -26,15 +26,7 @@ public struct BottomSheet<Content: View>: View {
     
     private var sheetOffset: CGFloat {
         let current = translation.height + offsetY
-        let medium = sheetHeight * BottomSheetOffset.mediumRate
-        let small = sheetHeight - BottomSheetOffset.small
-        
-        if current >= (medium+small / 2) {
-            return small
-        } else if current > 25 {
-            return current
-        }
-        return BottomSheetOffset.large
+        return current
     }
     
     // MARK: - Init
