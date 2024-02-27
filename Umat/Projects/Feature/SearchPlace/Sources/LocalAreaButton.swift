@@ -1,5 +1,5 @@
 //
-//  MyLocationButton.swift
+//  LocalAreaButton.swift
 //  SearchPlace
 //
 //  Created by Gordon Choi on 2/25/24.
@@ -11,7 +11,7 @@ import SwiftUI
 import DesignSystem
 import Utility
 
-struct MyLocationButton: View {
+struct LocalAreaButton: View {
     // MARK: - Properties
     private var action: () -> Void
     

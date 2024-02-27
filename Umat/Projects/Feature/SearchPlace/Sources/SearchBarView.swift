@@ -14,7 +14,7 @@ import Utility
 
 public struct SearchBarView: View {
     @State private var inputText: String = ""
-    @Binding var location: CLLocationCoordinate2D
+    private var localAreaButtonAction: () -> Void
     
     public var body: some View {
         VStack(spacing: 32) {
@@ -38,11 +38,8 @@ public struct SearchBarView: View {
                 )
                 .shadow(radius: 4)
                 
-                MyLocationButton {
-                    Logger.print("My location button tapped")
-                    
-                    // TODO: 사용자 위치 권한 획득한 후 사용자 위치로 조정
-                    toggleLocation()
+                LocalAreaButton {
+                    localAreaButtonAction()
                 }
                     .background(Color.white)
                     .clipShape(
@@ -52,22 +49,11 @@ public struct SearchBarView: View {
             }
             .padding(.horizontal, 24)
             
-            
             Spacer()
         }
     }
     
-    public init(location: Binding<CLLocationCoordinate2D>) {
-        self._location = location
+    public init(localAreaButtonAction: @escaping () -> Void) {
+        self.localAreaButtonAction = localAreaButtonAction
     }
-    
-    #if DEBUG
-    private func toggleLocation() {
-        if location.latitude == 37.5000873 && location.longitude == 127.0272858 {
-            location = CLLocationCoordinate2D(latitude: 37.5453577, longitude: 126.9525465)
-        } else {
-            location = CLLocationCoordinate2D(latitude: 37.5000873, longitude: 127.0272858)
-        }
-    }
-    #endif
 }

@@ -24,7 +24,10 @@ struct MainView: View {
     @State private var isCentered: Bool = false
     @State private var sheetHeight: CGFloat = 0
     @State private var offsetY: CGFloat = 0
+    
     @State private var location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.5453577, longitude:126.9525465)
+    @State private var isLocalAreaMarked: Bool = false
+    
     private var homeBottomSheetContent = HomeBottomSheetContent()
     private var placeAddBottomSheetContent = PlaceAddBottomSheetContent()
     
@@ -37,20 +40,18 @@ struct MainView: View {
             ZStack {
                 switch item {
                 case .left:
-                    // TODO: 지도뷰
-                    NaverMapView(location: location)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    NaverMapView(location: location, isLocalAreaMarked: isLocalAreaMarked)
                         .ignoresSafeArea(.all)
-                        .background(.yellow)
                     
-                    SearchBarView(location: $location)
+                    SearchBarView {
+                        isLocalAreaMarked.toggle()
+                    }
             
                 case .center:
                     EmptyView()
                 
                 case .right:
                     MyPageView()
-                    
                 }
                 
                 ZStack(alignment: .bottom) {
