@@ -20,6 +20,6 @@ let project = Project.makeAppModule(
         .SwiftPackageManager.popupView
     ],
     sources: ["Sources/**"],
-    resources: ["Resources/**"],
+    resources: ["Resources/**", "../../Support/Keys.plist"],
     infoPlist: .file(path: "../../Support/Info.plist")
 )

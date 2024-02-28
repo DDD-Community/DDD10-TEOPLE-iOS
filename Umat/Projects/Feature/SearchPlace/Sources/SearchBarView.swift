@@ -41,11 +41,11 @@ public struct SearchBarView: View {
                 LocalAreaButton {
                     localAreaButtonAction()
                 }
-                    .background(Color.white)
-                    .clipShape(
-                        RoundedRectangle(cornerRadius: 8)
-                    )
-                    .shadow(radius: 4)
+                .background(Color.white)
+                .clipShape(
+                    RoundedRectangle(cornerRadius: 8)
+                )
+                .shadow(radius: 4)
             }
             .padding(.horizontal, 24)
             
