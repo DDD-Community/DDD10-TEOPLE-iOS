@@ -12,18 +12,17 @@ import Foundation
 import CombineMoya
 import Moya
 
-public struct WebService {
+public protocol WebServiceable {
+    // TODO: 커스텀 에러로 바꾸기
+    func call(service: APIService) -> AnyPublisher<Response, MoyaError>
+}
+
+public struct WebService: WebServiceable {
     private let provider = MoyaProvider<APIService>()
     
     public init() { }
     
-    public func call(_ quote: String) -> AnyPublisher<String, MoyaError> {
-        return provider.requestPublisher(.searchPlace(quote))
-            .filter(statusCode: 200)
-            .map {
-                // TODO: 모델에 의거한 디코딩 작업 수행
-                return String(data: $0.data, encoding: .utf8) ?? "DECODING ERROR"
-            }
-            .eraseToAnyPublisher()
+    public func call(service: APIService) -> AnyPublisher<Response, MoyaError> {
+        return provider.requestPublisher(service)
     }
 }

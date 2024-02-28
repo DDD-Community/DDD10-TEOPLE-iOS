@@ -13,8 +13,11 @@ import DesignSystem
 import Utility
 
 public struct SearchBarView: View {
+    // MARK: - Properties
     @State private var inputText: String = ""
     private var localAreaButtonAction: () -> Void
+    
+    private let viewModel = SearchBarViewModel()
     
     public var body: some View {
         VStack(spacing: 32) {
@@ -22,6 +25,9 @@ public struct SearchBarView: View {
                 HStack(spacing: 8) {
                     Button {
                         Logger.print("Search button tapped")
+                        
+                        viewModel.searchKeyword(inputText)
+                        inputText = ""
                     } label: {
                         Image.icons(.ic_search_outlined)
                             .frame(width: 24, height: 24)
@@ -53,6 +59,7 @@ public struct SearchBarView: View {
         }
     }
     
+    // MARK: - init
     public init(localAreaButtonAction: @escaping () -> Void) {
         self.localAreaButtonAction = localAreaButtonAction
     }

@@ -17,18 +17,9 @@ public enum APIService {
     case searchPlace(String)
     
     var googleAPIKey: String? {
-        // TODO: 각각의 조건을 한 번에 검사하도록 변경
-        guard let file = Bundle.main.path(forResource: "Keys", ofType: "plist") else {
-            Logger.print("No file")
-            return nil
-        }
-        
-        guard let resource = NSDictionary(contentsOfFile: file) else {
-            Logger.print("Failed to dictionarize")
-            return nil
-        }
-        
-        guard let key = resource["GoogleAPIKey"] as? String else {
+        guard let file = Bundle.main.path(forResource: "Keys", ofType: "plist"),
+              let resource = NSDictionary(contentsOfFile: file),
+              let key = resource["GoogleAPIKey"] as? String else {
             Logger.print("Failed to get key")
             return nil
         }
@@ -61,12 +52,12 @@ extension APIService: TargetType {
     
     public var task: Moya.Task {
         switch self {
-        case .searchPlace(let quote):
-            return .requestParameters(parameters: ["key": googleAPIKey ?? "", "query": quote], encoding: URLEncoding.queryString)
+        case .searchPlace(let keyword):
+            return .requestParameters(parameters: ["key": googleAPIKey ?? "", "query": keyword], encoding: URLEncoding.queryString)
         }
     }
     
-   public var headers: [String : String]? {
+    public var headers: [String : String]? {
         nil
     }
 }
