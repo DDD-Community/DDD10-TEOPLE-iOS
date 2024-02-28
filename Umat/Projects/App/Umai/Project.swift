@@ -17,6 +17,7 @@ let project = Project.makeAppModule(
         .feature(implements: .searchPlace),
         .core(implements: .maps),
         .shared(implements: .designSystem),
+        .SwiftPackageManager.moya,
         .SwiftPackageManager.popupView
     ],
     sources: ["Sources/**"],
