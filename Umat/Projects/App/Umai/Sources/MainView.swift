@@ -6,11 +6,14 @@
 //  Copyright © 2024 KYUNG MIN CHOI. All rights reserved.
 //
 
+import CoreLocation
 import SwiftUI
 
+import DesignSystem
 import Maps
 import MarkPlace
-import DesignSystem
+import MyPage
+import SearchPlace
 
 
 struct MainView: View {
@@ -21,6 +24,10 @@ struct MainView: View {
     @State private var isCentered: Bool = false
     @State private var sheetHeight: CGFloat = 0
     @State private var offsetY: CGFloat = 0
+    
+    @State private var location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.5453577, longitude:126.9525465)
+    @State private var isLocalAreaMarked: Bool = false
+    
     private var homeBottomSheetContent = HomeBottomSheetContent()
     private var placeAddBottomSheetContent = PlaceAddBottomSheetContent()
     
@@ -33,31 +40,18 @@ struct MainView: View {
             ZStack {
                 switch item {
                 case .left:
-                    
-                    // TODO: 지도뷰
-                    NaverMapView()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    NaverMapView(location: location, isLocalAreaMarked: isLocalAreaMarked)
                         .ignoresSafeArea(.all)
-                        .background(.yellow)
                     
-                    VStack(spacing: 32) {
-                        RoundedRectangle(cornerRadius: 8) // 검색창 위치
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 46)
-                            .padding(.horizontal, 24)
-                        
-                        Spacer()
+                    SearchBarView {
+                        isLocalAreaMarked.toggle()
                     }
-                    
+            
                 case .center:
                     EmptyView()
                 
                 case .right:
-                    
-                    // TODO: 마이페이지 뷰
-                    Text("마이페이지")
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(.red)
+                    MyPageView()
                 }
                 
                 ZStack(alignment: .bottom) {

@@ -6,24 +6,57 @@
 //  Copyright © 2024 KYUNG MIN CHOI. All rights reserved.
 //
 
+import CoreLocation
 import SwiftUI
 
+import Entity
+import Utility
+
 import NMapsMap
+import NMapsGeometry
 
 public struct NaverMapView: UIViewRepresentable {
-    public init() { }
+    var location: CLLocationCoordinate2D?
+    var isLocalAreaMarked: Bool
+    
+    public init(location: CLLocationCoordinate2D? = nil, isLocalAreaMarked: Bool) {
+        self.location = location
+        self.isLocalAreaMarked = isLocalAreaMarked
+    }
     
     public func makeUIView(context: Context) -> NMFNaverMapView {
-        let view = NMFNaverMapView()
-        
-        view.showZoomControls = false
-        view.mapView.positionMode = .direction
-        view.mapView.zoomLevel = 17
-        
-        return view
+        context.coordinator.removeAllItems()
+        return context.coordinator.makeMapView()
     }
     
     public func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
+//        guard let location else { return }
+//        
+//        let newLocation = NMGLatLng(lat: location.latitude, lng: location.longitude)
+//        let newFocus = NMFCameraUpdate(scrollTo: newLocation)
+//        newFocus.animation = .fly
+//        newFocus.animationDuration = 1
+//        uiView.mapView.moveCamera(newFocus)
         
+        if isLocalAreaMarked {
+            context.coordinator.createCircle()
+            
+            // 오버레이 원 안에 있는 핀 갯수 파악하기
+        } else {
+            context.coordinator.deleteCircle()
+            
+            // 전체 갯수로 수정하기
+        }
+    }
+    
+    public func makeCoordinator() -> Coordinator {
+        Coordinator.shared
     }
 }
+
+extension NMGLatLng {
+    func toCLLocation() -> CLLocation {
+        return CLLocation(latitude: self.lat, longitude: self.lng)
+    }
+}
+

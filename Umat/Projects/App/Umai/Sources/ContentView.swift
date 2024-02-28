@@ -1,8 +1,6 @@
 import SwiftUI
 
-import Authorization
-import Maps
-import MyPage
+import Networking
 
 struct ContentView: View {
     var body: some View {

@@ -15,6 +15,7 @@ public extension TargetDependency.XCFramework {
 /// Swift Package Manager에서 fetch해 올 라이브러리의 목록입니다.
 public extension TargetDependency.SwiftPackageManager {
     static let moya = TargetDependency.external(name: "Moya")
+    static let combineMoya = TargetDependency.external(name: "CombineMoya")
     static let kingfisher = TargetDependency.external(name: "Kingfisher")
     static let popupView = TargetDependency.external(name: "PopupView")
 }

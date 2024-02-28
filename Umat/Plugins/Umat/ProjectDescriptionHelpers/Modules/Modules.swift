@@ -32,6 +32,7 @@ public extension ModulePath {
         case authorization = "Authorization"
         case myPage = "MyPage"
         case markPlace = "MarkPlace"
+        case searchPlace = "SearchPlace"
         
         public static let name = "Feature"
     }

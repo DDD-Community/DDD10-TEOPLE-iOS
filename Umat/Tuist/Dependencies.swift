@@ -11,7 +11,8 @@ let carthageDependencies = CarthageDependencies(
 let swiftPackageManagerDependencies = SwiftPackageManagerDependencies(
     [
         .remote(url: "https://github.com/onevcat/Kingfisher", requirement: .upToNextMajor(from: "7.10.2")),
-        .remote(url: "https://github.com/exyte/PopupView", requirement: .upToNextMajor(from: "2.8.5"))
+        .remote(url: "https://github.com/exyte/PopupView", requirement: .upToNextMajor(from: "2.8.5")),
+        .remote(url: "https://github.com/Moya/Moya", requirement: .upToNextMajor(from: "15.0.0"))
     ]
 )
 

@@ -14,11 +14,12 @@ let project = Project.makeAppModule(
         .feature(implements: .authorization),
         .feature(implements: .myPage),
         .feature(implements: .markPlace),
+        .feature(implements: .searchPlace),
         .core(implements: .maps),
         .shared(implements: .designSystem),
         .SwiftPackageManager.popupView
     ],
     sources: ["Sources/**"],
-    resources: ["Resources/**"],
+    resources: ["Resources/**", "../../Support/Keys.plist"],
     infoPlist: .file(path: "../../Support/Info.plist")
 )
