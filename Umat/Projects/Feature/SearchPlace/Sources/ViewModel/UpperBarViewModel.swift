@@ -1,5 +1,5 @@
 //
-//  SearchBarViewModel.swift
+//  UpperBarViewModel.swift
 //  SearchPlace
 //
 //  Created by Gordon Choi on 2/28/24.
@@ -11,10 +11,12 @@ import Foundation
 
 import Utility
 
-public final class SearchBarViewModel: ObservableObject {
+public final class UpperBarViewModel: ObservableObject {
     // MARK: - Properties
     private let searchPlaceUseCase: SearchPlaceUseCase
     private var cancellables = Set<AnyCancellable>()
+    
+    @Published var inputText: String = ""
     
     // MARK: - init
     public init(searchPlaceUseCase: SearchPlaceUseCase = SearchPlaceUseCaseImpl()) {

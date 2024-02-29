@@ -43,7 +43,7 @@ struct MainView: View {
                     NaverMapView(location: location, isLocalAreaMarked: isLocalAreaMarked)
                         .ignoresSafeArea(.all)
                     
-                    SearchBarView {
+                    UpperBarView {
                         isLocalAreaMarked.toggle()
                     }
             
