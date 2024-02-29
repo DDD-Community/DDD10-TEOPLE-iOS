@@ -10,23 +10,15 @@ public protocol SearchPlaceUseCase {
 }
 
 public final class SearchPlaceUseCaseImpl: SearchPlaceUseCase {
-    private let webService: WebServiceable
+    private let repository: SearchPlaceRepository
     
-    public init(webService: WebServiceable = WebService()) {
-        self.webService = webService
+    public init(repository: SearchPlaceRepository = SearchPlaceRepositoryImpl()) {
+        self.repository = repository
     }
     
     // TODO: 검색 결과 Entity 지정해서 디코딩 작업 수행
     public func searchKeyword(_ keyword: String) -> AnyPublisher<String, Error> {
-        webService.call(service: .searchPlace(keyword))
-            .tryMap {
-                let str = String(data: $0.data, encoding: .utf8) ?? "DECODING FAILED"
-                return str
-            }
-            .mapError { error in
-                return error as Error
-            }
-            .eraseToAnyPublisher()
+        repository.searchKeyword(.searchPlace(keyword))
     }
     
     public func searchPlace(_ place: Place) {
