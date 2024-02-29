@@ -17,6 +17,7 @@ public final class UpperBarViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     @Published var inputText: String = ""
+    // 검색 결과 프로퍼티
     
     // MARK: - init
     public init(searchPlaceUseCase: SearchPlaceUseCase = SearchPlaceUseCaseImpl()) {
