@@ -16,7 +16,7 @@ public final class SearchPlaceUseCaseImpl: SearchPlaceUseCase {
         self.repository = repository
     }
     
-    // TODO: 검색 결과 Entity 지정해서 디코딩 작업 수행
+//    // TODO: 검색 결과 Entity 지정해서 디코딩 작업 수행
 //    public func searchKeyword(_ keyword: String) -> AnyPublisher<String, Error> {
 //        repository.searchKeyword(.searchPlace(keyword))
 //    }

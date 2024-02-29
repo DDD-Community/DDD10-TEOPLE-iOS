@@ -6,6 +6,9 @@
 //  Copyright © 2024 KYUNG MIN CHOI. All rights reserved.
 //
 
+import Entity
+import Utility
+
 import NMapsMap
 import NMapsGeometry
 
@@ -13,10 +16,12 @@ public final class Coordinator: NSObject, ObservableObject, NMFMapViewTouchDeleg
     static let shared = Coordinator()
     
     @Published var userLocation = (0.0, 0.0)
+    @Published var selectedLocation = (0.0, 0.0)
     @Published var markers: [NMFMarker] = []
     @Published var circle: [NMFCircleOverlay] = []
     
     let view = NMFNaverMapView(frame: .zero)
+    var locationManager: CLLocationManager?
     
     private override init() { }
     
@@ -31,7 +36,7 @@ public final class Coordinator: NSObject, ObservableObject, NMFMapViewTouchDeleg
     }
     
     // 마커 생성
-    func createMarkers(_ markers: [NMFMarker]) {
+    func createMarkers(_ places: [Place]) {
         
     }
     
@@ -78,4 +83,70 @@ public final class Coordinator: NSObject, ObservableObject, NMFMapViewTouchDeleg
     
     // 현위치 추적 및 반영
     // 마커 선택 시 액션
+}
+
+extension Coordinator: CLLocationManagerDelegate {
+    func checkAuthorizationStatus() {
+        guard let locationManager else { return }
+        
+        switch locationManager.authorizationStatus {
+        case .restricted:
+            Logger.print("위치 정보 접근 제한")
+        case .denied:
+            Logger.print("위치 정보 접근 거부. 설정에서 바꿀 수 있음")
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .authorizedWhenInUse, .authorizedAlways:
+            Logger.print("위치 정보 사용 승인")
+            
+            userLocation = (
+                locationManager.location?.coordinate.latitude ?? 0.0,
+                locationManager.location?.coordinate.longitude ?? 0.0
+            )
+            
+            selectedLocation = (
+                locationManager.location?.coordinate.latitude ?? 0.0,
+                locationManager.location?.coordinate.longitude ?? 0.0
+            )
+            
+            fetchUserLocation()
+        @unknown default:
+            break
+        }
+    }
+    
+    func checkLocationServicePermission() {
+        DispatchQueue.global().async {
+            if CLLocationManager.locationServicesEnabled() {
+                DispatchQueue.main.async {
+                    self.locationManager = CLLocationManager()
+                    self.locationManager?.delegate = self
+                    self.checkAuthorizationStatus()
+                }
+            }
+        }
+    }
+    
+    func fetchUserLocation() {
+        guard let locationManager else { return }
+        
+        let latitude = locationManager.location?.coordinate.latitude ?? 0.0
+        let longitude = locationManager.location?.coordinate.longitude ?? 0.0
+        
+        let coordinate = NMGLatLng(lat: latitude, lng: longitude)
+        let cameraUpdate = NMFCameraUpdate(scrollTo: coordinate)
+        cameraUpdate.animation = .easeIn
+        cameraUpdate.animationDuration = 1
+        
+        let locationOverlay = view.mapView.locationOverlay
+        locationOverlay.location = coordinate
+        locationOverlay.hidden = false
+        
+        locationOverlay.icon = NMFOverlayImage(name: "location_overlay_icon")
+        locationOverlay.iconWidth = CGFloat(NMF_LOCATION_OVERLAY_SIZE_AUTO)
+        locationOverlay.iconHeight = CGFloat(NMF_LOCATION_OVERLAY_SIZE_AUTO)
+        locationOverlay.anchor = CGPoint(x: 0.5, y: 1)
+        
+        view.mapView.moveCamera(cameraUpdate)
+    }
 }

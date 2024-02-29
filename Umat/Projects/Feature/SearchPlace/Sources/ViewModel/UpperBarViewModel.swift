@@ -26,13 +26,13 @@ public final class UpperBarViewModel: ObservableObject {
     
     // MARK: - Methods
     func searchKeyword(_ keyword: String) {
-        // TODO: 현재는 결과값을 print하게만 해 둔 상태. 실질적인 로직에 연결되도록 작업을 수행할 것
-        searchPlaceUseCase.searchKeyword(keyword)
-            .sink { completion in
-                Logger.print(completion)
-            } receiveValue: { value in
-                Logger.print(value)
-            }
-            .store(in: &cancellables)
+//        // TODO: 현재는 결과값을 print하게만 해 둔 상태. 실질적인 로직에 연결되도록 작업을 수행할 것
+//        searchPlaceUseCase.searchKeyword(keyword)
+//            .sink { completion in
+//                Logger.print(completion)
+//            } receiveValue: { value in
+//                Logger.print(value)
+//            }
+//            .store(in: &cancellables)
     }
 }
