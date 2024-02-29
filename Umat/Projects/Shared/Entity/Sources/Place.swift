@@ -19,7 +19,7 @@ public struct Place: Hashable, Codable {
     public let closingHour: String
     public let grade: Double
     public let location: Location
-    public let imageReference: String?
+    public let imageURL: URL?
     // TODO: 요일에 대한 정보 필요
     
     public struct Location: Hashable, Codable {
@@ -35,7 +35,7 @@ public struct Place: Hashable, Codable {
                 grade: Double,
                 latitude: Double,
                 longitude: Double,
-                imageReference: String?) {
+                imageURL: URL?) {
         self.id = id
         self.name = name
         self.address = address
@@ -43,7 +43,7 @@ public struct Place: Hashable, Codable {
         self.closingHour = closingHour
         self.grade = grade
         self.location = Location(latitude: latitude, longitude: longitude)
-        self.imageReference = imageReference
+        self.imageURL = imageURL
     }
 }
 
@@ -56,5 +56,5 @@ public extension Place {
                                grade: 3.5,
                                latitude: 0,
                                longitude: 0,
-                               imageReference: nil)
+                               imageURL: nil)
 }
