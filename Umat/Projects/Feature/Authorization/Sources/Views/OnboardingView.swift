@@ -11,12 +11,14 @@ import DesignSystem
 
 public struct OnboardingView: View {
     
+    // MARK: - Properties
+    @Environment(\.dismiss) private var dismiss
+    
     // MARK: - Init
     public init() {}
     
     // MARK: - Views
     public var body: some View {
-        
         BaseView {
             onboarding()
         } footer: {
@@ -29,23 +31,22 @@ public struct OnboardingView: View {
 fileprivate extension OnboardingView {
     @ViewBuilder
     func onboarding() -> some View {
-        Image("squirrel", bundle: .module)
+        Spacer()
+        
+        Image("OnboardingImage", bundle: .module)
             .resizable()
-            .frame(minHeight: 480)
-            .padding(.top, 32)
+            .frame(maxWidth: .infinity)
+            .frame(height: 494)
     }
     
     @ViewBuilder
     func button() -> some View {
-        Spacer(minLength: 130)
-        
-        GrayNavigationLink(text: "다음",
-                           buttonSize: .medium,
-                           buttonState: .enabled) {
-            LoginView()
+        GrayButton(text: "맛나 시작하기",
+                   buttonSize: .medium,
+                   buttonState: .enabled) {
+            self.dismiss()
         }
-        
-        .padding(.bottom, 54)
+        .padding(.bottom, 56)
     }
 }
 

@@ -6,7 +6,7 @@ import Authorization
 struct ContentView: View {
     var body: some View {
         NavigationStack {
-            MakeNameView()
+            LoginView()
         }
     }
 }
