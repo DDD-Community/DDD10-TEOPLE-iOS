@@ -25,7 +25,6 @@ struct MainView: View {
     @State private var sheetHeight: CGFloat = 0
     @State private var offsetY: CGFloat = 0
     
-    @State private var location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.5453577, longitude:126.9525465)
     @State private var isLocalAreaMarked: Bool = false
     
     private var homeBottomSheetContent = HomeBottomSheetContent()
@@ -40,7 +39,7 @@ struct MainView: View {
             ZStack {
                 switch item {
                 case .left:
-                    NaverMapView(location: location, isLocalAreaMarked: isLocalAreaMarked)
+                    NaverMapView(isLocalAreaMarked: isLocalAreaMarked)
                         .ignoresSafeArea(.all)
                     
                     UpperBarView {

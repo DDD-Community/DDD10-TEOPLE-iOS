@@ -96,7 +96,7 @@ final class HomeBottomSheetContentViewModel: ObservableObject {
         Coordinator.shared.createMarkers(places, markerType: MarkerType(rawValue: filterIndex) ?? MarkerType.me)
     }
     
-    func subscribeSelectedPlace() {
+    private func subscribeSelectedPlace() {
         Coordinator.shared.$selectedPlace
             .sink {
                 if let place = $0 {

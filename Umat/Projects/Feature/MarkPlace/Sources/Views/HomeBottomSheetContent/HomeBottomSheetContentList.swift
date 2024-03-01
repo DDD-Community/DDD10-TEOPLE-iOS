@@ -89,7 +89,7 @@ fileprivate extension HomeBottomSheetContentList {
     func wishList() -> some View {
         let filter = viewModel.filters[viewModel.filterIndex]
         
-        ForEach(filter.wishList, id: \.self) { list in
+        ForEach(filter.wishList, id: \.id) { list in
             VStack {
                 HStack(spacing: 14) {
                     placeImage(of: list)

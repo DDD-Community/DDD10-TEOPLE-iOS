@@ -23,8 +23,7 @@ public final class Coordinator: NSObject, ObservableObject, NMFMapViewTouchDeleg
     var markedPlaces: [NMFMarker: Place] = [:]
     
     @Published var userLocation = (0.0, 0.0)
-    @Published var selectedLocation = (0.0, 0.0)
-    
+    @Published var selectedLocation = (37.5453577, 126.9525465)
     @Published var circle: [NMFCircleOverlay] = []
     
     let view = NMFNaverMapView(frame: .zero)
@@ -39,6 +38,9 @@ public final class Coordinator: NSObject, ObservableObject, NMFMapViewTouchDeleg
         view.mapView.positionMode = .direction
         view.mapView.zoomLevel = 17
         view.mapView.contentInset = UIEdgeInsets(top: 46, left: 0, bottom: 200, right: 0)
+        
+        newlyFocus(lat: selectedLocation.0, lng: selectedLocation.1)
+        
         return view
     }
     
@@ -53,6 +55,7 @@ public final class Coordinator: NSObject, ObservableObject, NMFMapViewTouchDeleg
                 if let selectedMarker = overlay as? NMFMarker,
                    let markedPlace = self.markedPlaces[selectedMarker] {
                     self.selectedPlace = markedPlace
+                    self.newlyFocus(lat: markedPlace.location.latitude, lng: markedPlace.location.longitude)
                 }
                 
                 return true
@@ -62,6 +65,15 @@ public final class Coordinator: NSObject, ObservableObject, NMFMapViewTouchDeleg
             markers[place] = marker
             markedPlaces[marker] = place
         }
+    }
+    
+    func newlyFocus(lat: Double, lng: Double) {
+        let newLocation = NMGLatLng(lat: lat, lng: lng)
+        let newFocus = NMFCameraUpdate(scrollTo: newLocation, zoomTo: 17)
+        newFocus.animation = .easeIn
+        newFocus.animationDuration = 1
+
+        view.mapView.moveCamera(newFocus)
     }
     
     // 마커 삭제
