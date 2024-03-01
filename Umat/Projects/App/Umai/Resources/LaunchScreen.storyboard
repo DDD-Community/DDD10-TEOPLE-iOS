@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment version="5696" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -12,22 +11,37 @@
         <scene sceneID="EHf-IW-A2E">
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wdQ-oM-x1u"/>
+                        <viewControllerLayoutGuide type="bottom" id="xZj-bq-wqL"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreenImage" translatesAutoresizingMaskIntoConstraints="NO" id="zl0-vM-P3c">
-                                <rect key="frame" x="109.66666666666669" y="239" width="174" height="297"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="BackgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="NZf-LL-aHt">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MannaLogo" translatesAutoresizingMaskIntoConstraints="NO" id="9LJ-AB-S3H">
+                                <rect key="frame" x="146.66666666666666" y="348" width="100" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="zl0-vM-P3c" secondAttribute="height" multiplier="58:99" id="Sp8-3j-zEg"/>
+                                    <constraint firstAttribute="height" constant="100" id="NfF-ed-8g8"/>
                                 </constraints>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MannaTitle" translatesAutoresizingMaskIntoConstraints="NO" id="RiF-Kt-2gQ">
+                                <rect key="frame" x="136.66666666666666" y="464" width="119.99999999999997" height="23"/>
+                            </imageView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" name="BackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="zl0-vM-P3c" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="fdF-Xg-5hY"/>
-                            <constraint firstItem="zl0-vM-P3c" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="180" id="nIa-SH-me0"/>
+                            <constraint firstItem="NZf-LL-aHt" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="F8f-8Y-kOl"/>
+                            <constraint firstItem="NZf-LL-aHt" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Jnc-4A-2uv"/>
+                            <constraint firstItem="RiF-Kt-2gQ" firstAttribute="top" secondItem="9LJ-AB-S3H" secondAttribute="bottom" constant="16" id="Qax-Dh-InS"/>
+                            <constraint firstItem="RiF-Kt-2gQ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Vft-r1-Cfo"/>
+                            <constraint firstItem="9LJ-AB-S3H" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="WSb-eK-rcY"/>
+                            <constraint firstAttribute="trailing" secondItem="NZf-LL-aHt" secondAttribute="trailing" id="bZv-eP-ISN"/>
+                            <constraint firstAttribute="bottom" secondItem="NZf-LL-aHt" secondAttribute="bottom" id="oY2-vp-Suh"/>
+                            <constraint firstItem="9LJ-AB-S3H" firstAttribute="top" secondItem="wdQ-oM-x1u" secondAttribute="bottom" constant="289" id="sgp-fF-3c3"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -37,9 +51,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchScreenImage" width="174" height="297"/>
-        <namedColor name="BackgroundColor">
-            <color red="0.81960784313725488" green="0.83529411764705885" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
+        <image name="BackgroundImage" width="375" height="812"/>
+        <image name="MannaLogo" width="100" height="100"/>
+        <image name="MannaTitle" width="120" height="23"/>
     </resources>
 </document>
