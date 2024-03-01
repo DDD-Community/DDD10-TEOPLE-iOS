@@ -6,6 +6,9 @@
 //  Copyright © 2024 KYUNG MIN CHOI. All rights reserved.
 //
 
+import SwiftUI
+
+import DesignSystem
 import Entity
 import Utility
 
@@ -17,7 +20,7 @@ public final class Coordinator: NSObject, ObservableObject, NMFMapViewTouchDeleg
     
     @Published var userLocation = (0.0, 0.0)
     @Published var selectedLocation = (0.0, 0.0)
-    @Published var markers: [NMFMarker] = []
+    @Published var markers: [Place: NMFMarker] = [:]
     @Published var circle: [NMFCircleOverlay] = []
     
     let view = NMFNaverMapView(frame: .zero)
@@ -36,13 +39,27 @@ public final class Coordinator: NSObject, ObservableObject, NMFMapViewTouchDeleg
     }
     
     // 마커 생성
-    func createMarkers(_ places: [Place]) {
-        
+    func createMarkers(_ places: [Place], markerType: MarkerType) {
+        for place in places {
+            let marker = NMFMarker(position: NMGLatLng(lat: place.location.latitude, lng: place.location.longitude))
+            let iconImage = NMFOverlayImage(image: UIImage())
+            marker.iconImage = iconImage
+            
+            marker.mapView = view.mapView
+            markers[place] = marker
+        }
     }
     
     // 마커 삭제
-    func deleteMarkers() {
-        markers.forEach {
+    func deleteMarker(for place: Place) {
+        guard let marker = markers[place] else { return }
+        
+        marker.mapView = nil
+        markers[place] = nil
+    }
+    
+    func deleteAllMarkers() {
+        markers.values.forEach {
             $0.mapView = nil
         }
         
@@ -77,11 +94,10 @@ public final class Coordinator: NSObject, ObservableObject, NMFMapViewTouchDeleg
     }
     
     public func removeAllItems() {
-        deleteMarkers()
+        deleteAllMarkers()
         deleteCircle()
     }
     
-    // 현위치 추적 및 반영
     // 마커 선택 시 액션
 }
 
@@ -149,4 +165,11 @@ extension Coordinator: CLLocationManagerDelegate {
         
         view.mapView.moveCamera(cameraUpdate)
     }
+}
+
+public enum MarkerType: String {
+    // 디자인 시스템에 있는 Computed Property를 불러오는 방식 사용 불가
+    case we = "#A855F7"
+    case me = "#6366F1"
+    case you = "#FF5B0A"
 }

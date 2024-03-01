@@ -6,8 +6,9 @@
 //
 
 import SwiftUI
-import Entity
 
+import Entity
+import Maps
 
 final class HomeBottomSheetContentViewModel: ObservableObject {
     
@@ -85,6 +86,7 @@ final class HomeBottomSheetContentViewModel: ObservableObject {
         // 로컬
         placeFileManager.savePlaces(filters[1].wishList, forUser: filters[1].tab.key) // 로컬에서 삭제
         placeFileManager.savePlaces(filters[0].wishList, forUser: filters[0].tab.key) // TODO: '우리'는 서버연결 후 삭제
+        
     }
     
     // 서버와 로컬 저장소에서 위시플레이스 추가

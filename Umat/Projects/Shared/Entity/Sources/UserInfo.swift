@@ -108,7 +108,7 @@ public extension UserInfo {
                                                       latitude: 0,
                                                       longitude: 0,
                                                       imageURL: URL(string:"https://picsum.photos/200")),
-                                                .init(id: "1",
+                                                .init(id: "2",
                                                       name: "서울",
                                                       address: "서울시 용산구 한남동 738-20",
                                                       openingHour: "오전 10:30",
