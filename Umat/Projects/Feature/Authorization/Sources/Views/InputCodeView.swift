@@ -15,7 +15,6 @@ public struct InputCodeView<Content: View>: View {
     // MARK: - Properties
     @FocusState private var focusState: Bool
     @ObservedObject private var viewModel: TextInputViewModel
-    @State private var text = ""
     @State private var isPresented: Bool = false
     private let textInputType: TextInputType = .inputCode
     private let content: () -> Content
@@ -44,9 +43,11 @@ public struct InputCodeView<Content: View>: View {
             .hideKeyboardOnTapBackground($focusState)
             .sync($viewModel.focusState, with: _focusState)
             .onAppear {
-                viewModel.supportingText = "코드 입력이 잘못되었어요!"
                 viewModel.focusState = true
             }
+        }
+        .onAppear {
+            viewModel.supportingText = ""
         }
     }
 }
@@ -56,7 +57,7 @@ fileprivate extension InputCodeView {
     @ViewBuilder
     func textInput() -> some View {
         TextInput(guidanceText: textInputType.guidanceText,
-                  text: $text,
+                  text: $viewModel.matchedCoupleCode,
                   placeholder: textInputType.placeholder,
                   supportingText: $viewModel.supportingText,
                   focusState: $focusState,
@@ -68,7 +69,19 @@ fileprivate extension InputCodeView {
         GrayButton(text: "입력 완료",
                    buttonSize: .medium,
                    buttonState: viewModel.isEnabled ? .enabled : .disabled) {
-            isPresented = true
+            
+            viewModel.signUpUser { data in
+                // FIXME: - 내가 내 CoupleCode를 사용해도 가입되는 문제가 있음.(서버 확인)
+                if data?.message == "Success" {
+                    viewModel.supportingText = ""
+                    viewModel.stateColor = nil
+                    
+                    isPresented = true
+                } else {
+                    viewModel.supportingText = "코드 입력이 잘못되었어요!"
+                    viewModel.stateColor = .colors(.error)
+                }
+            }
         }
        .navigationDestination(isPresented: $isPresented, destination: {
            content()
