@@ -19,12 +19,10 @@ public final class NetworkManager: ObservableObject {
     
     // MARK: Properties
     private let loginProvider = MoyaProvider<UserTarget>(plugins: [MoyaLoggingPlugin()])
-    
     private var cancellable: AnyCancellable?
     
     @Published var coupleData: CoupleData?
     @Published var getUserData: GetUserData?
-    
     
     // MARK: - Init
     public init() {

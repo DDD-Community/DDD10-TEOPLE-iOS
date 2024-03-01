@@ -52,6 +52,9 @@ public enum Icons: String {
     // MARK: - Login
     case kakao
     case apple
+    
+    // MARK: - Logo
+    case manna_title
 }
 
 public extension Icons {
