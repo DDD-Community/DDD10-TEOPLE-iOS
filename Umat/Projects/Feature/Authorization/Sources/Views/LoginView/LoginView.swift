@@ -6,18 +6,35 @@
 //  Copyright © 2024 KYUNG MIN CHOI. All rights reserved.
 //
 
+import UIKit
 import SwiftUI
+import AuthenticationServices
+
+import MarkPlace
 import DesignSystem
 import Entity
-import MarkPlace
 
-public struct LoginView<Content: View>: View {
-    let content: () -> Content
+//final class LoginViewModel: ObservableObject {
+////    private let userRepository = UserRepository
+//    
+//    enum Action {
+//        case didSelectLoginMethod(LoginMethod)
+//    }
+//    
+//    func send(_ action: Action) {
+//        
+//    }
+//}
+
+
+public struct LoginView: View {
+    
+    // MARK: Properties
+    @State private var appleSignInDelegate: SignInWithAppleDelegate! = nil
+    @State private var isLogin: Bool = false
     
     // MARK: - Init
-    public init(content: @escaping () -> Content) {
-        self.content = content
-    }
+    public init() {}
     
     // MARK: - Views
     public var body: some View {
@@ -56,8 +73,6 @@ fileprivate extension LoginView {
     
     @ViewBuilder
     func buttons() -> some View {
-        Spacer()
-        
         VStack(spacing: 16) {
             ForEach(LoginMethod.allCases, id: \.self) { method in
                 CustomButton(icon: method.icon,
@@ -65,7 +80,14 @@ fileprivate extension LoginView {
                              foregroundStyle: method.foregroundStyle,
                              background: method.background) {
                     // TODO: 로그인 플로우
-                    print(method.text)
+                    switch method {
+                    case .apple:
+                        showAppleLogin()
+                    case .kakao:
+                        print(method.text)
+                    }
+                }.navigationDestination(isPresented: $isLogin) {
+                    // TODO: MakeCodeView
                 }
             }
             
@@ -76,9 +98,10 @@ fileprivate extension LoginView {
                                  height: 34,
                                  maxWidth: .infinity) {
                 // TODO: 지도로 이동하기
-                content()
+                EmptyView()
             }
         }
+        .frame(maxHeight: .infinity, alignment: .bottom)
         .padding(.bottom, 16)
         .padding(.horizontal, 24)
     }
@@ -93,41 +116,28 @@ fileprivate extension LoginView {
     }
 }
 
-// MARK: - LoginMethod
-extension LoginMethod {
-    var icon: Icons? {
-        switch self {
-        case .kakao:
-            return .kakao
-        case .apple:
-            return .apple
-        }
+// MARK: - Apple Login
+fileprivate extension LoginView {
+    func showAppleLogin() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        performSignIn(using: [request])
     }
     
-    var text: String {
-        switch self {
-        case .kakao:
-            return "카카오로 로그인하기"
-        case .apple:
-            return "Apple로 로그인하기"
-        }
-    }
-    
-    var foregroundStyle: Color {
-        switch self {
-        case .kakao:
-            return .init(hex: "#262626")
-        case .apple:
-            return .white
-        }
-    }
-    
-    var background: Color {
-        switch self {
-        case .kakao:
-            return .init(hex: "#FEE500")
-        case .apple:
-            return .colors(.gray950)
-        }
+    func performSignIn(using requests: [ASAuthorizationRequest]) {
+        appleSignInDelegate = SignInWithAppleDelegate(window: window, signInSucceeded: { success in
+            if success {
+                isLogin = true
+            } else {
+                print(!success)
+            }
+        })
+        
+        let controller = ASAuthorizationController(authorizationRequests: requests)
+        controller.delegate = appleSignInDelegate
+        controller.presentationContextProvider = appleSignInDelegate
+        controller.performRequests()
     }
 }
