@@ -52,7 +52,7 @@ public final class NetworkManager {
                     coupleCode: String = "",
                     completion: @escaping (CoupleData) -> Void) {
         
-        let defaultDate = "\(Date().formatToJSONDay())"
+        let defaultDate = "\(Date().formatToRequestDay())"
         loginProvider.request(.signUpUser(nickName: nickName,
                                           birth: birth ?? "\(defaultDate)",
                                           anniversary: anniversary ?? "\(defaultDate)",
