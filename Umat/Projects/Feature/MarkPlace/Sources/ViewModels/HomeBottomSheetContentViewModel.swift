@@ -61,6 +61,8 @@ final class HomeBottomSheetContentViewModel: ObservableObject {
     
     // 필터탭 클릭 - 현제 필터탭 인덱스 최신화, 현재 필터
     func selectFilter(index: Int) {
+        Coordinator.shared.deleteAllMarkers()
+        
         filterIndex = index
         filters[index].isUpdated = false
         
@@ -74,6 +76,19 @@ final class HomeBottomSheetContentViewModel: ObservableObject {
         
         updateLocalStorage()
         applyScreen()
+        
+        let places: [Place] = switch filterIndex {
+        case 0:
+            server.wishlist
+        case 1:
+            server.me.wishlist
+        case 2:
+            server.you.wishlist
+        default:
+            []
+        }
+        
+        Coordinator.shared.createMarkers(places, markerType: MarkerType(rawValue: filterIndex) ?? MarkerType.me)
     }
     
     // 서버와 로컬 저장소에서 위시플레이스 삭제

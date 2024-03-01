@@ -16,7 +16,7 @@ import NMapsMap
 import NMapsGeometry
 
 public final class Coordinator: NSObject, ObservableObject, NMFMapViewTouchDelegate, NMFMapViewCameraDelegate {
-    static let shared = Coordinator()
+    static public let shared = Coordinator()
     
     @Published var userLocation = (0.0, 0.0)
     @Published var selectedLocation = (0.0, 0.0)
@@ -39,11 +39,12 @@ public final class Coordinator: NSObject, ObservableObject, NMFMapViewTouchDeleg
     }
     
     // 마커 생성
-    func createMarkers(_ places: [Place], markerType: MarkerType) {
+    public func createMarkers(_ places: [Place], markerType: MarkerType) {
         for place in places {
             let marker = NMFMarker(position: NMGLatLng(lat: place.location.latitude, lng: place.location.longitude))
-            let iconImage = NMFOverlayImage(image: UIImage())
+            let iconImage = NMFOverlayImage(image: Icons.ic_pin.uiImage)
             marker.iconImage = iconImage
+            marker.iconTintColor = .init(hex: markerType.colorHex)
             
             marker.mapView = view.mapView
             markers[place] = marker
@@ -51,14 +52,14 @@ public final class Coordinator: NSObject, ObservableObject, NMFMapViewTouchDeleg
     }
     
     // 마커 삭제
-    func deleteMarker(for place: Place) {
+    public func deleteMarker(for place: Place) {
         guard let marker = markers[place] else { return }
         
         marker.mapView = nil
         markers[place] = nil
     }
     
-    func deleteAllMarkers() {
+    public func deleteAllMarkers() {
         markers.values.forEach {
             $0.mapView = nil
         }
@@ -167,9 +168,20 @@ extension Coordinator: CLLocationManagerDelegate {
     }
 }
 
-public enum MarkerType: String {
+public enum MarkerType: Int {
     // 디자인 시스템에 있는 Computed Property를 불러오는 방식 사용 불가
-    case we = "#A855F7"
-    case me = "#6366F1"
-    case you = "#FF5B0A"
+    case we = 0
+    case me = 1
+    case you = 2
+    
+    var colorHex: String {
+        switch self {
+        case .we:
+            return "#A855F7"
+        case .me:
+            return "#6366F1"
+        case .you:
+            return "#FF5B0A"
+        }
+    }
 }

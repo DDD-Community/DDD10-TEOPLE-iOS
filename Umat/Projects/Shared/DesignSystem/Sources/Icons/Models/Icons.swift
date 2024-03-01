@@ -58,4 +58,9 @@ public extension Icons {
     var image: Image {
         .icons(self)
     }
+    
+    var uiImage: UIImage {
+        .uiImageIcons(self)
+        .resizeAsIcon()
+    }
 }
