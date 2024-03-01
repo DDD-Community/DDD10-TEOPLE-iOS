@@ -24,8 +24,14 @@ public final class TextInputViewModel: ObservableObject {
     
     func signUpUser(completion: @escaping (CoupleData?) -> ()) {
         
-        networkManager.signUpUser(nickName: text) { data in
-            completion(data)
+        Task {
+            await networkManager.signUpUsers(nickName: text) { data in
+                completion(data)
+            }
         }
+        
+//        networkManager.signUpUser(nickName: text) { data in
+//            completion(data)
+//        }
     }
 }

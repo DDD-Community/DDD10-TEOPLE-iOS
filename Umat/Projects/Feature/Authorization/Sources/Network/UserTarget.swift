@@ -19,6 +19,19 @@ enum UserTarget {
     // TODO: 회원 탈퇴, 지도 등
 }
 
+enum APIEnvironment {
+    static let baseURL = "http://138.2.126.76:8080/"
+    static let getUser = "user/me"
+    static let signUpUser = "user"
+    static let updateUser = "user"
+    static let getAuth = "auth/token"
+    
+    static let headerKey = "Content-Type"
+    static let headerValue = "application/json"
+}
+
+
+
 extension UserTarget: TargetType {
     var baseURL: URL {
         let urlString = APIEnvironment.baseURL
@@ -52,7 +65,7 @@ extension UserTarget: TargetType {
             return .patch
         }
     }
-    
+
     var task: Moya.Task {
         switch self {
         case .getUser:
@@ -68,9 +81,10 @@ extension UserTarget: TargetType {
         }
     }
     
-    var validationType: Moya.ValidationType {
-        return .successAndRedirectCodes
-    }
+//    var validationType: Moya.ValidationType {
+//        return .successAndRedirectCodes
+//    }
+    
     
     var headers: [String: String]? {
         var parameters = [APIEnvironment.headerKey: APIEnvironment.headerValue]
