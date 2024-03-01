@@ -14,27 +14,19 @@ import MarkPlace
 import DesignSystem
 import Entity
 
-//final class LoginViewModel: ObservableObject {
-////    private let userRepository = UserRepository
-//    
-//    enum Action {
-//        case didSelectLoginMethod(LoginMethod)
-//    }
-//    
-//    func send(_ action: Action) {
-//        
-//    }
-//}
 
-
-public struct LoginView: View {
+public struct LoginView<Content: View>: View {
     
     // MARK: Properties
     @State private var appleSignInDelegate: SignInWithAppleDelegate! = nil
     @State private var isLogin: Bool = false
+    @AppStorage("isOnboarding") var isOnboarding: Bool = false
+    private let content: () -> Content
     
     // MARK: - Init
-    public init() {}
+    public init(content: @escaping () -> Content) {
+        self.content = content
+    }
     
     // MARK: - Views
     public var body: some View {
@@ -45,30 +37,39 @@ public struct LoginView: View {
         } footer: {
             footer()
         }
+        .background(.colors(.orange500))
         .navigationBarBackButtonHidden()
+        .fullScreenCover(isPresented: $isOnboarding, content: {
+            OnboardingView()
+        })
+        .onAppear {
+            isOnboarding = true
+        }
     }
 }
 
 fileprivate extension LoginView {
     @ViewBuilder
     func header() -> some View {
-        Color.colors(.gray200)
-            .frame(height: 480)
-            .ignoresSafeArea()
-            .overlay {
-                VStack {
-                    Image.icons(.ic_pin)
-                        .resizable()
-                        .renderingMode(.template)
-                        .foregroundStyle(.gradient())
-                        .frame(width: 137, height: 137)
-                        .padding(.top, 145)
-                    
-                    Text("맛나")
-                        .font(.pretendard(.bold, size: 48))
-                        .padding(.bottom, 73)
-                }
-            }
+        VStack(spacing: 14) {
+            Image.icons(.ic_pin)
+                .resizable()
+                .renderingMode(.template)
+                .foregroundStyle(.colors(.gray50))
+                .frame(width: 100, height: 100)
+            
+            Text("둘만의 맛집 아카이빙, 맛나")
+                .font(.pretendard(.bold, size: 16))
+                .foregroundStyle(.colors(.gray50))
+            
+            Image.icons(.manna_title)
+                .resizable()
+                .renderingMode(.template)
+                .foregroundStyle(.colors(.gray50))
+                .frame(width: 120, height: 22)
+        }
+        .frame(maxHeight: .infinity, alignment: .bottom)
+        .padding(.top, 200)
     }
     
     @ViewBuilder
@@ -87,18 +88,17 @@ fileprivate extension LoginView {
                         print(method.text)
                     }
                 }.navigationDestination(isPresented: $isLogin) {
-                    // TODO: MakeCodeView
+                    MakeNameView()
                 }
             }
             
             CustomNavigationLink(text: "둘러보기",
                                  font: .pretendard(.semiBold, size: 14),
-                                 foregroundStyle: .colors(.gray600),
+                                 foregroundStyle: .white,
                                  background: .clear,
                                  height: 34,
                                  maxWidth: .infinity) {
-                // TODO: 지도로 이동하기
-                EmptyView()
+                content()
             }
         }
         .frame(maxHeight: .infinity, alignment: .bottom)
@@ -110,7 +110,7 @@ fileprivate extension LoginView {
     func footer() -> some View {
         Text("로그인 시 개인정보처리방침과 이용약관에 동의하게 됩니다")
             .pretendard(.medium12)
-            .foregroundStyle(.colors(.gray400))
+            .foregroundStyle(.colors(.orange900))
             .padding(.bottom, 54)
             .padding(.horizontal, 24)
     }
