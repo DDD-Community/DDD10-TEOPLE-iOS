@@ -12,18 +12,21 @@ import DesignSystem
 import PopupView
 
 
-public struct MakeCodeView: View {
+public struct MakeCodeView<Content: View>: View {
     
     // MARK: - Properties
     @Environment(\.dismiss) private var dismiss
-    @State private var data: ActivityItem?
+    @ObservedObject private var viewModel: TextInputViewModel
+    @State private var coupleCode: ActivityItem?
     @State private var isWritten = false
     @State private var isPresented = false
     @State private var isShared = false
+    private let content: () -> Content
     
     // MARK: - Init
-    public init(data: ActivityItem) {
-        self.data = data
+    public init(viewModel: TextInputViewModel, content: @escaping () -> Content) {
+        self.viewModel = viewModel
+        self.content = content
     }
     
     // MARK: - Views
@@ -92,9 +95,10 @@ private extension MakeCodeView {
                      height: 40,
                      maxWidth: 91) {
             // TODO: (서버에서 받은) 코드
-            data = ActivityItem(items: "테스트 메시지")
+            guard let data = viewModel.coupleData?.data?.coupleCode else { return }
+            self.coupleCode = ActivityItem(items: data)
         }
-        .activitySheet($data) { activityType, success, items, error in
+        .activitySheet($coupleCode) { activityType, success, items, error in
             if error != nil {
                 return debugPrint("activitySheet Error: \(error!)")
             }
@@ -129,7 +133,8 @@ private extension MakeCodeView {
                                  foregroundStyle: .colors(.gray800),
                                  background: .white,
                                  strokeColor: .colors(.gray300)) {
-                InputCodeView()
+                InputCodeView(viewModel: viewModel,
+                              content: content)
             }
         }
         .padding(.horizontal, Metric.horizontalPadding)
@@ -156,19 +161,17 @@ private extension MakeCodeView {
     }
 }
 
-// MARK: - Nested Types
-fileprivate extension MakeCodeView {
-    enum Letter: String {
-        case send
-        case send_not
-    }
-    
-    // MARK: - Enum
-    enum Metric {
-        static let statusHeight: CGFloat = 54
-        static let topPadding: CGFloat = 16
-        static let horizontalPadding: CGFloat = 24
-        static let bottomPadding: CGFloat = 80
-    }
+enum Letter: String {
+    case send
+    case send_not
 }
+
+// MARK: - Enum
+enum Metric {
+    static let statusHeight: CGFloat = 54
+    static let topPadding: CGFloat = 16
+    static let horizontalPadding: CGFloat = 24
+    static let bottomPadding: CGFloat = 80
+}
+
 

@@ -10,15 +10,22 @@ import SwiftUI
 import DesignSystem
 import Entity
 
-public struct InputCodeView: View {
+public struct InputCodeView<Content: View>: View {
     
     // MARK: - Properties
     @FocusState private var focusState: Bool
-    @ObservedObject private var viewModel = TextInputViewModel()
+    @ObservedObject private var viewModel: TextInputViewModel
+    @State private var text = ""
+    @State private var isPresented: Bool = false
     private let textInputType: TextInputType = .inputCode
+    private let content: () -> Content
     
     // MARK: - Init
-    public init() {}
+    public init(viewModel: TextInputViewModel, 
+                content: @escaping () -> Content) {
+        self.viewModel = viewModel
+        self.content = content
+    }
     
     // MARK: - Views
     public var body: some View {
@@ -49,7 +56,7 @@ fileprivate extension InputCodeView {
     @ViewBuilder
     func textInput() -> some View {
         TextInput(guidanceText: textInputType.guidanceText,
-                  text: $viewModel.text,
+                  text: $text,
                   placeholder: textInputType.placeholder,
                   supportingText: $viewModel.supportingText,
                   focusState: $focusState,
@@ -58,12 +65,14 @@ fileprivate extension InputCodeView {
     
     @ViewBuilder
     func footer() -> some View {
-        GrayNavigationLink(text: "입력 완료",
-                           buttonSize: .medium,
-                           buttonState: viewModel.isEnabled ? .enabled : .disabled) {
-            // TODO: 메인화면으로 이동
-            EmptyView()
+        GrayButton(text: "입력 완료",
+                   buttonSize: .medium,
+                   buttonState: viewModel.isEnabled ? .enabled : .disabled) {
+            isPresented = true
         }
-        .padding(.bottom, 12)
+       .navigationDestination(isPresented: $isPresented, destination: {
+           content()
+       })
+       .padding(.bottom, 12)
     }
 }

@@ -11,7 +11,7 @@ import DesignSystem
 import Entity
 
 
-public struct MakeNameView: View {
+public struct MakeNameView<Content: View>: View {
     
     // MARK: - Properties
     @ObservedObject private var viewModel = TextInputViewModel()
@@ -19,9 +19,12 @@ public struct MakeNameView: View {
     @State private var isPresented = false
     @State private var coupleData: CoupleData?
     private let textInputType: TextInputType = .makeName
+    private let content: () -> Content
     
     // MARK: - Init
-    public init() {}
+    public init(content: @escaping () -> Content) {
+        self.content = content
+    }
     
     // MARK: - View
     public var body: some View {
@@ -70,14 +73,18 @@ fileprivate extension MakeNameView {
         GrayButton(text: "작성 완료",
                    buttonSize: .medium,
                    buttonState: viewModel.isEnabled ? .enabled : .disabled) {
+            viewModel.isEnabled = false
+            
             viewModel.signUpUser { data in
                 guard let data = data else { return }
-                self.coupleData = data
+                viewModel.coupleData = data
                 
                 self.isPresented = true
             }
+            
+            viewModel.isEnabled = true
         }.navigationDestination(isPresented: $isPresented) {
-            MakeCodeView(data: ActivityItem(items: coupleData?.data?.accessToken ?? "커플코드 공유 실패"))
+            MakeCodeView(viewModel: viewModel, content: content)
         }
     }
 }

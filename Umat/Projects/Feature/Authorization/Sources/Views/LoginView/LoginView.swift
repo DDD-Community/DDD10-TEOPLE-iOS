@@ -88,7 +88,9 @@ fileprivate extension LoginView {
                         print(method.text)
                     }
                 }.navigationDestination(isPresented: $isLogin) {
-                    MakeNameView()
+                    MakeNameView {
+                        content()
+                    }
                 }
             }
             
