@@ -12,23 +12,19 @@ import DesignSystem
 import PopupView
 
 
-// 서버에서 상대방 접속 여부 확인했다는 가정을 위한 간단 모델입니다.
-struct MakeCodeModel {
-    let isConnected: Bool = false
-}
-
 public struct MakeCodeView: View {
     
     // MARK: - Properties
     @Environment(\.dismiss) private var dismiss
-    @State private var data: ActivityItem? = nil
+    @State private var data: ActivityItem?
     @State private var isWritten = false
     @State private var isPresented = false
     @State private var isShared = false
-    private let model = MakeCodeModel()
     
     // MARK: - Init
-    public init() {}
+    public init(data: ActivityItem) {
+        self.data = data
+    }
     
     // MARK: - Views
     public var body: some View {
@@ -119,11 +115,11 @@ private extension MakeCodeView {
                        buttonSize: .medium,
                        buttonState: isPresented ? .disabled : .enabled) {
                 
-                if !model.isConnected {
-                    self.isPresented = true
-                } else {
-                    isWritten = true
-                }
+//                if !model.isConnected {
+//                    self.isPresented = true
+//                } else {
+//                    isWritten = true
+//                }
             }
             .navigationDestination(isPresented: $isWritten) {
                 EmptyView()
