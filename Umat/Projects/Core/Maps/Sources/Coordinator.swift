@@ -126,7 +126,10 @@ public final class Coordinator: NSObject, ObservableObject, NMFMapViewTouchDeleg
         deleteCircle()
     }
     
-    // 마커 선택 시 액션
+    public func selectPlace(_ place: Place) {
+        selectedPlace = place
+        newlyFocus(lat: place.location.latitude, lng: place.location.longitude)
+    }
 }
 
 extension Coordinator: CLLocationManagerDelegate {
