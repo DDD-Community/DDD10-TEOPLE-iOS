@@ -13,6 +13,7 @@ public final class TextInputViewModel: ObservableObject {
     
     // MARK: - Properties
     @Published var text: String = ""
+    @Published var matchedCoupleCode: String = ""
     @Published var supportingText: String = ""
     @Published var stateColor: Color? = nil
     @Published var focusState: Bool = false
@@ -28,9 +29,14 @@ public final class TextInputViewModel: ObservableObject {
     // MARK: - Methods
     func signUpUser(completion: @escaping (CoupleData?) -> ()) {
         Task {
-            await networkManager.signUpUsers(nickName: text) { data in
+            await networkManager.signUpUsers(nickName: text,
+                                             coupleCode: matchedCoupleCode) { data in
                 completion(data)
             }
         }
+    }
+    
+    func getUser() {
+        
     }
 }
