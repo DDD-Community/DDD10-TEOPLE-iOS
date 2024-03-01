@@ -94,7 +94,6 @@ private extension MakeCodeView {
                      background: .gradient(),
                      height: 40,
                      maxWidth: 91) {
-            // TODO: (서버에서 받은) 코드
             guard let data = viewModel.coupleData?.data?.coupleCode else { return }
             self.coupleCode = ActivityItem(items: data)
         }
@@ -119,11 +118,8 @@ private extension MakeCodeView {
                        buttonSize: .medium,
                        buttonState: isPresented ? .disabled : .enabled) {
                 
-//                if !model.isConnected {
-//                    self.isPresented = true
-//                } else {
-//                    isWritten = true
-//                }
+                // TODO: 상대방이 입력했을 때, 내가 연결됐는지 유무 확인
+                print(viewModel.coupleData?.message)
             }
             .navigationDestination(isPresented: $isWritten) {
                 EmptyView()
