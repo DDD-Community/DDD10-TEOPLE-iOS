@@ -11,7 +11,7 @@ let project = Project.makeAppModule(
     product: .staticFramework,
     settings: .settings(),
     dependencies: [
-        
+        .sdk(name: "OSLog", type: .framework)
     ],
     sources: ["Sources/**"],
     infoPlist: .file(path: "../../Support/Info.plist")

@@ -77,7 +77,7 @@ fileprivate extension MakeNameView {
                 self.isPresented = true
             }
         }.navigationDestination(isPresented: $isPresented) {
-            MakeCodeView(data: ActivityItem(items: coupleData?.accessToken ?? "커플코드 공유 실패"))
+            MakeCodeView(data: ActivityItem(items: coupleData?.data?.accessToken ?? "커플코드 공유 실패"))
         }
     }
 }

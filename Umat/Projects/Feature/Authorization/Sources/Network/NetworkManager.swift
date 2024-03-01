@@ -7,15 +7,23 @@
 //
 
 import Foundation
+import Combine
+
 import Moya
+import CombineMoya
 
 import Utility
 
 
-public final class NetworkManager {
+public final class NetworkManager: ObservableObject {
     
     // MARK: Properties
-    private let loginProvider = MoyaProvider<UserTarget>()
+    private let loginProvider = MoyaProvider<UserTarget>(plugins: [MoyaLoggingPlugin()])
+    
+    private var cancellable: AnyCancellable?
+    
+    @Published var coupleData: CoupleData?
+    
     
     // MARK: - Init
     public init() {}
@@ -45,6 +53,58 @@ public final class NetworkManager {
     }
     
     // MARK: - Post
+    
+    //MARK: - 데이터를 모델에게 전송
+    private func signUpUserToModel (_ data: CoupleData){
+        self.coupleData = data
+    }
+    
+    func signUpUsers(nickName: String,
+                     birth: String? = nil,
+                     anniversary: String? = nil,
+                     coupleCode: String = "",
+                     completion: @escaping (CoupleData) -> Void) async {
+        
+        if let cancellable = cancellable {
+            cancellable.cancel()
+        }
+        let defaultDate = "\(Date().formatToRequestDay())"
+       cancellable = loginProvider.requestWithProgressPublisher(.signUpUser(
+            nickName: nickName,
+            birth: birth ?? "\(defaultDate)",
+            anniversary: anniversary ?? "\(defaultDate)",
+            coupleCode: coupleCode))
+        .compactMap{$0.response?.data}
+        .receive(on: DispatchQueue.main)
+        .decode(type: CoupleData.self, decoder: JSONDecoder())
+        //MARK: - 나중에 로딩 중 이런거 하실떄 사용하면 되욧
+//        .handleEvents(receiveSubscription: { [weak self] _ in
+//
+//        })
+        .eraseToAnyPublisher()
+        .sink(receiveCompletion: { result in
+            switch result {
+            case .finished:
+                break
+            case .failure(let error):
+                Log.network("네트워크 에러", error.localizedDescription)
+            }
+        }, receiveValue: { [weak self] data in
+            switch data.message {
+            case "Success":
+                self?.signUpUserToModel(data)
+                Log.network("couple data: 데이터", data)
+                completion(data)
+            default:
+                self?.signUpUserToModel(data)
+                Log.network("couple data: 데이터 에러ㅇ", data)
+                completion(data)
+            }
+            
+        })
+    }
+    
+    
     // TODO: 얘는 커플코드쪽으로 가야함.
     func signUpUser(nickName: String, 
                     birth: String? = nil, 

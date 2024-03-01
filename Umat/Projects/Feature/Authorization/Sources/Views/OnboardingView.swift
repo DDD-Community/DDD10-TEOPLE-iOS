@@ -42,10 +42,10 @@ fileprivate extension OnboardingView {
         GrayNavigationLink(text: "다음",
                            buttonSize: .medium,
                            buttonState: .enabled) {
-            LoginView {
-                Text("")
-            }
+            LoginView()
         }
+        
         .padding(.bottom, 54)
     }
 }
+
