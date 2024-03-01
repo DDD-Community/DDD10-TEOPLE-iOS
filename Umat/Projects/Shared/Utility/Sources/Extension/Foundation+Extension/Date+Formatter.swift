@@ -24,6 +24,13 @@ public extension Date {
         return formatter.string(from: self)
     }
     
+    func formatToRequestDay() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        return formatter.string(from: self)
+    }
+    
     /// 정해진 날짜로부터 오늘까지의 날짜를 계산하는 메서드입니다.
     func spendDays() -> String {
         let startDate = self

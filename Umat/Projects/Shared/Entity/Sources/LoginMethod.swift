@@ -8,6 +8,6 @@
 
 import Foundation
 
-public enum LoginMethod: CaseIterable {
+public enum LoginMethod: Codable, CaseIterable {
     case kakao, apple
 }

@@ -12,23 +12,22 @@ import DesignSystem
 import PopupView
 
 
-// 서버에서 상대방 접속 여부 확인했다는 가정을 위한 간단 모델입니다.
-struct MakeCodeModel {
-    let isConnected: Bool = false
-}
-
-public struct MakeCodeView: View {
+public struct MakeCodeView<Content: View>: View {
     
     // MARK: - Properties
     @Environment(\.dismiss) private var dismiss
-    @State private var data: ActivityItem? = nil
+    @ObservedObject private var viewModel: TextInputViewModel
+    @State private var coupleCode: ActivityItem?
     @State private var isWritten = false
     @State private var isPresented = false
     @State private var isShared = false
-    private let model = MakeCodeModel()
+    private let content: () -> Content
     
     // MARK: - Init
-    public init() {}
+    public init(viewModel: TextInputViewModel, content: @escaping () -> Content) {
+        self.viewModel = viewModel
+        self.content = content
+    }
     
     // MARK: - Views
     public var body: some View {
@@ -95,10 +94,10 @@ private extension MakeCodeView {
                      background: .gradient(),
                      height: 40,
                      maxWidth: 91) {
-            // TODO: (서버에서 받은) 코드
-            data = ActivityItem(items: "테스트 메시지")
+            guard let data = viewModel.coupleData?.data?.coupleCode else { return }
+            self.coupleCode = ActivityItem(items: data)
         }
-        .activitySheet($data) { activityType, success, items, error in
+        .activitySheet($coupleCode) { activityType, success, items, error in
             if error != nil {
                 return debugPrint("activitySheet Error: \(error!)")
             }
@@ -119,11 +118,8 @@ private extension MakeCodeView {
                        buttonSize: .medium,
                        buttonState: isPresented ? .disabled : .enabled) {
                 
-                if !model.isConnected {
-                    self.isPresented = true
-                } else {
-                    isWritten = true
-                }
+                // TODO: 상대방이 입력했을 때, 내가 연결됐는지 유무 확인
+                print(viewModel.coupleData?.message)
             }
             .navigationDestination(isPresented: $isWritten) {
                 EmptyView()
@@ -133,7 +129,8 @@ private extension MakeCodeView {
                                  foregroundStyle: .colors(.gray800),
                                  background: .white,
                                  strokeColor: .colors(.gray300)) {
-                InputCodeView()
+                InputCodeView(viewModel: viewModel,
+                              content: content)
             }
         }
         .padding(.horizontal, Metric.horizontalPadding)
@@ -160,19 +157,17 @@ private extension MakeCodeView {
     }
 }
 
-// MARK: - Nested Types
-fileprivate extension MakeCodeView {
-    enum Letter: String {
-        case send
-        case send_not
-    }
-    
-    // MARK: - Enum
-    enum Metric {
-        static let statusHeight: CGFloat = 54
-        static let topPadding: CGFloat = 16
-        static let horizontalPadding: CGFloat = 24
-        static let bottomPadding: CGFloat = 80
-    }
+enum Letter: String {
+    case send
+    case send_not
 }
+
+// MARK: - Enum
+enum Metric {
+    static let statusHeight: CGFloat = 54
+    static let topPadding: CGFloat = 16
+    static let horizontalPadding: CGFloat = 24
+    static let bottomPadding: CGFloat = 80
+}
+
 

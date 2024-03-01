@@ -11,15 +11,20 @@ import DesignSystem
 import Entity
 
 
-public struct MakeNameView: View {
+public struct MakeNameView<Content: View>: View {
     
     // MARK: - Properties
     @ObservedObject private var viewModel = TextInputViewModel()
     @FocusState private var focusState: Bool
+    @State private var isPresented = false
+    @State private var coupleData: CoupleData?
     private let textInputType: TextInputType = .makeName
+    private let content: () -> Content
     
     // MARK: - Init
-    public init() {}
+    public init(content: @escaping () -> Content) {
+        self.content = content
+    }
     
     // MARK: - View
     public var body: some View {
@@ -65,10 +70,21 @@ fileprivate extension MakeNameView {
     
     @ViewBuilder
     func nextButton() -> some View {
-        GrayNavigationLink(text: "작성 완료",
-                           buttonSize: .medium,
-                           buttonState: viewModel.isEnabled ? .enabled : .disabled) {
-            MakeCodeView()
+        GrayButton(text: "작성 완료",
+                   buttonSize: .medium,
+                   buttonState: viewModel.isEnabled ? .enabled : .disabled) {
+            viewModel.isEnabled = false
+            
+            viewModel.signUpUser { data in
+                guard let data = data else { return }
+                viewModel.coupleData = data
+                
+                self.isPresented = true
+            }
+            
+            viewModel.isEnabled = true
+        }.navigationDestination(isPresented: $isPresented) {
+            MakeCodeView(viewModel: viewModel, content: content)
         }
     }
 }

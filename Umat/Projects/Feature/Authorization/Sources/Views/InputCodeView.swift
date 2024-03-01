@@ -10,15 +10,21 @@ import SwiftUI
 import DesignSystem
 import Entity
 
-public struct InputCodeView: View {
+public struct InputCodeView<Content: View>: View {
     
     // MARK: - Properties
     @FocusState private var focusState: Bool
-    @ObservedObject private var viewModel = TextInputViewModel()
+    @ObservedObject private var viewModel: TextInputViewModel
+    @State private var isPresented: Bool = false
     private let textInputType: TextInputType = .inputCode
+    private let content: () -> Content
     
     // MARK: - Init
-    public init() {}
+    public init(viewModel: TextInputViewModel, 
+                content: @escaping () -> Content) {
+        self.viewModel = viewModel
+        self.content = content
+    }
     
     // MARK: - Views
     public var body: some View {
@@ -37,9 +43,11 @@ public struct InputCodeView: View {
             .hideKeyboardOnTapBackground($focusState)
             .sync($viewModel.focusState, with: _focusState)
             .onAppear {
-                viewModel.supportingText = "코드 입력이 잘못되었어요!"
                 viewModel.focusState = true
             }
+        }
+        .onAppear {
+            viewModel.supportingText = ""
         }
     }
 }
@@ -49,7 +57,7 @@ fileprivate extension InputCodeView {
     @ViewBuilder
     func textInput() -> some View {
         TextInput(guidanceText: textInputType.guidanceText,
-                  text: $viewModel.text,
+                  text: $viewModel.matchedCoupleCode,
                   placeholder: textInputType.placeholder,
                   supportingText: $viewModel.supportingText,
                   focusState: $focusState,
@@ -58,12 +66,26 @@ fileprivate extension InputCodeView {
     
     @ViewBuilder
     func footer() -> some View {
-        GrayNavigationLink(text: "입력 완료",
-                           buttonSize: .medium,
-                           buttonState: viewModel.isEnabled ? .enabled : .disabled) {
-            // TODO: 메인화면으로 이동
-            EmptyView()
+        GrayButton(text: "입력 완료",
+                   buttonSize: .medium,
+                   buttonState: viewModel.isEnabled ? .enabled : .disabled) {
+            
+            viewModel.signUpUser { data in
+                // FIXME: - 내가 내 CoupleCode를 사용해도 가입되는 문제가 있음.(서버 확인)
+                if data?.message == "Success" {
+                    viewModel.supportingText = ""
+                    viewModel.stateColor = nil
+                    
+                    isPresented = true
+                } else {
+                    viewModel.supportingText = "코드 입력이 잘못되었어요!"
+                    viewModel.stateColor = .colors(.error)
+                }
+            }
         }
-        .padding(.bottom, 12)
+       .navigationDestination(isPresented: $isPresented, destination: {
+           content()
+       })
+       .padding(.bottom, 12)
     }
 }
