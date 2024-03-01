@@ -21,7 +21,6 @@ public struct GetUserData: Codable {
         self.message = message
         self.data = data
     }
-    
 }
 
 // MARK: - DataClass
