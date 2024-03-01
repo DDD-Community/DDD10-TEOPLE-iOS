@@ -76,13 +76,14 @@ fileprivate extension MakeNameView {
             viewModel.isEnabled = false
             
             viewModel.signUpUser { data in
-                guard let data = data else { return }
-                viewModel.coupleData = data
+                if let data = data {
+                    viewModel.coupleData = data
+                    
+                    self.isPresented = true
+                }
                 
-                self.isPresented = true
+                viewModel.isEnabled = true
             }
-            
-            viewModel.isEnabled = true
         }.navigationDestination(isPresented: $isPresented) {
             MakeCodeView(viewModel: viewModel, content: content)
         }
