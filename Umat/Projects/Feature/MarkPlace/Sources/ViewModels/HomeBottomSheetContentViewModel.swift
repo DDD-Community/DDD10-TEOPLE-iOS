@@ -5,6 +5,7 @@
 //  Created by 지준용 on 2/23/24.
 //
 
+import Combine
 import SwiftUI
 
 import Entity
@@ -15,8 +16,11 @@ final class HomeBottomSheetContentViewModel: ObservableObject {
     // MARK: - Properties
     @Published var server: Couple
     @Published var filters: [FilteredList]
+    
     private(set) var filterIndex = 0
     private(set) var placeFileManager: PlaceFileManager
+    
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Init
     init(filterIndex: Int = 0,
@@ -29,6 +33,7 @@ final class HomeBottomSheetContentViewModel: ObservableObject {
         self.placeFileManager = placeFileManager
         
         loadWishPlace()
+        subscribeSelectedPlace()
     }
     
     func titleHeaderText() -> String {
@@ -89,6 +94,16 @@ final class HomeBottomSheetContentViewModel: ObservableObject {
         }
         
         Coordinator.shared.createMarkers(places, markerType: MarkerType(rawValue: filterIndex) ?? MarkerType.me)
+    }
+    
+    func subscribeSelectedPlace() {
+        Coordinator.shared.$selectedPlace
+            .sink {
+                if let place = $0 {
+                    print(place)
+                }
+            }
+            .store(in: &cancellables)
     }
     
     // 서버와 로컬 저장소에서 위시플레이스 삭제

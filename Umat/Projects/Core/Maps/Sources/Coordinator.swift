@@ -18,9 +18,13 @@ import NMapsGeometry
 public final class Coordinator: NSObject, ObservableObject, NMFMapViewTouchDelegate, NMFMapViewCameraDelegate {
     static public let shared = Coordinator()
     
+    @Published public var selectedPlace: Place? = nil
+    var markers: [Place: NMFMarker] = [:]
+    var markedPlaces: [NMFMarker: Place] = [:]
+    
     @Published var userLocation = (0.0, 0.0)
     @Published var selectedLocation = (0.0, 0.0)
-    @Published var markers: [Place: NMFMarker] = [:]
+    
     @Published var circle: [NMFCircleOverlay] = []
     
     let view = NMFNaverMapView(frame: .zero)
@@ -45,9 +49,18 @@ public final class Coordinator: NSObject, ObservableObject, NMFMapViewTouchDeleg
             let iconImage = NMFOverlayImage(image: Icons.ic_pin.uiImage)
             marker.iconImage = iconImage
             marker.iconTintColor = .init(hex: markerType.colorHex)
+            marker.touchHandler = { (overlay: NMFOverlay) -> Bool in
+                if let selectedMarker = overlay as? NMFMarker,
+                   let markedPlace = self.markedPlaces[selectedMarker] {
+                    self.selectedPlace = markedPlace
+                }
+                
+                return true
+            }
             
             marker.mapView = view.mapView
             markers[place] = marker
+            markedPlaces[marker] = place
         }
     }
     
@@ -57,6 +70,7 @@ public final class Coordinator: NSObject, ObservableObject, NMFMapViewTouchDeleg
         
         marker.mapView = nil
         markers[place] = nil
+        markedPlaces[marker] = nil
     }
     
     public func deleteAllMarkers() {
@@ -65,6 +79,7 @@ public final class Coordinator: NSObject, ObservableObject, NMFMapViewTouchDeleg
         }
         
         markers.removeAll()
+        markedPlaces.removeAll()
     }
     
     // 오버레이 생성
