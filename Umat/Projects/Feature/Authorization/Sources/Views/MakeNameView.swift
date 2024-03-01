@@ -16,6 +16,8 @@ public struct MakeNameView: View {
     // MARK: - Properties
     @ObservedObject private var viewModel = TextInputViewModel()
     @FocusState private var focusState: Bool
+    @State private var isPresented = false
+    @State private var coupleData: CoupleData?
     private let textInputType: TextInputType = .makeName
     
     // MARK: - Init
@@ -65,10 +67,17 @@ fileprivate extension MakeNameView {
     
     @ViewBuilder
     func nextButton() -> some View {
-        GrayNavigationLink(text: "작성 완료",
-                           buttonSize: .medium,
-                           buttonState: viewModel.isEnabled ? .enabled : .disabled) {
-            MakeCodeView()
+        GrayButton(text: "작성 완료",
+                   buttonSize: .medium,
+                   buttonState: viewModel.isEnabled ? .enabled : .disabled) {
+            viewModel.signUpUser { data in
+                guard let data = data else { return }
+                self.coupleData = data
+                
+                self.isPresented = true
+            }
+        }.navigationDestination(isPresented: $isPresented) {
+            MakeCodeView(data: ActivityItem(items: coupleData?.accessToken ?? "커플코드 공유 실패"))
         }
     }
 }
