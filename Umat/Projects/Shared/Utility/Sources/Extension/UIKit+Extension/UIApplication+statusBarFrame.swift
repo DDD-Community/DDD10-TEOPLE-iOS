@@ -16,6 +16,14 @@ fileprivate extension UIApplication {
             .first as? UIWindowScene
     }
     
+    var window: UIWindow? {
+        if let scene = scene {
+            return UIWindow(windowScene: scene)
+        }
+        
+        return nil
+    }
+    
     private var statusBarManager: UIStatusBarManager? {
         return scene?.statusBarManager
     }
@@ -26,6 +34,15 @@ fileprivate extension UIApplication {
     
     var statusBarHeight: CGFloat? {
         return statusBarFrame?.height
+    }
+}
+
+public extension View {
+    var window: UIWindow? {
+        if let window = UIApplication.shared.window {
+            return window
+        }
+        return nil
     }
 }
 
