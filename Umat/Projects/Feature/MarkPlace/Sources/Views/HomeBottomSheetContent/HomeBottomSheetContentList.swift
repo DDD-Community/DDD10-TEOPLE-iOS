@@ -9,6 +9,7 @@ import SwiftUI
 
 import DesignSystem
 import Entity
+import Maps
 import Utility
 
 struct HomeBottomSheetContentList: View {
@@ -89,17 +90,21 @@ fileprivate extension HomeBottomSheetContentList {
     func wishList() -> some View {
         let filter = viewModel.filters[viewModel.filterIndex]
         
-        ForEach(filter.wishList, id: \.self) { list in
+        ForEach(filter.wishList, id: \.id) { list in
             VStack {
-                HStack(spacing: 14) {
-                    placeImage(of: list)
-                    
-                    placeMainInfo(of: list)
+                Button {
+                    Coordinator.shared.selectPlace(list)
+                } label: {
+                    HStack(spacing: 14) {
+                        placeImage(of: list)
+                        
+                        placeMainInfo(of: list)
+                    }
+                    .padding(.top, 16)
+                    .padding(.bottom, 10)
+                    .padding(.horizontal, 16)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .padding(.top, 16)
-                .padding(.bottom, 10)
-                .padding(.horizontal, 16)
-                .frame(maxWidth: .infinity, alignment: .leading)
                 
                 placeSubInfo(of: list)
                 

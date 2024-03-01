@@ -16,11 +16,9 @@ import NMapsMap
 import NMapsGeometry
 
 public struct NaverMapView: UIViewRepresentable {
-    var location: CLLocationCoordinate2D?
     var isLocalAreaMarked: Bool
     
-    public init(location: CLLocationCoordinate2D? = nil, isLocalAreaMarked: Bool) {
-        self.location = location
+    public init(isLocalAreaMarked: Bool) {
         self.isLocalAreaMarked = isLocalAreaMarked
     }
     
@@ -29,15 +27,7 @@ public struct NaverMapView: UIViewRepresentable {
         return context.coordinator.makeMapView()
     }
     
-    public func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
-//        guard let location else { return }
-//        
-//        let newLocation = NMGLatLng(lat: location.latitude, lng: location.longitude)
-//        let newFocus = NMFCameraUpdate(scrollTo: newLocation)
-//        newFocus.animation = .fly
-//        newFocus.animationDuration = 1
-//        uiView.mapView.moveCamera(newFocus)
-        
+    public func updateUIView(_ uiView: NMFNaverMapView, context: Context) {        
         if isLocalAreaMarked {
             context.coordinator.createCircle()
             

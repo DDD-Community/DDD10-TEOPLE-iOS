@@ -11,6 +11,9 @@ let project = Project.makeAppModule(
     product: .staticFramework,
     settings: .settings(),
     dependencies: [
+        .shared(implements: .designSystem),
+        .shared(implements: .entity),
+        .shared(implements: .utility),
         .XCFramework.naverMaps,
         .XCFramework.naverGeometry
     ],

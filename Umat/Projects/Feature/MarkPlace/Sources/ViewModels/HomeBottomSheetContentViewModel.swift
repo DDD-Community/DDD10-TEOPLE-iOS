@@ -5,17 +5,22 @@
 //  Created by 지준용 on 2/23/24.
 //
 
+import Combine
 import SwiftUI
-import Entity
 
+import Entity
+import Maps
 
 final class HomeBottomSheetContentViewModel: ObservableObject {
     
     // MARK: - Properties
     @Published var server: Couple
     @Published var filters: [FilteredList]
+    
     private(set) var filterIndex = 0
     private(set) var placeFileManager: PlaceFileManager
+    
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Init
     init(filterIndex: Int = 0,
@@ -28,6 +33,7 @@ final class HomeBottomSheetContentViewModel: ObservableObject {
         self.placeFileManager = placeFileManager
         
         loadWishPlace()
+        subscribeSelectedPlace()
     }
     
     func titleHeaderText() -> String {
@@ -60,6 +66,8 @@ final class HomeBottomSheetContentViewModel: ObservableObject {
     
     // 필터탭 클릭 - 현제 필터탭 인덱스 최신화, 현재 필터
     func selectFilter(index: Int) {
+        Coordinator.shared.deleteAllMarkers()
+        
         filterIndex = index
         filters[index].isUpdated = false
         
@@ -73,6 +81,29 @@ final class HomeBottomSheetContentViewModel: ObservableObject {
         
         updateLocalStorage()
         applyScreen()
+        
+        let places: [Place] = switch filterIndex {
+        case 0:
+            server.wishlist
+        case 1:
+            server.me.wishlist
+        case 2:
+            server.you.wishlist
+        default:
+            []
+        }
+        
+        Coordinator.shared.createMarkers(places, markerType: MarkerType(rawValue: filterIndex) ?? MarkerType.me)
+    }
+    
+    private func subscribeSelectedPlace() {
+        Coordinator.shared.$selectedPlace
+            .sink {
+                if let place = $0 {
+                    print(place)
+                }
+            }
+            .store(in: &cancellables)
     }
     
     // 서버와 로컬 저장소에서 위시플레이스 삭제
@@ -85,6 +116,7 @@ final class HomeBottomSheetContentViewModel: ObservableObject {
         // 로컬
         placeFileManager.savePlaces(filters[1].wishList, forUser: filters[1].tab.key) // 로컬에서 삭제
         placeFileManager.savePlaces(filters[0].wishList, forUser: filters[0].tab.key) // TODO: '우리'는 서버연결 후 삭제
+        
     }
     
     // 서버와 로컬 저장소에서 위시플레이스 추가

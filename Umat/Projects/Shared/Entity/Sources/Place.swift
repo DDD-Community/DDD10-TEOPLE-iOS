@@ -12,6 +12,7 @@ import Foundation
 /// 구글 장소 api에 요청한 결과를 토대로 가져옵니다.
 /// CoreLocation을 아직 사용하지 않습니다. 임시로 위치 타입을 정해 두었습니다.
 public struct Place: Hashable, Codable {
+    public let id: String
     public let name: String
     public let address: String
     public let openingHour: String
@@ -26,7 +27,8 @@ public struct Place: Hashable, Codable {
         public let longitude: Double
     }
     
-    public init(name: String, 
+    public init(id: String,
+                name: String,
                 address: String,
                 openingHour: String,
                 closingHour: String,
@@ -34,6 +36,7 @@ public struct Place: Hashable, Codable {
                 latitude: Double,
                 longitude: Double,
                 imageURL: URL?) {
+        self.id = id
         self.name = name
         self.address = address
         self.openingHour = openingHour
@@ -45,7 +48,8 @@ public struct Place: Hashable, Codable {
 }
 
 public extension Place {
-    static let example = Place(name: "블루도어북스",
+    static let example = Place(id: "Hello",
+                               name: "블루도어북스",
                                address: "서울시 용산구 한남동 738-20",
                                openingHour: "오후 12:30",
                                closingHour: "오후 10:00",

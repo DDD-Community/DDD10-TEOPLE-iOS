@@ -20,7 +20,8 @@ let project = Project.makeAppModule(
     dependencies: [
         .shared(implements: .designSystem),
         .shared(implements: .entity),
-        .shared(implements: .utility)
+        .shared(implements: .utility),
+        .core(implements: .maps)
     ],
     sources: ["Sources/**"],
     infoPlist: .file(path: "../../Support/Info.plist")

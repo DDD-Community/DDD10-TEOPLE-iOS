@@ -1,5 +1,5 @@
 //
-//  SearchBarView.swift
+//  UpperBarView.swift
 //  SearchPlace
 //
 //  Created by Gordon Choi on 2/25/24.
@@ -12,12 +12,10 @@ import SwiftUI
 import DesignSystem
 import Utility
 
-public struct SearchBarView: View {
+public struct UpperBarView: View {
     // MARK: - Properties
-    @State private var inputText: String = ""
     private var localAreaButtonAction: () -> Void
-    
-    private let viewModel = SearchBarViewModel()
+    @ObservedObject private var viewModel = UpperBarViewModel()
     
     public var body: some View {
         VStack(spacing: 32) {
@@ -26,15 +24,14 @@ public struct SearchBarView: View {
                     Button {
                         Logger.print("Search button tapped")
                         
-                        viewModel.searchKeyword(inputText)
-                        inputText = ""
+                        viewModel.searchKeyword(viewModel.inputText)
                     } label: {
                         Image.icons(.ic_search_outlined)
                             .frame(width: 24, height: 24)
                     }
                     .padding(.leading, 8)
                     
-                    TextField("공간명 검색", text: $inputText)
+                    TextField("공간명 검색", text: $viewModel.inputText)
                         .frame(maxWidth: .infinity)
                         .frame(height: 46)
                 }

@@ -39,7 +39,7 @@ extension APIService: TargetType {
     public var path: String {
         switch self {
         case .searchPlace:
-            return "textsearch/json"
+            return "findplacefromtext/json"
         }
     }
     
@@ -53,11 +53,22 @@ extension APIService: TargetType {
     public var task: Moya.Task {
         switch self {
         case .searchPlace(let keyword):
-            return .requestParameters(parameters: ["key": googleAPIKey ?? "", "query": keyword], encoding: URLEncoding.queryString)
+            return .requestParameters(
+                parameters: [
+                    "key": googleAPIKey ?? "",
+                    "input": keyword,
+                    "inputtype": "textquery",
+                    "fields": "formatted_address,name,rating,opening_hours,geometry,place_id,photo"
+                ],
+                encoding: URLEncoding.queryString
+            )
         }
     }
     
     public var headers: [String : String]? {
-        nil
+        switch self {
+        case .searchPlace(let string):
+            return nil
+        }
     }
 }
