@@ -23,39 +23,100 @@ public final class NetworkManager: ObservableObject {
     private var cancellable: AnyCancellable?
     
     @Published var coupleData: CoupleData?
+    @Published var getUserData: GetUserData?
     
     
     // MARK: - Init
-    public init() {}
+    public init() {
+        
+    }
     
     // MARK: - Get
     func getUser(accessToken: String) {
-        loginProvider.request(.getUser(accessToken: accessToken)) { result in
-            switch result {
-            case .success(let data):
-                Logger.print(data.response)
-            case .failure(let error):
-                Logger.print(error.localizedDescription)
-            }
+        if let cancellable = cancellable {
+            cancellable.cancel()
         }
+        
+        
+        cancellable = loginProvider.requestWithProgressPublisher(.getUser(accessToken: accessToken))
+            .compactMap{$0.response?.data}
+            .receive(on: DispatchQueue.main)
+            .decode(type: GetUserData.self, decoder: JSONDecoder())
+            .sink(receiveCompletion: { result in
+                switch result {
+                case .finished:
+                    break
+                case .failure(let error):
+                    Log.network("네트워크 에러", error.localizedDescription)
+                }
+            }, receiveValue: { [weak self] data in
+                switch data.message {
+                case "Success":
+                    self?.geUserToModel(data)
+                    Log.network("getAuth: 데이터", data)
+                default:
+                    self?.geUserToModel(data)
+                    Log.network("getAuth: 데이터 에러", data)
+                }
+            })
+        
+//        loginProvider.request(.getUser(accessToken: accessToken)) { result in
+//            switch result {
+//            case .success(let data):
+//                Logger.print(data.response)
+//            case .failure(let error):
+//                Logger.print(error.localizedDescription)
+//            }
+//        }
     }
     
-    func getAuth(accessToken: String) {
-        loginProvider.request(.getAuth(accessToken: accessToken)) { result in
-            switch result {
-            case .success(let result):
-                // TODO: 전달받은 데이터(coupleID, userID)가 있으면 로그인절차 무시하고 넘어감
-                print(result)
-            case .failure(let error):
-                Logger.print(error.localizedDescription)
-            }
+    private func geUserToModel(_ data: GetUserData){
+        self.getUserData = data
+    }
+    
+    func getAuth(accessToken: String) async {
+        if let cancellable = cancellable {
+            cancellable.cancel()
         }
+        
+        cancellable = loginProvider.requestWithProgressPublisher(.getAuth(accessToken: accessToken))
+            .compactMap{$0.response?.data}
+            .receive(on: DispatchQueue.main)
+            .decode(type: CoupleData.self, decoder: JSONDecoder())
+            .sink(receiveCompletion: { result in
+                switch result {
+                case .finished:
+                    break
+                case .failure(let error):
+                    Log.network("네트워크 에러", error.localizedDescription)
+                }
+            }, receiveValue: { [weak self] data in
+                switch data.message {
+                case "Success":
+                    self?.signUpUserToModel(data)
+                    Log.network("getAuth: 데이터", data)
+                default:
+                    self?.signUpUserToModel(data)
+                    Log.network("getAuth: 데이터 에러", data)
+                }
+            })
+    
+        
+//        loginProvider.request(.getAuth(accessToken: accessToken)) { result in
+//            switch result {
+//            case .success(let result):
+//                // TODO: 전달받은 데이터(coupleID, userID)가 있으면 로그인절차 무시하고 넘어감
+//                print(result)
+//            case .failure(let error):
+//                Logger.print(error.localizedDescription)
+//            }
+//        }
     }
     
     // MARK: - Post
     
     //MARK: - 데이터를 모델에게 전송
-    private func signUpUserToModel (_ data: CoupleData){
+    private func signUpUserToModel(_ data: CoupleData){
         self.coupleData = data
     }
     
@@ -97,7 +158,7 @@ public final class NetworkManager: ObservableObject {
                 completion(data)
             default:
                 self?.signUpUserToModel(data)
-                Log.network("couple data: 데이터 에러ㅇ", data)
+                Log.network("couple data: 데이터 에러", data)
                 completion(data)
             }
             
